@@ -8,7 +8,6 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.fiuba.seedyfiuba.R
-import com.fiuba.seedyfiuba.commons.StringConstants
 import com.fiuba.seedyfiuba.login.viewmodel.HolaMundoViewModel
 import com.fiuba.seedyfiuba.login.viewmodel.HolaMundoViewModelFactory
 import com.google.android.material.textfield.TextInputEditText
@@ -33,6 +32,7 @@ class HolaMundoActivity : BaseActivity() {
 		super.onCreate(savedInstanceState)
 
 		setUpView()
+		setActionBarMode(ActionBarMode.Home)
 		observeLoading(holaMundoViewModel)
 		holaMundoViewModel.holaMundo.observe(this, Observer {
 			Toast.makeText(this, it.fullName, LENGTH_LONG)

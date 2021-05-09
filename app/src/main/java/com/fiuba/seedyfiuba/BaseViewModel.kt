@@ -1,4 +1,4 @@
-package com.mercadopago.smartpos.recharge.viewmodel
+package com.fiuba.seedyfiuba
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,17 +8,21 @@ import kotlinx.coroutines.*
 import java.util.logging.Level
 import java.util.logging.Logger
 
-open class BaseViewModel : ViewModel() {
+open class BaseViewModel(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) :
+	ViewModel() {
 	private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 		Logger.getGlobal().log(Level.ALL, throwable.message ?: "")
 	}
 
 
-	private val mShowLoading = MutableLiveData<Boolean>()
+	protected val mShowLoading = MutableLiveData<Boolean>()
 	val showLoading: LiveData<Boolean> = mShowLoading
 
+	protected val _error = MutableLiveData<Boolean>()
+	val showError: LiveData<Boolean> = _error
+
 	fun launch(block: suspend CoroutineScope.() -> Unit) {
-		viewModelScope.launch(coroutineExceptionHandler) {
+		viewModelScope.launch(dispatcher + coroutineExceptionHandler) {
 			mShowLoading.postValue(true)
 
 			withContext(Dispatchers.IO) {

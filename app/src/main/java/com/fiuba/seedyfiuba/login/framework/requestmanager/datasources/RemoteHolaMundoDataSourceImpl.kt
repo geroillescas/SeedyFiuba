@@ -1,6 +1,5 @@
 package com.fiuba.seedyfiuba.login.framework.requestmanager.datasources
 
-import android.util.Log
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.data.datasources.RemoteHolaMundoDataSource
 import com.fiuba.seedyfiuba.login.framework.requestmanager.api.HolamundoApi
