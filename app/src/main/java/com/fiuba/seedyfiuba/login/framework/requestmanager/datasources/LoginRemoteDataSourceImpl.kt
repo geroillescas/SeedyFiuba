@@ -11,7 +11,7 @@ import java.util.*
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSourceImpl(private val usersApi: UsersApi) : LoginRemoteDataSource {
+class LoginRemoteDataSourceImpl(private val usersApi: UsersApi) : LoginRemoteDataSource {
 
 	override suspend fun login(username: String, password: String): Result<LoggedInUser> {
 		return try {
@@ -33,13 +33,17 @@ class LoginDataSourceImpl(private val usersApi: UsersApi) : LoginRemoteDataSourc
 		// TODO: revoke authentication
 	}
 
-	override suspend fun register(username: String, password: String): Result<Session> {
+	override suspend fun register(
+		username: String,
+		password: String,
+		profileType: String
+	): Result<Session> {
 		return try {
 			// TODO: handle loggedInUser authentication
 			val fakeUser = LoggedInUser(
 				UUID.randomUUID().toString(), "Jane Doe", ""
 			)
-			val session = Session(UUID.randomUUID().toString(), fakeUser, "fvb")
+			val session = Session(UUID.randomUUID().toString(), fakeUser, profileType)
 
 			Result.Success(
 				session

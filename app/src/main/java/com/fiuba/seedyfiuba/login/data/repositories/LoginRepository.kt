@@ -7,5 +7,7 @@ import com.fiuba.seedyfiuba.login.view.activities.Result
 interface LoginRepository {
 	suspend fun logout()
 	suspend fun login(username: String, password: String): Result<LoggedInUser>
-	suspend fun register(username: String, password: String): Result<Session>
+	suspend fun register(username: String, password: String, profileType: String): Result<Session>
+	suspend fun saveSession(session: Session)
+	suspend fun getSession(): Session
 }

@@ -8,9 +8,13 @@ import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.login.domain.RegisterFormState
 import com.fiuba.seedyfiuba.login.domain.Session
 import com.fiuba.seedyfiuba.login.usecases.RegisterUseCase
+import com.fiuba.seedyfiuba.login.usecases.SaveSessionUseCase
 import com.fiuba.seedyfiuba.login.view.activities.Result
 
-class RegisterViewModel(private val registerUseCase: RegisterUseCase) : BaseViewModel() {
+class RegisterViewModel(
+	private val registerUseCase: RegisterUseCase,
+	private val saveSession: SaveSessionUseCase
+) : BaseViewModel() {
 
 	private val _registerFormState = MutableLiveData<RegisterFormState>()
 	val registerFormState: LiveData<RegisterFormState> = _registerFormState
@@ -18,12 +22,14 @@ class RegisterViewModel(private val registerUseCase: RegisterUseCase) : BaseView
 	private val _registerResult = MutableLiveData<Session>()
 	val registerResult: LiveData<Session> = _registerResult
 
-	fun register(username: String, password: String) {
+	fun register(username: String, password: String, profileType: String) {
 		// can be launched in a separate asynchronous job
 		launch {
-			val result = registerUseCase.invoke(username, password)
-			when (result) {
-				is Result.Success -> _registerResult.postValue(result.data)
+			when (val result = registerUseCase.invoke(username, password, profileType)) {
+				is Result.Success -> {
+					saveSession.invoke(result.data)
+					_registerResult.postValue(result.data)
+				}
 				is Result.Error -> _error.value = true
 			}
 		}

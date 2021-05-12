@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fiuba.seedyfiuba.login.LoginContainer
 import com.fiuba.seedyfiuba.login.view.activities.HolaMundoActivity
 import com.fiuba.seedyfiuba.login.view.activities.LoginActivity
+import com.fiuba.seedyfiuba.login.view.activities.OnboardingSetupActivity
 
 class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 		super.onActivityResult(requestCode, resultCode, data)
 
 		if (requestCode == RC_LOGIN) {
-			val intent = Intent(this, HolaMundoActivity::class.java)
+			val intent = Intent(this, OnboardingSetupActivity::class.java)
 			startActivity(intent)
 			finish()
 		}

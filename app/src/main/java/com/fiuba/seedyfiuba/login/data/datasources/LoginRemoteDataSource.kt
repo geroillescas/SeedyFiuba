@@ -9,5 +9,5 @@ interface LoginRemoteDataSource {
 
 	suspend fun logout()
 
-	suspend fun register(username: String, password: String): Result<Session>
+	suspend fun register(username: String, password: String, profileType: String): Result<Session>
 }

@@ -136,7 +136,8 @@ class RegisterActivity : BaseActivity() {
 		registerButton.setOnClickListener {
 			registerViewModel.register(
 				username = username.text.toString(),
-				password = password.text.toString()
+				password = password.text.toString(),
+				profileType = spinner.selectedItem.toString()
 			)
 		}
 	}
