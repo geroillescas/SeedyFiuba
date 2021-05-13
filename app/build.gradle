@@ -75,4 +75,9 @@ dependencies {
 	testImplementation 'junit:junit:4.+'
 	testImplementation "org.mockito:mockito-inline:$mockitoVersion"
 	testImplementation "org.robolectric:robolectric:$robolectricVersion"
+	testImplementation "org.powermock:powermock-core:$powermockVersion"
+	testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+	testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+	androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+	androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
