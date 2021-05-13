@@ -1,7 +1,10 @@
 package com.fiuba.seedyfiuba.login.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Session(
-	val tokenId: String,
-	val loggedInUser: LoggedInUser,
-	val profileType: String
-)
+	val token: String,
+	val user: RegisterResponseDTO
+) : Parcelable

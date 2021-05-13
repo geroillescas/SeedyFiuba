@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.R
@@ -17,6 +18,7 @@ open class BaseActivity : AppCompatActivity() {
 	lateinit var content: FrameLayout
 	lateinit var errorContent: ConstraintLayout
 	lateinit var flipper: ViewFlipper
+	lateinit var drawerLayout: DrawerLayout
 
 	open var layoutResource = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,7 @@ open class BaseActivity : AppCompatActivity() {
 		content = findViewById(R.id.contentView)
 		errorContent = findViewById(R.id.errorContent)
 		flipper = findViewById(R.id.flipper)
+		drawerLayout = findViewById(R.id.drawer_layout)
 		layoutInflater.inflate(
 			layoutResource,
 			content
@@ -54,7 +57,9 @@ open class BaseActivity : AppCompatActivity() {
 
 	fun setActionBarMode(actionBarMode: ActionBarMode) {
 		when (actionBarMode) {
-			is ActionBarMode.Home -> Unit
+			is ActionBarMode.Home -> {
+				supportActionBar?.setDisplayHomeAsUpEnabled(true)
+			}
 			is ActionBarMode.Back -> {
 				supportActionBar?.setDisplayHomeAsUpEnabled(true)
 			}

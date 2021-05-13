@@ -11,17 +11,24 @@
     <string name="hello_world">Hello Square World!</string>
 
     <string name="email">Email</string>
+	<string name="email_invalid">Email incorrecto</string>
+	<string name="name">Nombre</string>
+	<string name="lastname">Apellido</string>
     <string name="password">Contraseña</string>
+	<string name="password_invalid">Contraseña incorrecta</string>
     <string name="password_register">Elija una contraseña</string>
     <string name="password_retry">Reingrese contraseña</string>
     <string name="sign_in">Registrarse</string>
 	<string name="continue_label">Continuar</string>
     <string name="action_login">Login in</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_username">El nombre no puede estar vacio</string>
+	<string name="invalid_lastname">El apellido no puede estar vacio</string>
+	<string name="invalid_password">La contraseña debe tener al menos 6 caracteres</string>
+	<string name="invalid_email">El email no es valido</string>
+	<string name="invalid_email_already_used">El email ya esta asociado a una cuenta</string>
     <string name="register_invalid_profile_type">Not a user profile</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="register_invalid_password_validation">Password must be equals</string>
+    <string name="register_invalid_password_validation">Las contraseñas deben ser iguales</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_onboarding_setup">OnboardingSetupActivity</string>
 

@@ -1,6 +1,5 @@
 package com.fiuba.seedyfiuba.login.framework.requestmanager.api
 
-import com.fiuba.seedyfiuba.login.framework.requestmanager.api.LoginConstant.END_POINT_HOLA_MUNDO
 import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.HolaMundoDto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -14,7 +13,7 @@ interface HolamundoApi {
 	 *
 	 * @return A object containing whether the user has enough balance in a [BalanceDto]
 	 */
-	@GET(END_POINT_HOLA_MUNDO)
+	@GET("df")
 	suspend fun getHolaMundo(
 		@Path("id") id: String,
 		@Query("name") name: String

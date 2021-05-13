@@ -50,7 +50,6 @@ class OnboardingSetupActivity : BaseActivity() {
 				setViewState(ViewState.Success)
 			}
 		})
-
 		onboardingSetupViewModel.finished.observe(this, Observer {
 			val intent = Intent(this, HolaMundoActivity::class.java)
 			startActivity(intent)

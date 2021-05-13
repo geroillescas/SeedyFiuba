@@ -23,6 +23,13 @@ sealed class SeedyFiubaError {
 				Exception("${errorBodyDto.error}: ${errorBodyDto.message}")
 			)
 		}
+
+		fun getError(exception: Exception): SeedyFiubaError {
+			return UnknownSeedyFiubaApiException(
+				0,
+				exception
+			)
+		}
 	}
 
 

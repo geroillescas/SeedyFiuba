@@ -13,9 +13,8 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.fiuba.seedyfiuba.MainActivity
 import com.fiuba.seedyfiuba.R
-import com.fiuba.seedyfiuba.login.domain.LoggedInUserView
+import com.fiuba.seedyfiuba.login.domain.Session
 import com.fiuba.seedyfiuba.login.viewmodel.LoginViewModel
 import com.fiuba.seedyfiuba.login.viewmodel.LoginViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -25,15 +24,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 
 
 class LoginActivity : BaseActivity() {
 
 	private lateinit var mGoogleSignInClient: GoogleSignInClient
 	private lateinit var auth: FirebaseAuth
+
+
+	private lateinit var email: TextInputEditText
+	private lateinit var password: TextInputEditText
+	private lateinit var emailContainer: TextInputLayout
+	private lateinit var passwordContainer: TextInputLayout
+
 	private val loginViewModel by lazy {
 		ViewModelProvider(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
 	}
@@ -45,8 +51,7 @@ class LoginActivity : BaseActivity() {
 		auth = FirebaseAuth.getInstance()
 		setActionBarMode(ActionBarMode.None)
 
-		val username = findViewById<EditText>(R.id.username)
-		val password = findViewById<EditText>(R.id.password)
+		setupView()
 		val login = findViewById<Button>(R.id.login)
 		val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 			.requestIdToken(getString(R.string.default_web_client_id))
@@ -56,6 +61,7 @@ class LoginActivity : BaseActivity() {
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
 		findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
+			setViewState(ViewState.Loading)
 			val signInIntent = mGoogleSignInClient.signInIntent
 			startActivityForResult(signInIntent, RC_SIGN_IN)
 		}
@@ -66,47 +72,37 @@ class LoginActivity : BaseActivity() {
 		}
 
 
-		loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-			val loginState = it ?: return@Observer
-
+		loginViewModel.loginFormState.observe(this, Observer {
 			// disable login button unless both username / password is valid
-			login.isEnabled = loginState.isDataValid
-
-			if (loginState.usernameError != null) {
-				username.error = getString(loginState.usernameError)
-			}
-			if (loginState.passwordError != null) {
-				password.error = getString(loginState.passwordError)
-			}
+			login.isEnabled = it.isDataValid
+			emailContainer.error = it.usernameError?.let { it1 -> getString(it1) }
+			passwordContainer.error = it.passwordError?.let { it1 -> getString(it1) }
 		})
 
-		loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-			val loginResult = it ?: return@Observer
-
-
-			if (loginResult.error != null) {
-				showLoginFailed(loginResult.error)
+		loginViewModel.loginResult.observe(this, Observer {
+			it.error?.let { it1 -> showLoginFailed(it1) }
+			it.success?.let { it1 ->
+				updateUiWithUser(it1)
+				setResult(Activity.RESULT_OK)
+				//Complete and destroy login activity once successful
+				finish()
 			}
-			if (loginResult.success != null) {
-				updateUiWithUser(loginResult.success)
-			}
-			setResult(Activity.RESULT_OK)
 
-			//Complete and destroy login activity once successful
-			finish()
+
 		})
 
-		username.afterTextChanged {
+		email.afterTextChanged {
 			loginViewModel.loginDataChanged(
-				username.text.toString(),
+				email.text.toString(),
 				password.text.toString()
 			)
+
 		}
 
 		password.apply {
 			afterTextChanged {
 				loginViewModel.loginDataChanged(
-					username.text.toString(),
+					email.text.toString(),
 					password.text.toString()
 				)
 			}
@@ -115,7 +111,7 @@ class LoginActivity : BaseActivity() {
 				when (actionId) {
 					EditorInfo.IME_ACTION_DONE ->
 						loginViewModel.login(
-							username.text.toString(),
+							email.text.toString(),
 							password.text.toString()
 						)
 				}
@@ -124,9 +120,16 @@ class LoginActivity : BaseActivity() {
 
 			login.setOnClickListener {
 				setViewState(ViewState.Loading)
-				loginViewModel.login(username.text.toString(), password.text.toString())
+				loginViewModel.login(email.text.toString(), password.text.toString())
 			}
 		}
+	}
+
+	private fun setupView() {
+		email = findViewById(R.id.email_login)
+		password = findViewById(R.id.password_login)
+		emailContainer = findViewById(R.id.email_login_container)
+		passwordContainer = findViewById(R.id.password_login_container)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -145,65 +148,37 @@ class LoginActivity : BaseActivity() {
 			// a listener.
 			val result = data?.getBooleanExtra(RC_REGISTER_EXTRA, false) ?: false
 			if (result) {
-				loginSuccessfully(null)
+				Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
 			}
 		}
 	}
 
-	private fun updateUiWithUser(model: LoggedInUserView) {
+	private fun updateUiWithUser(model: Session) {
 		setViewState(ViewState.Success)
 		val welcome = getString(R.string.welcome)
-		val displayName = model.displayName
-		// TODO : initiate successful logged in experience
 		Toast.makeText(
 			applicationContext,
-			"$welcome $displayName",
+			welcome,
 			Toast.LENGTH_LONG
 		).show()
 	}
 
 	private fun showLoginFailed(@StringRes errorString: Int) {
-		setViewState(ViewState.Error)
+		setViewState(ViewState.Success)
 		Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
 	}
 
 	private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
 		try {
 			val account = completedTask.getResult(ApiException::class.java)
-
 			// Signed in successfully, show authenticated UI.
-			setViewState(ViewState.Success)
-			firebaseAuthWithGoogle(account?.idToken!!)
+			loginViewModel.loginGoogle(account?.idToken!!)
 		} catch (e: ApiException) {
 			// The ApiException status code indicates the detailed failure reason.
 			// Please refer to the GoogleSignInStatusCodes class reference for more information.
 			Log.w("LoginActivity", "signInResult:failed code=" + e.statusCode)
 			setViewState(ViewState.Error)
 		}
-	}
-
-	private fun firebaseAuthWithGoogle(idToken: String) {
-		val credential = GoogleAuthProvider.getCredential(idToken, null)
-		auth.signInWithCredential(credential)
-			.addOnCompleteListener(this) { task ->
-				if (task.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
-					Log.d("LoginActivity", "signInWithCredential:success")
-					val user = auth.currentUser
-					loginSuccessfully(user)
-				} else {
-					// If sign in fails, display a message to the user.
-					Log.w("LoginActivity", "signInWithCredential:failure", task.exception)
-				}
-			}
-	}
-
-	private fun loginSuccessfully(user: FirebaseUser?) {
-		val intent = Intent().apply {
-			putExtra(MainActivity.RC_LOGIN_EXTRA, user)
-		}
-		setResult(MainActivity.RC_LOGIN, intent)
-		finish()
 	}
 
 	companion object {

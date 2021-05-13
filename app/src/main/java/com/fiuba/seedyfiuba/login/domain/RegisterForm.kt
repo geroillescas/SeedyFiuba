@@ -1,12 +1,31 @@
 package com.fiuba.seedyfiuba.login.domain
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+
 /**
  * Data validation state of the login form.
  */
-data class RegisterFormState(
-	val usernameError: Int? = null,
-	val passwordError: Int? = null,
-	val passwordValidationError: Int? = null,
-	val profileTypeError: Int? = null,
-	val isDataValid: Boolean = false
-)
+@Parcelize
+data class RegisterForm(
+	val name: String,
+	val lastName: String,
+	val email: String,
+	val password: String,
+	@SerializedName("role")
+	val profileType: String
+) : Parcelable
+
+@Parcelize
+data class RegisterResponseDTO(
+	@SerializedName("_id")
+	val userId: String,
+	val name: String,
+	val lastName: String,
+	val email: String,
+	val password: String,
+	@SerializedName("role")
+	val profileType: String
+) : Parcelable
+

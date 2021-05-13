@@ -25,11 +25,15 @@ class RegisterActivity : BaseActivity() {
 		ViewModelProvider(this, RegisterViewModelFactory()).get(RegisterViewModel::class.java)
 	}
 
-	private lateinit var username: TextInputEditText
+	private lateinit var name: TextInputEditText
+	private lateinit var lastname: TextInputEditText
+	private lateinit var email: TextInputEditText
 	private lateinit var password: TextInputEditText
 	private lateinit var passwordValidation: TextInputEditText
 
-	private lateinit var usernameContainer: TextInputLayout
+	private lateinit var nameContainer: TextInputLayout
+	private lateinit var lastnameContainer: TextInputLayout
+	private lateinit var emailContainer: TextInputLayout
 	private lateinit var passwordContainer: TextInputLayout
 	private lateinit var passwordValidationContainer: TextInputLayout
 
@@ -47,18 +51,21 @@ class RegisterActivity : BaseActivity() {
 		setupFormObserver()
 		setupSpinner()
 		setupUsernameView()
-		setupPasswordView()
 		setupPasswordValidationView()
 		setupButton()
 		setupResultObserver()
 	}
 
 	private fun setupView() {
-		username = findViewById(R.id.username_register)
+		name = findViewById(R.id.name_register)
+		lastname = findViewById(R.id.lastname_register)
+		email = findViewById(R.id.email_register)
 		password = findViewById(R.id.password_register)
 		passwordValidation = findViewById(R.id.password_validation_register)
 
-		usernameContainer = findViewById(R.id.username_register_container)
+		nameContainer = findViewById(R.id.name_register_container)
+		lastnameContainer = findViewById(R.id.lastname_register_container)
+		emailContainer = findViewById(R.id.email_register_container)
 		passwordContainer = findViewById(R.id.password_register_container)
 		passwordValidationContainer = findViewById(R.id.password_validation_register_container)
 
@@ -70,9 +77,11 @@ class RegisterActivity : BaseActivity() {
 	private fun setupFormObserver() {
 		registerViewModel.registerFormState.observe(this, Observer {
 
-			// disable login button unless both username / password is valid
+			// disable login button unless both name / password is valid
 			registerButton.isEnabled = it.isDataValid
-			usernameContainer.error = it.usernameError?.let { it1 -> getString(it1) }
+			nameContainer.error = it.nameError?.let { it1 -> getString(it1) }
+			lastnameContainer.error = it.lastNameError?.let { it1 -> getString(it1) }
+			emailContainer.error = it.emailError?.let { it1 -> getString(it1) }
 			passwordContainer.error = it.passwordError?.let { it1 -> getString(it1) }
 			passwordValidationContainer.error =
 				it.passwordValidationError?.let { it1 -> getString(it1) }
@@ -94,14 +103,24 @@ class RegisterActivity : BaseActivity() {
 	}
 
 	private fun setupUsernameView() {
-		username.apply {
+		name.apply {
 			afterTextChanged {
 				validate()
 			}
 		}
-	}
 
-	private fun setupPasswordView() {
+		lastname.apply {
+			afterTextChanged {
+				validate()
+			}
+		}
+
+		email.apply {
+			afterTextChanged {
+				validate()
+			}
+		}
+
 		password.apply {
 			afterTextChanged {
 				validate()
@@ -135,7 +154,9 @@ class RegisterActivity : BaseActivity() {
 	private fun setupButton() {
 		registerButton.setOnClickListener {
 			registerViewModel.register(
-				username = username.text.toString(),
+				name = name.text.toString(),
+				lastname = lastname.text.toString(),
+				email = email.text.toString(),
 				password = password.text.toString(),
 				profileType = spinner.selectedItem.toString()
 			)
@@ -144,10 +165,12 @@ class RegisterActivity : BaseActivity() {
 
 	private fun validate() {
 		registerViewModel.registerDataChanged(
-			username.text.toString(),
-			password.text.toString(),
-			passwordValidation.text.toString(),
-			spinner.selectedItem.toString()
+			name = name.text.toString(),
+			lastName = lastname.text.toString(),
+			email = email.text.toString(),
+			password = password.text.toString(),
+			passwordValidation = passwordValidation.text.toString(),
+			profileType = spinner.selectedItem.toString()
 		)
 	}
 

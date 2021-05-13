@@ -18,10 +18,10 @@ class OnboardingSetupViewModel(private val getSessionUseCase: GetSessionUseCase)
 		launch {
 			val session = getSessionUseCase.invoke()
 
-			if (session.profileType == "Patrocinador") {
-				mShowLoading.postValue(false)
+			mShowLoading.postValue(false)
+			if (session.user.profileType == "sponsor") {
+
 			} else {
-				mShowLoading.postValue(true)
 				_finished.postValue(true)
 			}
 		}
