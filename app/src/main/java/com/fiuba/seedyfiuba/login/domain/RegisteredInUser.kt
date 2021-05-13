@@ -5,6 +5,5 @@ package com.fiuba.seedyfiuba.login.domain
  */
 data class LoggedInUser(
 	val userId: String,
-	val displayName: String,
-	val email: String
+	val email: String = ""
 )
