@@ -1,7 +1,7 @@
 package com.fiuba.seedyfiuba.login.framework.requestmanager.datasources
 
-import com.fiuba.seedyfiuba.commons.SeedyFiubaError
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.commons.SeedyFiubaError
 import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.ErrorBodyDto
 import org.json.JSONException
 import org.json.JSONObject
@@ -30,9 +30,9 @@ abstract class RemoteBaseDataSource {
 		return try {
 			val jsonError = JSONObject(errorStr)
 			val errorBodyDto = ErrorBodyDto(
-				jsonError.getString(KEY_ERROR_MESSAGE),
+				errorStr,
 				jsonError.getString(KEY_ERROR_ERROR),
-				jsonError.getInt(KEY_ERROR_STATUS)
+				errorCode
 			)
 			Result.Error(SeedyFiubaError.getError(errorBodyDto))
 		} catch (exception: JSONException) {

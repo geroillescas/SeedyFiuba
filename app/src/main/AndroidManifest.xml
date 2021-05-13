@@ -3,6 +3,7 @@
 	package="com.fiuba.seedyfiuba">
 
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
+
 	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
@@ -13,16 +14,19 @@
 		android:theme="@style/Theme.SeedyFiuba">
 
 		<activity
+			android:name=".login.view.activities.OnboardingSetupActivity"
+			android:label="@string/title_activity_onboarding_setup"></activity>
+		<activity
+			android:name=".login.view.activities.RegisterActivity"
+			android:label="@string/title_activity_register"
+			android:windowSoftInputMode="adjustResize" />
+		<activity
+			android:name=".login.view.activities.LoginActivity"
+			android:label="@string/title_activity_login" />
+		<activity
 			android:name=".login.view.activities.HolaMundoActivity"
-			android:windowSoftInputMode="adjustResize"
-			android:label="@string/title_activity_hola_mundo">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-
-				<category android:name="android.intent.category.BROWSABLE" />
-			</intent-filter>
-		</activity>
-
+			android:label="@string/title_activity_hola_mundo"
+			android:windowSoftInputMode="adjustResize" />
 		<activity android:name=".login.view.activities.BaseActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -30,7 +34,6 @@
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
 		</activity>
-
 		<activity android:name=".MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

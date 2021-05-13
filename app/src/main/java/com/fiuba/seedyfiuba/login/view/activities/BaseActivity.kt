@@ -1,25 +1,24 @@
 package com.fiuba.seedyfiuba.login.view.activities
 
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
+import android.view.MenuItem
 import android.widget.FrameLayout
-import android.widget.ProgressBar
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.R
-import com.mercadopago.smartpos.recharge.viewmodel.BaseViewModel
+
 
 open class BaseActivity : AppCompatActivity() {
 
-	lateinit var spinner: ConstraintLayout
+	lateinit var loadingView: ConstraintLayout
 	lateinit var content: FrameLayout
-	lateinit var errorContent: FrameLayout
+	lateinit var errorContent: ConstraintLayout
 	lateinit var flipper: ViewFlipper
+	lateinit var drawerLayout: DrawerLayout
 
 	open var layoutResource = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +29,11 @@ open class BaseActivity : AppCompatActivity() {
 	final override fun setContentView(layoutResID: Int) {
 		super.setContentView(layoutResID)
 
-		spinner = findViewById(R.id.spinner)
+		loadingView = findViewById(R.id.spinner)
 		content = findViewById(R.id.contentView)
 		errorContent = findViewById(R.id.errorContent)
 		flipper = findViewById(R.id.flipper)
+		drawerLayout = findViewById(R.id.drawer_layout)
 		layoutInflater.inflate(
 			layoutResource,
 			content
@@ -53,6 +53,30 @@ open class BaseActivity : AppCompatActivity() {
 			is ViewState.Loading -> setLoadingViewStateSet(viewState)
 			is ViewState.Error -> setErrorViewStateSet(viewState)
 		}
+	}
+
+	fun setActionBarMode(actionBarMode: ActionBarMode) {
+		when (actionBarMode) {
+			is ActionBarMode.Home -> {
+				supportActionBar?.setDisplayHomeAsUpEnabled(true)
+			}
+			is ActionBarMode.Back -> {
+				supportActionBar?.setDisplayHomeAsUpEnabled(true)
+			}
+			is ActionBarMode.None -> {
+				supportActionBar?.setDisplayHomeAsUpEnabled(false)
+			}
+		}
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when (item.itemId) {
+			android.R.id.home -> {
+				onBackPressed()
+				return true
+			}
+		}
+		return super.onOptionsItemSelected(item)
 	}
 
 	open fun setInitialViewState(viewState: ViewState) {
@@ -91,4 +115,10 @@ sealed class ViewState {
 	}
 
 	open fun getOrder() = 0
+}
+
+sealed class ActionBarMode {
+	object Home : ActionBarMode()
+	object Back : ActionBarMode()
+	object None : ActionBarMode()
 }

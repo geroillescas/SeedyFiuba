@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "804589252783",
+    "project_id": "seedyfiuba",
+    "storage_bucket": "seedyfiuba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804589252783:android:38c0a99be0196f3eb7245a",
+        "android_client_info": {
+          "package_name": "com.fiuba.seedyfiuba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804589252783-frgdctjvopr34u41ah74jkh3ik3i6v59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCjXeVNc5iekgQ3Zam6VV0sTJ-aM12y3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804589252783-frgdctjvopr34u41ah74jkh3ik3i6v59.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
