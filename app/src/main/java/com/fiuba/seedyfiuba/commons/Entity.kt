@@ -1,4 +1,4 @@
-package com.fiuba.seedyfiuba.login.domain
+package com.fiuba.seedyfiuba.commons
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

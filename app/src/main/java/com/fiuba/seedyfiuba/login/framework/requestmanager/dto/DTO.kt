@@ -1,6 +1,6 @@
 package com.fiuba.seedyfiuba.login.framework.requestmanager.dto
 
-import com.fiuba.seedyfiuba.login.domain.Entity
+import com.fiuba.seedyfiuba.commons.Entity
 
 abstract class DTO {
 

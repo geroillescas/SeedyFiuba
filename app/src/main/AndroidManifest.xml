@@ -24,9 +24,6 @@
 			android:name=".login.view.activities.LoginActivity"
 			android:label="@string/title_activity_login" />
 		<activity
-			android:name=".login.view.activities.HolaMundoActivity"
-			android:label="@string/title_activity_hola_mundo"
-			android:windowSoftInputMode="adjustResize" />
 		<activity android:name=".login.view.activities.BaseActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
