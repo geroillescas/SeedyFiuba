@@ -11,6 +11,8 @@ import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.fiuba.seedyfiuba.ActionBarMode
+import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.commons.toggleShowPassword
 import com.fiuba.seedyfiuba.login.viewmodel.RegisterViewModel

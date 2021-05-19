@@ -5,26 +5,17 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.fiuba.seedyfiuba.login.data.datasources.LoginLocalDataSource
 import com.fiuba.seedyfiuba.login.data.datasources.LoginRemoteDataSource
-import com.fiuba.seedyfiuba.login.data.datasources.RemoteHolaMundoDataSource
-import com.fiuba.seedyfiuba.login.data.repositories.HolaMundoRepository
-import com.fiuba.seedyfiuba.login.data.repositories.HolaMundoRepositoryImpl
 import com.fiuba.seedyfiuba.login.data.repositories.LoginRepository
 import com.fiuba.seedyfiuba.login.data.repositories.LoginRepositoryImpl
 import com.fiuba.seedyfiuba.login.framework.requestmanager.RequestManagerContainer
 import com.fiuba.seedyfiuba.login.framework.requestmanager.datasources.LoginLocalDataSourceImpl
 import com.fiuba.seedyfiuba.login.framework.requestmanager.datasources.LoginRemoteDataSourceImpl
-import com.fiuba.seedyfiuba.login.framework.requestmanager.datasources.RemoteHolaMundoDataSourceImpl
 import com.fiuba.seedyfiuba.login.usecases.*
 
 object LoginContainer {
 	private lateinit var context: Context
 
 	//Use Cases
-	val getHolaMundoUseCase: GetHolaMundoUseCase by lazy {
-		GetHolaMundoUseCase(
-			holaMundoRepository
-		)
-	}
 
 	val registerUseCase: RegisterUseCase by lazy {
 		RegisterUseCase(
@@ -46,12 +37,6 @@ object LoginContainer {
 		SaveSessionUseCase(loginRepository)
 	}
 
-	private val holaMundoRepository: HolaMundoRepository by lazy {
-		HolaMundoRepositoryImpl(
-			remoteHolaMundoDataSource
-		)
-	}
-
 	private val loginRepository: LoginRepository by lazy {
 		LoginRepositoryImpl(
 			loginRemoteDataSource,
@@ -68,12 +53,6 @@ object LoginContainer {
 	private val loginRemoteDataSource: LoginRemoteDataSource by lazy {
 		LoginRemoteDataSourceImpl(
 			RequestManagerContainer.usersApi
-		)
-	}
-
-	private val remoteHolaMundoDataSource: RemoteHolaMundoDataSource by lazy {
-		RemoteHolaMundoDataSourceImpl(
-			RequestManagerContainer.holamundoApi
 		)
 	}
 

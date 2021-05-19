@@ -7,7 +7,10 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.fiuba.seedyfiuba.ActionBarMode
+import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.login.viewmodel.OnbaordingSetupViewModelFactory
 import com.fiuba.seedyfiuba.login.viewmodel.OnboardingSetupViewModel
 
