@@ -15,7 +15,7 @@
 
 		<activity
 			android:name=".login.view.activities.OnboardingSetupActivity"
-			android:label="@string/title_activity_onboarding_setup"></activity>
+			android:label="@string/title_activity_onboarding_setup" />
 		<activity
 			android:name=".login.view.activities.RegisterActivity"
 			android:label="@string/title_activity_register"
@@ -24,7 +24,10 @@
 			android:name=".login.view.activities.LoginActivity"
 			android:label="@string/title_activity_login" />
 		<activity
-		<activity android:name=".login.view.activities.BaseActivity">
+			android:name=".home.view.activities.HomeActivity"
+			android:label="@string/title_activity_home"/>
+
+		<activity android:name=".BaseActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 

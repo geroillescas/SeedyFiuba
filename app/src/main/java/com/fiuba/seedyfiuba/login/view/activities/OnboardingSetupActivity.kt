@@ -11,6 +11,7 @@ import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
+import com.fiuba.seedyfiuba.home.view.activities.HomeActivity
 import com.fiuba.seedyfiuba.login.viewmodel.OnbaordingSetupViewModelFactory
 import com.fiuba.seedyfiuba.login.viewmodel.OnboardingSetupViewModel
 
@@ -54,7 +55,7 @@ class OnboardingSetupActivity : BaseActivity() {
 			}
 		})
 		onboardingSetupViewModel.finished.observe(this, Observer {
-			val intent = Intent(this, HolaMundoActivity::class.java)
+			val intent = Intent(this, HomeActivity::class.java)
 			startActivity(intent)
 			finish()
 		})

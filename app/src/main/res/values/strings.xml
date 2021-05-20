@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SeedyFiuba</string>
 
-    <string name="title_activity_hola_mundo">HolaMundoActivity</string>
+    <string name="title_activity_home">Inicio</string>
     <string name="title_activity_register">Registrate!</string>
     <string name="title_activity_login">Iniciar sesión</string>
     <!--

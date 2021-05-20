@@ -1,6 +1,5 @@
 package com.fiuba.seedyfiuba
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
@@ -10,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
-import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
-import com.google.android.material.navigation.NavigationView
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -23,7 +20,6 @@ open class BaseActivity : AppCompatActivity() {
 	lateinit var errorContent: ConstraintLayout
 	lateinit var flipper: ViewFlipper
 	lateinit var drawerLayout: DrawerLayout
-	lateinit var navigationView: NavigationView
 
 	open var layoutResource = 0
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +35,6 @@ open class BaseActivity : AppCompatActivity() {
 		errorContent = findViewById(R.id.errorContent)
 		flipper = findViewById(R.id.flipper)
 		drawerLayout = findViewById(R.id.drawer_layout)
-		navigationView = findViewById(R.id.navigation_view)
 		layoutInflater.inflate(
 			layoutResource,
 			content
@@ -94,11 +89,6 @@ open class BaseActivity : AppCompatActivity() {
 						true
 					}
 				}
-			}
-
-			R.id.projects -> {
-				val intent = Intent(this, ProjectsActivity::class.java)
-				startActivity(intent)
 			}
 		}
 		return super.onOptionsItemSelected(item)
