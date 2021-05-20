@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.fiuba.seedyfiuba.login.LoginContainer
-import com.fiuba.seedyfiuba.login.view.activities.HolaMundoActivity
 import com.fiuba.seedyfiuba.login.view.activities.LoginActivity
 import com.fiuba.seedyfiuba.login.view.activities.OnboardingSetupActivity
 

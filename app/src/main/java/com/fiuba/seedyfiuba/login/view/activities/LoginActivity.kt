@@ -13,7 +13,10 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.fiuba.seedyfiuba.ActionBarMode
+import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.login.domain.Session
 import com.fiuba.seedyfiuba.login.viewmodel.LoginViewModel
 import com.fiuba.seedyfiuba.login.viewmodel.LoginViewModelFactory
@@ -154,8 +157,7 @@ class LoginActivity : BaseActivity() {
 	}
 
 	private fun updateUiWithUser(model: Session) {
-		setViewState(ViewState.Success)
-		val welcome = getString(R.string.welcome)
+		val welcome = "${getString(R.string.welcome)} ${model.user.name}"
 		Toast.makeText(
 			applicationContext,
 			welcome,
