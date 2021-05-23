@@ -12,6 +12,8 @@ import com.fiuba.seedyfiuba.login.domain.RegisterForm
 import com.fiuba.seedyfiuba.login.domain.RegisterFormState
 import com.fiuba.seedyfiuba.login.domain.RegisteredInUser
 import com.fiuba.seedyfiuba.login.usecases.RegisterUseCase
+import retrofit2.http.HTTP
+import java.net.HttpURLConnection
 
 class RegisterViewModel(
 	private val registerUseCase: RegisterUseCase
@@ -32,28 +34,28 @@ class RegisterViewModel(
 	) {
 		// can be launched in a separate asynchronous job
 		launch {
-			val profileTypeEnum = when(profileType) {
+			val profileTypeEnum = when (profileType) {
 				"Patrocinador" -> ProfileType.PATROCINADOR
 				"Emprendedor" -> ProfileType.EMPRENDEDOR
 				else -> ProfileType.VEEDOR
 			}
 			val registerForm = RegisterForm(name, lastname, email, password, profileTypeEnum)
 			when (val result = registerUseCase.invoke(registerForm)) {
-				is Result.Success -> {
-					_registerResult.postValue(result.data)
-				}
+				is Result.Success -> _registerResult.postValue(result.data)
 				is Result.Error -> {
 					when (result.exception) {
 						is SeedyFiubaError.UnknownSeedyFiubaApiException -> {
-							_registerFormState.postValue(
-								RegisterFormState(
-									emailError = R.string.invalid_email_already_used
+							if(result.exception.code == HttpURLConnection.HTTP_CONFLICT) {
+								_registerFormState.postValue(
+									RegisterFormState(
+										emailError = R.string.invalid_email_already_used
+									)
 								)
-							)
+							} else {
+								_error.value = true
+							}
 						}
-						else -> {
-							_error.value = true
-						}
+						else -> _error.value = true
 					}
 				}
 			}
@@ -115,6 +117,38 @@ class RegisterViewModel(
 					RegisterFormState(
 						isDataValid = true
 					)
+			}
+		}
+	}
+
+	fun registerNameChanged(name: String) {
+		when {
+			!name.isNotBlank() -> {
+				_registerFormState.value = RegisterFormState(nameError = R.string.invalid_username)
+			}
+		}
+	}
+
+	fun registerLastNameChanged(lastName: String) {
+		when {
+			!lastName.isNotBlank() -> {
+				_registerFormState.value = RegisterFormState(lastNameError = R.string.invalid_lastname)
+			}
+		}
+	}
+
+	fun registerEmailChanged(email: String) {
+		if (!isEmailNameValid(email)) {
+			_registerFormState.value = RegisterFormState(emailError = R.string.invalid_email)
+		} else {
+			_registerFormState.value = RegisterFormState(emailError = 0)
+		}
+	}
+
+	fun registerPassswordChanged(password: String) {
+		when {
+			!isPasswordValid(password) -> {
+				_registerFormState.value = RegisterFormState(passwordError = R.string.invalid_password)
 			}
 		}
 	}
