@@ -1,14 +1,22 @@
 package com.fiuba.seedyfiuba
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.ViewFlipper
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import com.fiuba.seedyfiuba.login.LoginContainer
+import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -20,8 +28,10 @@ open class BaseActivity : AppCompatActivity() {
 	lateinit var errorContent: ConstraintLayout
 	lateinit var flipper: ViewFlipper
 	lateinit var drawerLayout: DrawerLayout
+	lateinit var navigationView: NavigationView
 
 	open var layoutResource = 0
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_base)
@@ -35,10 +45,12 @@ open class BaseActivity : AppCompatActivity() {
 		errorContent = findViewById(R.id.errorContent)
 		flipper = findViewById(R.id.flipper)
 		drawerLayout = findViewById(R.id.drawer_layout)
+		navigationView = findViewById(R.id.navigation_view)
 		layoutInflater.inflate(
 			layoutResource,
 			content
 		)
+		setupNavigationView()
 	}
 
 	fun observeLoading(viewModel: BaseViewModel) {
@@ -126,6 +138,42 @@ open class BaseActivity : AppCompatActivity() {
 
 	open fun setErrorViewStateSet(viewState: ViewState) {
 		flipper.displayedChild = viewState.getOrder()
+	}
+
+
+	private fun setupNavigationView(){
+		navigationView.setNavigationItemSelectedListener{ item ->
+			when (item.itemId) {
+				R.id.projects -> {
+
+				}
+
+				R.id.logout -> {
+					logout()
+					return@setNavigationItemSelectedListener true
+				}
+			}
+			true
+		}
+	}
+
+
+	private fun logout(){
+		AlertDialog.Builder(this).apply {
+			setCancelable(true)
+			setTitle(getString(R.string.close_session))
+			setMessage(getString(R.string.close_session_confirm))
+			setPositiveButton(getString(R.string.confirm)) { _, _ ->
+				CoroutineScope(Dispatchers.Main.immediate).launch {
+					LoginContainer.logoutUseCase.invoke()
+					val intent = Intent(this@BaseActivity, MainActivity::class.java)
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent)
+				}
+
+			}
+			setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+		}.create().show()
 	}
 }
 

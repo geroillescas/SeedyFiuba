@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fiuba.seedyfiuba.login.LoginContainer
+import com.fiuba.seedyfiuba.login.domain.Session
 import kotlinx.coroutines.*
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -14,6 +16,8 @@ open class BaseViewModel(private val dispatcher: CoroutineDispatcher = Dispatche
 		Logger.getGlobal().log(Level.ALL, throwable.message ?: "")
 	}
 
+	protected val _session = MutableLiveData<Session>()
+	val session: LiveData<Session> = _session
 
 	protected val mShowLoading = MutableLiveData<Boolean>()
 	val showLoading: LiveData<Boolean> = mShowLoading
@@ -30,6 +34,12 @@ open class BaseViewModel(private val dispatcher: CoroutineDispatcher = Dispatche
 			}
 
 			mShowLoading.postValue(false)
+		}
+	}
+
+	fun getLocalSession() {
+		launch {
+			_session.postValue(LoginContainer.getSessionUseCase.invoke())
 		}
 	}
 }
