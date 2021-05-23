@@ -3,6 +3,8 @@ package com.fiuba.seedyfiuba.login.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.seedyfiuba.BaseViewModel
+import com.fiuba.seedyfiuba.login.domain.ProfileType
+import com.fiuba.seedyfiuba.login.domain.ProjectType
 import com.fiuba.seedyfiuba.login.domain.RegisterFormState
 import com.fiuba.seedyfiuba.login.usecases.GetSessionUseCase
 
@@ -18,10 +20,10 @@ class OnboardingSetupViewModel(private val getSessionUseCase: GetSessionUseCase)
 		launch {
 			val session = getSessionUseCase.invoke()
 
-			mShowLoading.postValue(false)
-			if (session.user.profileType == "sponsor") {
+			if (session?.user?.profileType == ProfileType.PATROCINADOR) {
 
 			} else {
+				mShowLoading.postValue(false)
 				_finished.postValue(true)
 			}
 		}
@@ -31,7 +33,7 @@ class OnboardingSetupViewModel(private val getSessionUseCase: GetSessionUseCase)
 		_finished.postValue(true)
 	}
 
-	fun setup(locale: String, projectType: String) {
+	fun setup(locale: String, projectType: List<ProjectType>) {
 		launch {
 			_finished.postValue(true)
 		}

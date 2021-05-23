@@ -7,6 +7,7 @@ import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.commons.SeedyFiubaError
+import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.login.domain.RegisterForm
 import com.fiuba.seedyfiuba.login.domain.RegisterFormState
 import com.fiuba.seedyfiuba.login.domain.RegisteredInUser
@@ -31,7 +32,12 @@ class RegisterViewModel(
 	) {
 		// can be launched in a separate asynchronous job
 		launch {
-			val registerForm = RegisterForm(name, lastname, email, password, profileType)
+			val profileTypeEnum = when(profileType) {
+				"Patrocinador" -> ProfileType.PATROCINADOR
+				"Emprendedor" -> ProfileType.EMPRENDEDOR
+				else -> ProfileType.VEEDOR
+			}
+			val registerForm = RegisterForm(name, lastname, email, password, profileTypeEnum)
 			when (val result = registerUseCase.invoke(registerForm)) {
 				is Result.Success -> {
 					_registerResult.postValue(result.data)

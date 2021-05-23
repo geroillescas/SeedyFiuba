@@ -7,11 +7,14 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.home.view.activities.HomeActivity
+import com.fiuba.seedyfiuba.login.domain.ProjectType
+import com.fiuba.seedyfiuba.login.view.recycler.ProjectsPreferencesRecyclerViewAdapter
 import com.fiuba.seedyfiuba.login.viewmodel.OnbaordingSetupViewModelFactory
 import com.fiuba.seedyfiuba.login.viewmodel.OnboardingSetupViewModel
 
@@ -26,7 +29,12 @@ class OnboardingSetupActivity : BaseActivity() {
 
 	private lateinit var continueButton: Button
 	private lateinit var spinnerLocale: Spinner
-	private lateinit var spinnerTypeProyect: Spinner
+	private lateinit var typeProject: RecyclerView
+	private val adapter : ProjectsPreferencesRecyclerViewAdapter  by lazy {
+		ProjectsPreferencesRecyclerViewAdapter(
+			ProjectType.values().toList()
+		)
+	}
 
 	override var layoutResource: Int = R.layout.activity_onboarding_setup
 
@@ -37,12 +45,17 @@ class OnboardingSetupActivity : BaseActivity() {
 		setupObservers()
 		setupSpinner()
 		setupButton()
+		setupRecyclerView()
 		onboardingSetupViewModel.getSession()
+	}
+
+	private fun setupRecyclerView() {
+		typeProject.adapter = adapter
 	}
 
 	private fun setupView() {
 		spinnerLocale = findViewById(R.id.onboarding_setup_locale)
-		spinnerTypeProyect = findViewById(R.id.onboarding_setup_type_proyect)
+		typeProject = findViewById(R.id.onboarding_setup_type_proyect)
 		continueButton = findViewById(R.id.onboarding_setup_btn)
 	}
 
@@ -72,24 +85,13 @@ class OnboardingSetupActivity : BaseActivity() {
 			// Apply the adapter to the spinner
 			spinnerLocale.adapter = adapter
 		}
-
-		ArrayAdapter.createFromResource(
-			this,
-			R.array.projectTypeOptions,
-			android.R.layout.simple_spinner_item
-		).also { adapter ->
-			// Specify the layout to use when the list of choices appears
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-			// Apply the adapter to the spinner
-			spinnerTypeProyect.adapter = adapter
-		}
 	}
 
 	private fun setupButton() {
 		continueButton.setOnClickListener {
 			onboardingSetupViewModel.setup(
 				spinnerLocale.selectedItem.toString(),
-				spinnerTypeProyect.selectedItem.toString()
+				adapter.getProjectTypeSelected()
 			)
 		}
 	}

@@ -1,10 +1,10 @@
-package com.fiuba.seedyfiuba.login.domain
+package com.fiuba.seedyfiuba.login.framework.requestmanager.dto
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Session(
+data class SessionDTO(
 	val token: String,
-	val user: User
+	val user: UserDTO
 ) : Parcelable

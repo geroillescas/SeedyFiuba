@@ -156,6 +156,7 @@
 				android:id="@+id/register_btn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_marginVertical="@dimen/dimension_2"
 				android:enabled="@{viewmodel.registerFormState.dataValid}"
 				android:text="@string/sign_in"
 				app:layout_constraintTop_toBottomOf="@+id/dropdown_menu"

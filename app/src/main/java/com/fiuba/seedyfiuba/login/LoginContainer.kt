@@ -13,7 +13,7 @@ import com.fiuba.seedyfiuba.login.framework.requestmanager.datasources.LoginRemo
 import com.fiuba.seedyfiuba.login.usecases.*
 
 object LoginContainer {
-	private lateinit var context: Context
+    private lateinit var context: Context
 
 	//Use Cases
 
@@ -35,6 +35,10 @@ object LoginContainer {
 
 	val saveSessionUseCase: SaveSessionUseCase by lazy {
 		SaveSessionUseCase(loginRepository)
+	}
+
+	val logoutUseCase: LogoutUseCase by lazy {
+		LogoutUseCase(loginRepository)
 	}
 
 	private val loginRepository: LoginRepository by lazy {
