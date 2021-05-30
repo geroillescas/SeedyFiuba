@@ -110,7 +110,6 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:drawableEnd="@drawable/eye_filled"
-					android:hint="@string/password"
 					android:imeOptions="actionNext"
 					android:inputType="textPassword"
 					android:selectAllOnFocus="true" />
@@ -156,7 +155,8 @@
 				android:id="@+id/register_btn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:enabled="@{viewmodel.registerFormState.dataValid}"
+				android:layout_marginVertical="@dimen/dimension_2"
+				android:enabled="true"
 				android:text="@string/sign_in"
 				app:layout_constraintTop_toBottomOf="@+id/dropdown_menu"
 				app:layout_constraintBottom_toBottomOf="parent"

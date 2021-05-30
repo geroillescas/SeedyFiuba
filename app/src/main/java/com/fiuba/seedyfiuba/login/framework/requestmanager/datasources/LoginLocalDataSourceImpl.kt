@@ -12,9 +12,18 @@ class LoginLocalDataSourceImpl(private val sharedPreferences: SharedPreferences)
 		sharedPreferences.edit().putString(KEY, serializedSession).apply()
 	}
 
-	override suspend fun getSession(): Session {
+	override suspend fun getSession(): Session? {
 		val serializedSession = sharedPreferences.getString(KEY, "")
-		return Gson().fromJson(serializedSession, Session::class.java)
+		serializedSession?.let {
+			if(it.isNotEmpty()){
+				return Gson().fromJson(serializedSession, Session::class.java)
+			}
+		}
+		return null
+	}
+
+	override suspend fun logout() {
+		sharedPreferences.edit().clear().apply()
 	}
 
 	companion object {

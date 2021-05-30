@@ -1,16 +1,16 @@
 package com.fiuba.seedyfiuba.login.data.datasources
 
 import com.fiuba.seedyfiuba.commons.Result
-import com.fiuba.seedyfiuba.login.domain.RegisterForm
-import com.fiuba.seedyfiuba.login.domain.RegisterResponseDTO
-import com.fiuba.seedyfiuba.login.domain.Session
+import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.SessionDTO
+import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.RegisterFormDTO
+import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.RegisterResponseDTO
 
 interface LoginRemoteDataSource {
-	suspend fun login(email: String, password: String): Result<Session>
+	suspend fun login(email: String, password: String): Result<SessionDTO>
 
 	suspend fun logout()
 
-	suspend fun loginGoogle(token: String): Result<Session>
+	suspend fun loginGoogle(token: String): Result<SessionDTO>
 
-	suspend fun register(registerForm: RegisterForm): Result<RegisterResponseDTO>
+	suspend fun register(registerForm: RegisterFormDTO): Result<RegisterResponseDTO>
 }

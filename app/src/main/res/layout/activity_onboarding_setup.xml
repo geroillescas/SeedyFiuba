@@ -30,15 +30,16 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/onboarding_setup_description" />
 
-	<androidx.appcompat.widget.AppCompatSpinner
+	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/onboarding_setup_type_proyect"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginVertical="@dimen/dimension_2"
-		android:spinnerMode="dropdown"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/onboarding_setup_locale" />
+		android:layout_height="0dp"
+		android:layout_marginHorizontal="@dimen/dimension_2"
+		android:layout_marginVertical="@dimen/dimension"
+		app:layoutManager="LinearLayoutManager"
+		app:layout_constraintBottom_toTopOf="@+id/onboarding_setup_btn"
+		app:layout_constraintTop_toBottomOf="@id/onboarding_setup_locale"
+		tools:listitem="@layout/recycler_view_projects_preferences_item" />
 
 	<Button
 		android:id="@+id/onboarding_setup_btn"

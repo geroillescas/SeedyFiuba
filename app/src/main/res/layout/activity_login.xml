@@ -50,7 +50,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:drawableEnd="@drawable/eye_filled"
-			android:hint="@string/password"
 			android:imeActionLabel="@string/sign_in"
 			android:imeOptions="actionDone"
 			android:inputType="textPassword"

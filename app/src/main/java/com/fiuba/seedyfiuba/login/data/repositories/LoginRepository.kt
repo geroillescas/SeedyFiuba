@@ -11,5 +11,5 @@ interface LoginRepository {
 	suspend fun loginGoogle(token: String): Result<Session>
 	suspend fun register(registerForm: RegisterForm): Result<RegisteredInUser>
 	suspend fun saveSession(session: Session)
-	suspend fun getSession(): Session
+	suspend fun getSession(): Session?
 }

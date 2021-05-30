@@ -3,9 +3,8 @@ package com.fiuba.seedyfiuba.login.data.repositories
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.data.datasources.LoginLocalDataSource
 import com.fiuba.seedyfiuba.login.data.datasources.LoginRemoteDataSource
-import com.fiuba.seedyfiuba.login.domain.RegisterForm
-import com.fiuba.seedyfiuba.login.domain.RegisteredInUser
-import com.fiuba.seedyfiuba.login.domain.Session
+import com.fiuba.seedyfiuba.login.domain.*
+import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.RegisterFormDTO
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -33,21 +32,52 @@ class LoginRepositoryImpl(
 	override suspend fun logout() {
 		user = null
 		remoteDataSource.logout()
+		localDataSource.logout()
 	}
 
 	override suspend fun login(email: String, password: String): Result<Session> {
 		// handle login
-		return remoteDataSource.login(email, password).also {
-			if (it is Result.Success) {
-				saveSession(it.data)
+		return remoteDataSource.login(email, password).let {
+			when (it) {
+				is Result.Success -> {
+					val user = with(it.data.user) {
+						User(
+							userId ?: "",
+							name,
+							lastName ?: "",
+							email,
+							password,
+							profileType ?: ProfileType.UNKNOWN
+						)
+					}
+					val session = Session(it.data.token, user)
+					saveSession(session)
+					Result.Success(session)
+				}
+				is Result.Error -> it
 			}
 		}
 	}
 
 	override suspend fun loginGoogle(token: String): Result<Session> {
-		return remoteDataSource.loginGoogle(token).also {
-			if (it is Result.Success) {
-				saveSession(it.data)
+		return remoteDataSource.loginGoogle(token).let {
+			when (it) {
+				is Result.Success -> {
+					val user = with(it.data.user) {
+						User(
+							userId ?: "",
+							name,
+							lastName ?: "",
+							email ?: "",
+							password ?: "",
+							profileType ?: ProfileType.UNKNOWN
+						)
+					}
+					val session = Session(it.data.token, user)
+					saveSession(session)
+					Result.Success(session)
+				}
+				is Result.Error -> it
 			}
 		}
 	}
@@ -55,7 +85,15 @@ class LoginRepositoryImpl(
 	override suspend fun register(
 		registerForm: RegisterForm
 	): Result<RegisteredInUser> {
-		return when (val result = remoteDataSource.register(registerForm)) {
+			val registerFormDTO =
+			RegisterFormDTO(
+				registerForm.name,
+				registerForm.lastName,
+				registerForm.email,
+				registerForm.password,
+				registerForm.profileType.value
+			)
+		return when (val result = remoteDataSource.register(registerFormDTO)) {
 			is Result.Success -> Result.Success(RegisteredInUser(result.data.userId))
 			is Result.Error -> result
 		}
@@ -65,7 +103,7 @@ class LoginRepositoryImpl(
 		localDataSource.saveSession(session)
 	}
 
-	override suspend fun getSession(): Session {
+	override suspend fun getSession(): Session? {
 		return localDataSource.getSession()
 	}
 

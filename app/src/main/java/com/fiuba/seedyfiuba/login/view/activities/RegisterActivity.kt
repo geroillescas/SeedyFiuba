@@ -11,9 +11,11 @@ import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.commons.toggleShowPassword
 import com.fiuba.seedyfiuba.login.viewmodel.RegisterViewModel
 import com.fiuba.seedyfiuba.login.viewmodel.RegisterViewModelFactory
@@ -89,6 +91,13 @@ class RegisterActivity : BaseActivity() {
 				it.passwordValidationError?.let { it1 -> getString(it1) }
 		})
 
+		registerViewModel.showError.observe(this, Observer {
+			if (it) {
+				setViewState(ViewState.Error)
+			} else {
+				setViewState(ViewState.Initial)
+			}
+		})
 	}
 
 	private fun setupSpinner() {
@@ -107,25 +116,25 @@ class RegisterActivity : BaseActivity() {
 	private fun setupUsernameView() {
 		name.apply {
 			afterTextChanged {
-				validate()
+				registerViewModel.registerNameChanged(it)
 			}
 		}
 
 		lastname.apply {
 			afterTextChanged {
-				validate()
+				registerViewModel.registerLastNameChanged(it)
 			}
 		}
 
 		email.apply {
 			afterTextChanged {
-				validate()
+				registerViewModel.registerEmailChanged(it)
 			}
 		}
 
 		password.apply {
 			afterTextChanged {
-				validate()
+				registerViewModel.registerPassswordChanged(it)
 			}
 		}
 

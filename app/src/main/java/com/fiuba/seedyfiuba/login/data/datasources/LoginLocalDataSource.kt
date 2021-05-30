@@ -4,5 +4,6 @@ import com.fiuba.seedyfiuba.login.domain.Session
 
 interface LoginLocalDataSource {
 	suspend fun saveSession(session: Session)
-	suspend fun getSession(): Session
+	suspend fun getSession(): Session?
+	suspend fun logout()
 }
