@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="viewmodel"
+			type="com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModel" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/projectsListFragment_recyclerView"
+			android:name="com.fiuba.seedyfiuba.projects.view.fragments.ProjectsListFragement"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clipToPadding="false"
+			android:layout_marginHorizontal="@dimen/dimension_2"
+			app:layoutManager="LinearLayoutManager"
+			tools:context=".projects.view.fragments.ProjectsListFragment"
+			tools:listitem="@layout/fragment_projects_item" />
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/projectsListFragment_add_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="end|bottom"
+			android:layout_margin="@dimen/dimension_2"
+			android:src="@drawable/add"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,10 +1,6 @@
 package com.fiuba.seedyfiuba.login.framework.requestmanager.api
 
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.RegisterResponseDTO
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.SessionDTO
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.LoginGoogleRequestDTO
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.LoginRequestDTO
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.RegisterFormDTO
+import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

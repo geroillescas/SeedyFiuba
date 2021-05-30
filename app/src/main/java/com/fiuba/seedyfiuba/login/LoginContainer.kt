@@ -7,13 +7,13 @@ import com.fiuba.seedyfiuba.login.data.datasources.LoginLocalDataSource
 import com.fiuba.seedyfiuba.login.data.datasources.LoginRemoteDataSource
 import com.fiuba.seedyfiuba.login.data.repositories.LoginRepository
 import com.fiuba.seedyfiuba.login.data.repositories.LoginRepositoryImpl
-import com.fiuba.seedyfiuba.login.framework.requestmanager.RequestManagerContainer
 import com.fiuba.seedyfiuba.login.framework.requestmanager.datasources.LoginLocalDataSourceImpl
 import com.fiuba.seedyfiuba.login.framework.requestmanager.datasources.LoginRemoteDataSourceImpl
 import com.fiuba.seedyfiuba.login.usecases.*
+import com.fiuba.seedyfiuba.projects.framework.requestmanager.RequestManagerContainer
 
 object LoginContainer {
-    private lateinit var context: Context
+	private lateinit var context: Context
 
 	//Use Cases
 

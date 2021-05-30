@@ -1,15 +1,13 @@
 package com.fiuba.seedyfiuba.login.view.recycler
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.login.domain.ProjectType
-
-import com.fiuba.seedyfiuba.login.view.activities.dummy.DummyContent.DummyItem
 
 /**
  * [RecyclerView.Adapter] that can display a [ProjectType].

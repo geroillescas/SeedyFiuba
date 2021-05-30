@@ -30,7 +30,7 @@ class OnboardingSetupActivity : BaseActivity() {
 	private lateinit var continueButton: Button
 	private lateinit var spinnerLocale: Spinner
 	private lateinit var typeProject: RecyclerView
-	private val adapter : ProjectsPreferencesRecyclerViewAdapter  by lazy {
+	private val adapter: ProjectsPreferencesRecyclerViewAdapter by lazy {
 		ProjectsPreferencesRecyclerViewAdapter(
 			ProjectType.values().toList()
 		)

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView android:id="@+id/card"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="8dp"
+	android:elevation="@dimen/dimension_2"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<!-- Media -->
+		<ImageView
+			android:id="@+id/project_item_media"
+			android:layout_width="match_parent"
+			android:background="@color/secondaryVariant"
+			android:layout_height="194dp"
+			android:scaleType="centerCrop"
+			/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="@dimen/dimension_2">
+
+			<!-- Title, secondary and supporting text -->
+			<TextView
+				android:id="@+id/project_item_title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="titulo del proyecto"
+				android:textAppearance="?attr/textAppearanceHeadline6"
+				android:textSize="18sp" />
+
+			<TextView
+				android:id="@+id/project_item_description"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/dimension"
+				android:text="descripcion"
+				android:textAppearance="?attr/textAppearanceBody2"
+				android:textColor="?android:attr/textColorSecondary"
+				android:textSize="14sp" />
+
+			<TextView
+				android:id="@+id/project_item_type"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/dimension_2"
+				android:text="tipo de proyecto"
+				android:textAppearance="?attr/textAppearanceBody2"
+				android:textColor="?android:attr/textColorSecondary"
+				android:textSize="14sp" />
+
+		</LinearLayout>
+
+		<!-- Buttons -->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:orientation="horizontal">
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/project_item_edit_button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="8dp"
+				style="?attr/borderlessButtonStyle"
+				android:text="@string/edite"
+				/>
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/project_item_delete_button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="?attr/borderlessButtonStyle"
+				android:text="@string/delete"
+				/>
+		</LinearLayout>
+
+	</LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

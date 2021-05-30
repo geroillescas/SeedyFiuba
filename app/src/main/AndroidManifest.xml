@@ -5,6 +5,8 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.hardware.camera" android:required="true" />
 
 	<application
 		android:allowBackup="true"
@@ -12,6 +14,16 @@
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/Theme.SeedyFiuba">
+
+		<provider
+			android:name="androidx.core.content.FileProvider"
+			android:authorities="com.fiuba.seedyfiuba.fileprovider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/file_paths" />
+		</provider>
 
 		<activity
 			android:name=".login.view.activities.OnboardingSetupActivity"
@@ -23,6 +35,10 @@
 		<activity
 			android:name=".login.view.activities.LoginActivity"
 			android:label="@string/title_activity_login" />
+
+		<activity
+			android:name=".projects.view.activities.ProjectsActivity"
+			android:label="@string/title_activity_projects" />
 		<activity
 			android:name=".home.view.activities.HomeActivity"
 			android:label="@string/title_activity_home"/>

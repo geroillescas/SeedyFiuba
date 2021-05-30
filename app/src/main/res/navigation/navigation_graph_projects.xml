@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/navigation_graph"
+	app:startDestination="@id/projectsListFragment">
+	<fragment
+		android:id="@+id/projectsListFragment"
+		android:name="com.fiuba.seedyfiuba.projects.view.fragments.ProjectsListFragment"
+		android:label="fragment_projects_list_fragment_list"
+		tools:layout="@layout/fragment_projects_list">
+		<action
+			android:id="@+id/action_projectsListFragment_to_editProjectFragment"
+			app:destination="@id/editProjectFragment" />
+
+		<action
+			android:id="@+id/action_projectsListFragment_to_createProjectFragment"
+			app:destination="@id/createProjectFragment" />
+	</fragment>
+
+	<fragment
+		android:id="@+id/editProjectFragment"
+		android:name="com.fiuba.seedyfiuba.projects.view.fragments.EditProjectFragment"
+		android:label="fragment_edit_project"
+		tools:layout="@layout/fragment_abstract_project" >
+		<action
+			android:id="@+id/action_editProjectFragment_to_projectsListFragment"
+			app:popUpTo="@id/projectsListFragment" />
+	</fragment>
+
+	<fragment
+		android:id="@+id/createProjectFragment"
+		android:name="com.fiuba.seedyfiuba.projects.view.fragments.CreateProjectFragment"
+		android:label="fragment_create_project"
+		tools:layout="@layout/fragment_abstract_project" >
+		<action
+			android:id="@+id/action_createProjectFragment_to_projectsListFragment"
+			app:popUpTo="@id/projectsListFragment" />
+	</fragment>
+</navigation>
