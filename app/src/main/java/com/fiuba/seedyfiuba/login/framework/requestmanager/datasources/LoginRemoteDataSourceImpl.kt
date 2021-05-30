@@ -1,13 +1,10 @@
 package com.fiuba.seedyfiuba.login.framework.requestmanager.datasources
 
+import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.data.datasources.LoginRemoteDataSource
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.RegisterResponseDTO
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.SessionDTO
 import com.fiuba.seedyfiuba.login.framework.requestmanager.api.UsersApi
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.LoginGoogleRequestDTO
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.LoginRequestDTO
-import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.RegisterFormDTO
+import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.*
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.

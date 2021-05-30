@@ -4,7 +4,7 @@
 	<string name="title_activity_home">Inicio</string>
 	<string name="title_activity_register">Registrate!</string>
 	<string name="title_activity_login">Iniciar sesión</string>
-	<string name="title_activity_projects">Projects</string>
+	<string name="title_activity_projects">Proyectos</string>
 	<!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
@@ -40,5 +40,8 @@
 	<string name="close_session">Cerrar sesión</string>
 	<string name="confirm">Confirmar</string>
 	<string name="cancel">Cancelar</string>
+    <string name="datePattern">yyyy/MM/dd</string>
+	<string name="edit">Editar</string>
+	<string name="create_project">Crear proyecto</string>
 
 </resources>

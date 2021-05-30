@@ -12,7 +12,6 @@ import com.fiuba.seedyfiuba.login.domain.RegisterForm
 import com.fiuba.seedyfiuba.login.domain.RegisterFormState
 import com.fiuba.seedyfiuba.login.domain.RegisteredInUser
 import com.fiuba.seedyfiuba.login.usecases.RegisterUseCase
-import retrofit2.http.HTTP
 import java.net.HttpURLConnection
 
 class RegisterViewModel(
@@ -45,7 +44,7 @@ class RegisterViewModel(
 				is Result.Error -> {
 					when (result.exception) {
 						is SeedyFiubaError.UnknownSeedyFiubaApiException -> {
-							if(result.exception.code == HttpURLConnection.HTTP_CONFLICT) {
+							if (result.exception.code == HttpURLConnection.HTTP_CONFLICT) {
 								_registerFormState.postValue(
 									RegisterFormState(
 										emailError = R.string.invalid_email_already_used
@@ -132,7 +131,8 @@ class RegisterViewModel(
 	fun registerLastNameChanged(lastName: String) {
 		when {
 			!lastName.isNotBlank() -> {
-				_registerFormState.value = RegisterFormState(lastNameError = R.string.invalid_lastname)
+				_registerFormState.value =
+					RegisterFormState(lastNameError = R.string.invalid_lastname)
 			}
 		}
 	}
@@ -148,7 +148,8 @@ class RegisterViewModel(
 	fun registerPassswordChanged(password: String) {
 		when {
 			!isPasswordValid(password) -> {
-				_registerFormState.value = RegisterFormState(passwordError = R.string.invalid_password)
+				_registerFormState.value =
+					RegisterFormState(passwordError = R.string.invalid_password)
 			}
 		}
 	}

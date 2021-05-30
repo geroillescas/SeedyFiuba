@@ -14,4 +14,4 @@ data class UserDTO(
 	val password: String?,
 	@SerializedName("role")
 	val profileType: ProfileType?
-): Parcelable
+) : Parcelable

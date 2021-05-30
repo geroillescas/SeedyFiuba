@@ -11,7 +11,6 @@ import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R

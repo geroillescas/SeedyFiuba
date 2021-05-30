@@ -1,7 +1,5 @@
-package com.fiuba.seedyfiuba.login.framework.requestmanager.datasources
+package com.fiuba.seedyfiuba.commons
 
-import com.fiuba.seedyfiuba.commons.Result
-import com.fiuba.seedyfiuba.commons.SeedyFiubaError
 import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.ErrorBodyDto
 import org.json.JSONException
 import org.json.JSONObject

@@ -85,7 +85,7 @@ class LoginRepositoryImpl(
 	override suspend fun register(
 		registerForm: RegisterForm
 	): Result<RegisteredInUser> {
-			val registerFormDTO =
+		val registerFormDTO =
 			RegisterFormDTO(
 				registerForm.name,
 				registerForm.lastName,

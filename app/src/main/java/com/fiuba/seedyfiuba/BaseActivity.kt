@@ -1,6 +1,5 @@
 package com.fiuba.seedyfiuba
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
@@ -13,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.fiuba.seedyfiuba.login.LoginContainer
+import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -106,20 +106,20 @@ open class BaseActivity : AppCompatActivity() {
 		return super.onOptionsItemSelected(item)
 	}
 
-	fun openDrawer(){
+	fun openDrawer() {
 		setActionBarMode(ActionBarMode.Back)
 		drawerLayout.openDrawer(Gravity.LEFT)
 	}
 
-	fun closeDrawer(){
+	fun closeDrawer() {
 		setActionBarMode(ActionBarMode.Home)
 		drawerLayout.closeDrawer(Gravity.LEFT)
 	}
 
-	fun handleBack(){
-		if(drawerLayout.isDrawerOpen(Gravity.LEFT)){
+	fun handleBack() {
+		if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
 			closeDrawer()
-		}else{
+		} else {
 			onBackPressed()
 		}
 	}
@@ -141,11 +141,12 @@ open class BaseActivity : AppCompatActivity() {
 	}
 
 
-	private fun setupNavigationView(){
-		navigationView.setNavigationItemSelectedListener{ item ->
+	private fun setupNavigationView() {
+		navigationView.setNavigationItemSelectedListener { item ->
 			when (item.itemId) {
 				R.id.projects -> {
-
+					val intent = Intent(this, ProjectsActivity::class.java)
+					startActivity(intent)
 				}
 
 				R.id.logout -> {
@@ -158,7 +159,7 @@ open class BaseActivity : AppCompatActivity() {
 	}
 
 
-	private fun logout(){
+	private fun logout() {
 		AlertDialog.Builder(this).apply {
 			setCancelable(true)
 			setTitle(getString(R.string.close_session))

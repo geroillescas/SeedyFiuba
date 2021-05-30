@@ -1,6 +1,8 @@
 package com.fiuba.seedyfiuba.commons
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.net.Uri
 import android.text.InputType
 import android.view.MotionEvent
 import com.fiuba.seedyfiuba.R
@@ -36,3 +38,5 @@ fun TextInputEditText.toggleShowPassword() {
 		}
 	}
 }
+
+fun ClipData.convertToList(): List<Uri> = (0 until itemCount).map { getItemAt(it).uri }
