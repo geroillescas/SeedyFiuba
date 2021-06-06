@@ -25,6 +25,7 @@ import com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModelFactory
 class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectViewHolderListener,
 	SearchDialogFragment.SearchDialogFragmentListener {
 
+	private var isSearched: Boolean = false
 	private var columnCount = 1
 	private lateinit var binding: FragmentProjectsListBinding
 
@@ -49,6 +50,13 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 			} else {
 				binding.projectsListFragmentEmptyCase.visibility = View.VISIBLE
 			}
+
+			if (isSearched) {
+				binding.projectsListFragmentSearchViewClose.visibility = View.VISIBLE
+			}else{
+				binding.projectsListFragmentSearchViewClose.visibility = View.GONE
+			}
+
 			adapter.setupProjects(it)
 		})
 
@@ -92,6 +100,11 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 			searchDialogFragment.show(requireActivity().supportFragmentManager, "Sdosuafbs")
 		}
 
+		binding.projectsListFragmentSearchViewClose.setOnClickListener {
+			isSearched = false
+			projectViewModel.getProjects()
+		}
+
 		setupObservers()
 
 
@@ -118,6 +131,7 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 	override fun searchWith(
 		searchForm: SearchForm
 	) {
+		isSearched = true
 		projectViewModel.searchProjects(searchForm)
 	}
 }
