@@ -46,18 +46,40 @@
 		</LinearLayout>
 
 
-
 		<androidx.appcompat.widget.SearchView
-			android:drawableStart="@drawable/image"
 			android:id="@+id/projectsListFragment_searchView"
-			android:layout_width="match_parent"
+			style="@style/Widget.AppCompat.SearchView"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			app:defaultQueryHint="Search by course name or code"
-			android:focusable="false"
 			android:layout_margin="@dimen/dimension_2"
+			android:iconifiedByDefault="false"
+			app:layout_constraintBottom_toTopOf="@id/projectsListFragment_recyclerView"
+			app:layout_constraintEnd_toStartOf="@+id/projectsListFragment_searchViewClose"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:queryHint="Buscar proyectos" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Buscar proyectos"
+			android:layout_marginHorizontal="@dimen/dimension_6"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+			app:layout_constraintBottom_toTopOf="@id/projectsListFragment_recyclerView"
+			app:layout_constraintStart_toStartOf="@+id/projectsListFragment_searchView"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<ImageButton
+			android:background="@color/white"
+			android:padding="@dimen/dimension"
+			android:id="@+id/projectsListFragment_searchViewClose"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension_2"
+			android:src="@drawable/delete"
+			android:visibility="gone"
 			app:layout_constraintBottom_toTopOf="@id/projectsListFragment_recyclerView"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 
 		<androidx.recyclerview.widget.RecyclerView
