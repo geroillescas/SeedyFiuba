@@ -9,4 +9,15 @@
 		<item>Politico</item>
 		<item>Comercial</item>
 	</string-array>
+
+	<string-array name="projectTypeOptionsSearch">
+		<item>Ninguno</item>
+		<item>Social</item>
+		<item>Ambiental</item>
+		<item>Economico</item>
+		<item>Academico</item>
+		<item>Humanitario</item>
+		<item>Politico</item>
+		<item>Comercial</item>
+	</string-array>
 </resources>

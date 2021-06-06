@@ -25,6 +25,8 @@
 	<string name="welcome">"Welcome !"</string>
 	<string name="invalid_username">El nombre no puede estar vacio</string>
 	<string name="invalid_lastname">El apellido no puede estar vacio</string>
+	<string name="invalid_title">El titulo no puede estar vacio</string>
+	<string name="invalid_description">La descripcion tiene que tener mas de 10 caracteres</string>
 	<string name="invalid_password">La contraseña debe tener al menos 6 caracteres</string>
 	<string name="invalid_email">El email no es valido</string>
 	<string name="invalid_email_already_used">El email ya esta asociado a una cuenta</string>

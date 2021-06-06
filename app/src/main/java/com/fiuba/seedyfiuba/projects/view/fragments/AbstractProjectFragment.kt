@@ -14,12 +14,12 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.commons.convertToList
 import com.fiuba.seedyfiuba.databinding.FragmentAbstractProjectBinding
 import com.fiuba.seedyfiuba.login.domain.ProjectType
@@ -28,8 +28,8 @@ import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.viewmodel.EditProjectViewModel
 import com.fiuba.seedyfiuba.projects.viewmodel.EditProjectViewModelFactory
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
-import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -69,10 +69,7 @@ open class AbstractProjectFragment : Fragment() {
 				}
 			}
 		project?.let { editProjectViewModel.setupWith(it) }
-
-
 	}
-
 
 	@SuppressLint("SimpleDateFormat")
 	override fun onCreateView(
@@ -93,14 +90,21 @@ open class AbstractProjectFragment : Fragment() {
 
 	private fun setupObservers() {
 		editProjectViewModel.showLoading.observe(viewLifecycleOwner, Observer {
-			requireActivity().supportFragmentManager.setFragmentResult(
-				ProjectsActivity.FR_SHOW_LOADING,
-				bundleOf(ProjectsActivity.BUNDLE_KEY to it)
-			)
+			val viewState = if (it) ViewState.Loading else ViewState.Initial
+			(requireActivity() as ProjectsActivity).setViewState(viewState)
 		})
 
 		editProjectViewModel.projectLiveData.observe(viewLifecycleOwner, Observer {
 			editProjectViewModel.validate()
+		})
+
+		editProjectViewModel.editFormState.observe(viewLifecycleOwner, Observer {
+			it?.let { editForm ->
+				binding.abstractProjectFragmentDescriptionContainer.error =
+					editForm.descriptionError?.let { strId -> getString(strId) }
+				binding.abstractProjectFragmentTitleContainer.error =
+					editForm.titleError?.let { strId -> getString(strId) }
+			}
 		})
 
 	}
@@ -135,41 +139,18 @@ open class AbstractProjectFragment : Fragment() {
 			editProjectViewModel.setupWith(editProjectViewModel.project.copy(title = it))
 		}
 
+		view.abstractProjectFragmentTitleInput.requestFocus()
+
 		view.abstractProjectFragmentDescriptionInput.afterTextChanged {
 			editProjectViewModel.registerDescriptionChanged(it)
 			editProjectViewModel.setupWith(editProjectViewModel.project.copy(description = it))
 		}
 
-		view.abstractProjectFragmentAmountContainerInput.afterTextChanged {
-			val amount = if (it.isNotBlank()) {
-				BigDecimal(it)
-			} else {
-				BigDecimal.ZERO
-			}
-			editProjectViewModel.registerAmountChanged(amount)
-			editProjectViewModel.setupWith(editProjectViewModel.project.copy(amount = amount))
-		}
-
-		val dateRangePicker =
-			MaterialDatePicker.Builder.datePicker()
-				.setTitleText("Select dates")
-				.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-				.setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar)
-				.build()
-		view.abstractProjectFragmentDateContainer.setOnClickListener {
-			dateRangePicker.show(activity?.supportFragmentManager!!, "DATE")
-		}
-
-		dateRangePicker.addOnPositiveButtonClickListener {
-			val date = Date(it)
-			val format = SimpleDateFormat(getString(R.string.datePattern))
-			view.abstractProjectFragmentDateInput.text =
-				SpannableStringBuilder.valueOf(format.format(date))
-			editProjectViewModel.setupWith(editProjectViewModel.project.copy(date = date))
-		}
+		setupDatePicker(view)
 
 		view.abstractProjectFragmentHashtagsInput.afterTextChanged {
-			editProjectViewModel.setupWith(editProjectViewModel.project.copy(hashtags = it.split(',')))
+			val listHashtags = it.split(',').filter { list -> list.isNotEmpty() }
+			editProjectViewModel.setupWith(editProjectViewModel.project.copy(hashtags = listHashtags))
 		}
 
 		ArrayAdapter.createFromResource(
@@ -205,11 +186,32 @@ open class AbstractProjectFragment : Fragment() {
 		}
 	}
 
-	companion object {
+	private fun setupDatePicker(view: FragmentAbstractProjectBinding) {
+		val calendar = Calendar.getInstance()
+		calendar.add(Calendar.DAY_OF_YEAR, 1)
+		val tomorrow = calendar.time.time
 
-		private const val IMAGE_RESULT = "IMAGE_RESULT"
-		protected const val REQUEST_TAKE_PHOTO = 1
-		private const val REQUEST_CAMERA_PERMISSION = 11
+		val dateRangePicker =
+			MaterialDatePicker.Builder.datePicker()
+				.setTitleText("Selecciona la fecha de finalizacion")
+				.setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+				.setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar)
+				.setCalendarConstraints(CalendarConstraints.Builder().setOpenAt(tomorrow).build())
+				.build()
+		view.abstractProjectFragmentEditDate.setOnClickListener {
+			dateRangePicker.show(activity?.supportFragmentManager!!, "DATE")
+		}
+
+		dateRangePicker.addOnPositiveButtonClickListener {
+			val date = Date(it)
+			val format = SimpleDateFormat(getString(R.string.datePattern))
+			view.abstractProjectFragmentDateContainer.text =
+				SpannableStringBuilder.valueOf(format.format(date))
+			editProjectViewModel.setupWith(editProjectViewModel.project.copy(finishDate = date))
+		}
+	}
+
+	companion object {
 		const val ARG_PROJECT = "ARG_PROJECT"
 
 		/**

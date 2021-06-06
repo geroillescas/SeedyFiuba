@@ -1,5 +1,8 @@
 package com.fiuba.seedyfiuba.projects.view.fragments
 
+import android.view.View
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.databinding.FragmentAbstractProjectBinding
 
@@ -11,7 +14,13 @@ class EditProjectFragment : AbstractProjectFragment() {
 		view.fragmentAbstractProjectContinueButton.text = getString(R.string.edit)
 		view.fragmentAbstractProjectContinueButton.setOnClickListener {
 			editProjectViewModel.updateProject()
-			activity?.supportFragmentManager?.popBackStack()
 		}
+		view.abstractProjectFragmentDateContainer.visibility = View.GONE
+
+		editProjectViewModel.projectResult.observe(viewLifecycleOwner, Observer {
+			findNavController().navigate(R.id.projectsListFragment)
+		})
+
+		editProjectViewModel.validate()
 	}
 }

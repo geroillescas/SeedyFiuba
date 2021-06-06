@@ -2,6 +2,7 @@ package com.fiuba.seedyfiuba.projects.domain
 
 import android.os.Parcelable
 import com.fiuba.seedyfiuba.login.domain.ProjectType
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 import java.math.BigDecimal
@@ -9,17 +10,18 @@ import java.util.*
 
 @Parcelize
 data class Project(
+	@SerializedName("_id")
 	val id: Int = 0,
 	val title: String,
 	val description: String,
-	val type: ProjectType,
-	val status: ProjectStatus,
-	val location: String,
-	val hashtags: List<String>,
-	val mediaUrls: MutableList<String>,
-	val amount: BigDecimal,
-	val date: Date
-) : Parcelable, Serializable {
+	@SerializedName("category")
+	val type: ProjectType = ProjectType.ACADEMIC,
+	val location: LocationProject? = null,
+	val hashtags: List<String> = listOf(),
+	val mediaUrls: MutableList<String> = mutableListOf(),
+	val stages: List<Stages> = listOf(),
+	val finishDate: Date = Date()
+) : Serializable, Parcelable {
 	companion object {
 		fun newInstance(): Project {
 			return Project(
@@ -27,13 +29,50 @@ data class Project(
 				title = "",
 				description = "",
 				type = ProjectType.ACADEMIC,
-				status = ProjectStatus.COMPLETED,
-				location = "",
+				location = LocationProject(),
 				hashtags = listOf(),
-				mediaUrls = mutableListOf(),
-				amount = BigDecimal.ZERO,
-				date = Date()
+				mediaUrls = mutableListOf()
+				//date = Date()
 			)
 		}
 	}
 }
+
+data class ProjectRequestDTO(
+	val title: String,
+	val description: String,
+	val ownerId: Int,
+	val category: ProjectType = ProjectType.ACADEMIC,
+	val location: LocationProject? = null,
+	val hashtags: List<String> = listOf(),
+	val mediaUrls: List<String> = listOf(),
+	val stages: List<Stages> = listOf(),
+	val finishDate: Date = Date()
+)
+
+data class ProjectUpdateDTO(
+	val title: String,
+	val description: String,
+	val category: ProjectType = ProjectType.ACADEMIC,
+	val location: LocationProject? = null,
+	val hashtags: List<String> = listOf(),
+	val mediaUrls: List<String> = listOf()
+)
+
+data class SearchResponseDTO(
+	val size: Int,
+	val results: List<Project>
+)
+
+
+@Parcelize
+data class Stages(
+	val track: String,
+	val targetAmount: BigDecimal
+) : Parcelable
+
+@Parcelize
+data class LocationProject(
+	val x: BigDecimal = BigDecimal.ZERO,
+	val y: BigDecimal = BigDecimal.ZERO
+) : Parcelable

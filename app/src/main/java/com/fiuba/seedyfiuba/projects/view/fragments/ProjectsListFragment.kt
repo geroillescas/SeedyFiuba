@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.databinding.FragmentProjectsListBinding
+import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModel
 import com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModelFactory
 
@@ -20,7 +22,8 @@ import com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModelFactory
 /**
  * A fragment representing a list of Items.
  */
-class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectViewHolderListener {
+class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectViewHolderListener,
+	SearchDialogFragment.SearchDialogFragmentListener {
 
 	private var columnCount = 1
 	private lateinit var binding: FragmentProjectsListBinding
@@ -37,15 +40,22 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 		arguments?.let {
 			columnCount = it.getInt(ARG_COLUMN_COUNT)
 		}
-
-
 	}
 
 	private fun setupObservers() {
 		projectViewModel.projects.observe(viewLifecycleOwner, Observer {
+			if (it.isNotEmpty()) {
+				binding.projectsListFragmentEmptyCase.visibility = View.GONE
+			} else {
+				binding.projectsListFragmentEmptyCase.visibility = View.VISIBLE
+			}
 			adapter.setupProjects(it)
-		}
-		)
+		})
+
+		projectViewModel.showLoading.observe(viewLifecycleOwner, Observer {
+			val viewState = if (it) ViewState.Loading else ViewState.Initial
+			(requireActivity() as ProjectsActivity).setViewState(viewState)
+		})
 	}
 
 	override fun onResume() {
@@ -77,6 +87,11 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 			findNavController().navigate(R.id.createProjectFragment)
 		}
 
+		binding.projectsListFragmentSearchView.setOnClickListener {
+			val searchDialogFragment = SearchDialogFragment(this)
+			searchDialogFragment.show(requireActivity().supportFragmentManager, "Sdosuafbs")
+		}
+
 		setupObservers()
 
 
@@ -98,5 +113,11 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 			}
 			findNavController().navigate(R.id.editProjectFragment, bundle)
 		}
+	}
+
+	override fun searchWith(
+		searchForm: SearchForm
+	) {
+		projectViewModel.searchProjects(searchForm)
 	}
 }
