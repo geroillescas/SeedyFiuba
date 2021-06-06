@@ -42,7 +42,7 @@ class LoginRepositoryImpl(
 				is Result.Success -> {
 					val user = with(it.data.user) {
 						User(
-							userId ?: "",
+							userId ?: 0,
 							name,
 							lastName ?: "",
 							email,
@@ -65,7 +65,7 @@ class LoginRepositoryImpl(
 				is Result.Success -> {
 					val user = with(it.data.user) {
 						User(
-							userId ?: "",
+							userId ?: 0,
 							name,
 							lastName ?: "",
 							email ?: "",

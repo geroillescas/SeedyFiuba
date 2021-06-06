@@ -7,5 +7,5 @@ enum class ProjectType(val value: String) {
 	ACADEMIC("Academico"),
 	HUMANITARIAN("Humanitario"),
 	POLITICAL("Politico"),
-	COMMERCIAL("Comercial"),
+	COMMERCIAL("Comercial")
 }

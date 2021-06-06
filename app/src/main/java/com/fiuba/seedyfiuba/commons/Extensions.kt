@@ -5,8 +5,11 @@ import android.content.ClipData
 import android.net.Uri
 import android.text.InputType
 import android.view.MotionEvent
+import androidx.core.text.isDigitsOnly
 import com.fiuba.seedyfiuba.R
 import com.google.android.material.textfield.TextInputEditText
+import java.math.BigDecimal
+import kotlin.reflect.KClass
 
 @SuppressLint("ClickableViewAccessibility")
 fun TextInputEditText.setOnTouchEndDrawableListener(setOnTouchListener: (TextInputEditText) -> Unit) {
@@ -40,3 +43,12 @@ fun TextInputEditText.toggleShowPassword() {
 }
 
 fun ClipData.convertToList(): List<Uri> = (0 until itemCount).map { getItemAt(it).uri }
+
+
+fun String.convertToBigDecimal() : BigDecimal {
+	return if(isBlank() || isEmpty()){
+		return BigDecimal.ZERO
+	}else{
+		BigDecimal(this)
+	}
+}
