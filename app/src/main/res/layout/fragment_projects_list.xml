@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
 
@@ -10,18 +11,67 @@
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
-		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
+
+		<LinearLayout
+			android:visibility="gone"
+			android:id="@+id/projectsListFragment_emptyCase"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:src="@drawable/snippet" />
+
+			<TextView
+				android:layout_marginVertical="@dimen/dimension_2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Ops. No hay nada por aqui"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Aun no tiene proyectos con el cual interactuar."
+				android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+		</LinearLayout>
+
+
+
+		<androidx.appcompat.widget.SearchView
+			android:drawableStart="@drawable/image"
+			android:id="@+id/projectsListFragment_searchView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:defaultQueryHint="Search by course name or code"
+			android:focusable="false"
+			android:layout_margin="@dimen/dimension_2"
+			app:layout_constraintBottom_toTopOf="@id/projectsListFragment_recyclerView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
 
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/projectsListFragment_recyclerView"
 			android:name="com.fiuba.seedyfiuba.projects.view.fragments.ProjectsListFragement"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:clipToPadding="false"
+			android:layout_height="0dp"
 			android:layout_marginHorizontal="@dimen/dimension_2"
+			android:clipToPadding="false"
 			app:layoutManager="LinearLayoutManager"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/projectsListFragment_searchView"
 			tools:context=".projects.view.fragments.ProjectsListFragment"
 			tools:listitem="@layout/fragment_projects_item" />
 

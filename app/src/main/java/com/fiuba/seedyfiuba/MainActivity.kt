@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.home.view.activities.HomeActivity
 import com.fiuba.seedyfiuba.login.LoginContainer
 import com.fiuba.seedyfiuba.login.domain.Session
@@ -37,8 +38,10 @@ class MainActivity : AppCompatActivity() {
 		session.observe(this, Observer {
 			runOnUiThread {
 				it?.let {
+					AuthenticationManager.initialize(it)
 					val intent = Intent(this, HomeActivity::class.java)
 					startActivity(intent)
+					finish()
 				} ?: run {
 					val intent = Intent(this, LoginActivity::class.java)
 					resultLauncher.launch(intent)

@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.storage.FirebaseStorage
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].
@@ -29,18 +27,18 @@ class ProjectsRecyclerViewAdapter(
 
 	override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
 		val item = values[position]
-		item.mediaUrls.firstOrNull()?.let { url ->
+		/*item.mediaUrls.firstOrNull()?.let { url ->
 			FirebaseStorage.getInstance()
 				.getReferenceFromUrl(url).downloadUrl.addOnSuccessListener {
 				Glide.with(holder.itemView.context)
 					.load(it)
 					.into(holder.mediaImageView)
 			}
-		}
+		}*/
 
 		holder.titleTextView.text = item.title
 		holder.descriptionTextView.text = item.description
-		holder.typeTextView.text = item.type.value
+		//holder.typeTextView.text = item.type.value
 
 		holder.editButton.setOnClickListener { listener.onEdit(position) }
 		holder.deleteButton.setOnClickListener { listener.onDeleted(position) }

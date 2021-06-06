@@ -7,7 +7,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UserDTO(
-	val userId: String?,
+	@SerializedName("id")
+	val userId: Int?,
 	val name: String,
 	val lastName: String?,
 	val email: String?,

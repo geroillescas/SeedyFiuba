@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RestClient {
-	private var retrofit: Retrofit? = null
 
 
 	private const val DEAULT_TIMEOUT = 20
@@ -24,7 +23,7 @@ object RestClient {
 		return Interceptor { chain ->
 			val builder = chain.request().newBuilder()
 			for ((key, value) in headers) {
-				builder.header(key, value)
+				builder.addHeader(key, value)
 			}
 			chain.proceed(builder.build())
 		}
@@ -34,9 +33,11 @@ object RestClient {
 		val clientBuilder = OkHttpClient.Builder()
 
 		if (BuildConfig.DEBUG) {
-			val interceptor = HttpLoggingInterceptor()
-			interceptor.level = HttpLoggingInterceptor.Level.BODY
-			clientBuilder.addInterceptor(interceptor)
+			val bodyInterceptor = HttpLoggingInterceptor().apply {
+				level = HttpLoggingInterceptor.Level.BODY
+			}
+
+			clientBuilder.addInterceptor(bodyInterceptor)
 		}
 
 		if (headers.isNotEmpty()) {
@@ -47,7 +48,7 @@ object RestClient {
 			)
 		}
 		return clientBuilder
-			.readTimeout(timeout.toLong(), TimeUnit.SECONDS)
+			.writeTimeout(timeout.toLong(), TimeUnit.SECONDS)
 			.connectTimeout(
 				timeout.toLong(),
 				TimeUnit.SECONDS
@@ -71,18 +72,20 @@ object RestClient {
 		val gson = getGson()
 		val okHttpClient =
 			getClient(timeout, headers)
-		if (retrofit == null) {
-			retrofit = Retrofit.Builder()
-				.baseUrl(url)
-				.client(okHttpClient)
-				.addConverterFactory(
-					GsonConverterFactory.create(
-						gson
-					)
+		return Retrofit.Builder()
+			.baseUrl(url)
+			.client(okHttpClient)
+			.addConverterFactory(
+				GsonConverterFactory.create(
+					gson
 				)
-				.build()
-		}
+			)
+			.build().create(serviceClass)
+	}
 
-		return retrofit!!.create(serviceClass)
+
+	fun getAuthHeaders(): Map<String, String> {
+		val session = AuthenticationManager.session!!
+		return mapOf("X-Auth-Token" to session.token, "X-Override-Token" to "true")
 	}
 }

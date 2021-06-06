@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="BottomSheet" parent="@style/Theme.MaterialComponents.BottomSheetDialog" tools:ignore="ResourceName">
+        <item name="android:background">@drawable/modal_background</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.MaterialComponents.DayNight.DarkActionBar" tools:ignore="ResourceName">
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+</resources>

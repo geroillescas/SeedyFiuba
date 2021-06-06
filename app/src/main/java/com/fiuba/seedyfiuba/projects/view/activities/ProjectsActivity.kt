@@ -31,6 +31,13 @@ class ProjectsActivity : BaseActivity(), FragmentResultListener {
 		return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
 	}
 
+	override fun onBackPressed() {
+		if (supportFragmentManager.backStackEntryCount > 0) {
+			supportFragmentManager.popBackStack()
+		} else {
+			super.onBackPressed();
+		}
+	}
 
 	companion object {
 		const val FR_SHOW_LOADING = "FR_SHOW_LOADING"

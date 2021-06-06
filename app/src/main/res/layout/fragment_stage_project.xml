@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+		<variable
+			name="viewmodel"
+			type="com.fiuba.seedyfiuba.projects.viewmodel.StageProjectViewModel" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/list"
+			android:name="com.fiuba.seedyfiuba.projects.view.fragments.StageProjectFragment"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_marginHorizontal="@dimen/dimension_2"
+			app:layoutManager="LinearLayoutManager"
+			app:layout_constraintBottom_toTopOf="@+id/stageProjectFragment_track_container"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:context=".projects.view.fragments.StageProjectFragment"
+			tools:layout_height="450dp"
+			tools:listitem="@layout/fragment_stage_project_item" />
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/stageProjectFragment_track_container"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="@dimen/dimension_3"
+			android:layout_marginVertical="@dimen/dimension_2"
+			android:hint="Titulo de la etapa"
+			app:errorEnabled="true"
+			app:helperText="Ingresa un titulo para la nueva etapa. No puede estar vacio."
+			app:layout_constraintBottom_toTopOf="@+id/stageProjectFragment_amount_container"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/stageProjectFragment_track_container_input"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:imeOptions="actionNext"
+				android:selectAllOnFocus="true"
+				tools:text="dfgodfg" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/stageProjectFragment_amount_container"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="@dimen/dimension_3"
+			android:layout_marginVertical="@dimen/dimension_2"
+			android:hint="Monto"
+			app:errorEnabled="true"
+			app:helperText="Ingresa un monto  mayor a cero."
+			app:layout_constraintBottom_toTopOf="@id/stageProjectFragment_continue_button"
+			app:layout_constraintEnd_toStartOf="@+id/stageProjectFragment_add_stage"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintHorizontal_chainStyle="spread_inside"
+			app:layout_constraintStart_toStartOf="parent">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/stageProjectFragment_amount_container_input"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:imeOptions="actionDone"
+				android:inputType="numberDecimal"
+				android:selectAllOnFocus="true"
+				tools:text="12.34" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<ImageButton
+			android:id="@+id/stageProjectFragment_add_stage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/dimension_3"
+			android:src="@drawable/add"
+			app:layout_constraintBottom_toBottomOf="@+id/stageProjectFragment_amount_container"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/stageProjectFragment_amount_container"
+			app:layout_constraintTop_toTopOf="@+id/stageProjectFragment_amount_container"
+			tools:ignore="ContentDescription" />
+
+		<Button
+			android:id="@+id/stageProjectFragment_continue_button"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension_2"
+			android:enabled="false"
+			android:text="Crear projecto"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

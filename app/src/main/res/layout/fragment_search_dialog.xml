@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<LinearLayout
+		android:id="@+id/list"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:clipToPadding="false"
+		android:orientation="vertical"
+		android:paddingHorizontal="@dimen/dimension"
+		tools:context=".projects.view.fragments.SearchDialogFragment">
+
+		<TextView
+			android:id="@+id/searchDialogFragment_typeDescriptionTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:text="Selecciona el tipo de proyecto por el cual quieres hacer la busqueda"
+			app:layout_constraintBottom_toTopOf="@id/searchDialogFragment_typeSpinnerView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/searchDialogFragment_typeSpinnerView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:entries="@array/projectTypeOptionsSearch"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/searchDialogFragment_typeDescriptionTextView" />
+
+		<TextView
+			android:id="@+id/searchDialogFragment_stepsDescriptionTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:text="Selecciona la etapa de un proyecto por el cual quieres hacer la busqueda"
+			app:layout_constraintBottom_toTopOf="@id/searchDialogFragment_stepsSpinnerView"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/searchDialogFragment_typeSpinnerView" />
+
+		<androidx.appcompat.widget.AppCompatSpinner
+			android:id="@+id/searchDialogFragment_stepsSpinnerView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:entries="@array/stepsOptionsSearch"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/searchDialogFragment_stepsDescriptionTextView" />
+
+		<TextView
+			android:id="@+id/searchDialogFragment_hashtagsLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:text="Ingresa un hashhtag para buscar los proyectos con esta "
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/searchDialogFragment_stepsSpinnerView" />
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/searchDialogFragment_hashtagsInput"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:hint="Hashtags"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/searchDialogFragment_hashtagsLayout" />
+
+		<CheckBox
+			android:id="@+id/searchDialogFragment_locationCheckbox"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dimension"
+			android:text="Filtrar por proyectos cercanos a ti" />
+
+
+		<Button
+			android:id="@+id/searchDialogFragment_continueButton"
+			android:layout_margin="@dimen/dimension"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Buscar proyectos" />
+
+	</LinearLayout>
+</layout>

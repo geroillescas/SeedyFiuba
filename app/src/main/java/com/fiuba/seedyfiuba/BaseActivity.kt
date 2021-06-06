@@ -147,6 +147,7 @@ open class BaseActivity : AppCompatActivity() {
 				R.id.projects -> {
 					val intent = Intent(this, ProjectsActivity::class.java)
 					startActivity(intent)
+					closeDrawer()
 				}
 
 				R.id.logout -> {

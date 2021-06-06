@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="stepsOptionsSearch">
+		<item>Ninguno</item>
+		<item>Iniciado</item>
+		<item>A espera de veeduria</item>
+		<item>Terminado</item>
+	</string-array>
+</resources>
