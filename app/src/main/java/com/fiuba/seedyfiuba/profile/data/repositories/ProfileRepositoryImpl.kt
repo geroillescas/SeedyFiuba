@@ -3,9 +3,6 @@ package com.fiuba.seedyfiuba.profile.data.repositories
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
 import com.fiuba.seedyfiuba.profile.domain.Profile
-import com.fiuba.seedyfiuba.projects.data.datasources.ProjectRemoteDataSource
-import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.view.fragments.SearchForm
 
 /**
  * Class that requests authentication and user information from the remote data source and
