@@ -5,6 +5,7 @@
 	<string name="title_activity_register">Registrate!</string>
 	<string name="title_activity_login">Iniciar sesión</string>
 	<string name="title_activity_projects">Proyectos</string>
+	<string name="title_activity_profile">Mi perfil</string>
 	<!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

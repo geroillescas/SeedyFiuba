@@ -36,7 +36,9 @@
 		<activity
 			android:name=".login.view.activities.LoginActivity"
 			android:label="@string/title_activity_login" />
-
+		<activity
+			android:name=".profile.view.activities.ProfileActivity"
+			android:label="@string/title_activity_profile" />
 		<activity
 			android:name=".projects.view.activities.ProjectsActivity"
 			android:label="@string/title_activity_projects" />
