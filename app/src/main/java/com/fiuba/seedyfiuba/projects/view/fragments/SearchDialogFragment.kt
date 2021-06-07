@@ -16,6 +16,7 @@ import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.databinding.FragmentSearchDialogBinding
 import com.fiuba.seedyfiuba.login.domain.ProjectType
 import com.fiuba.seedyfiuba.projects.domain.ProjectStatus
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -156,9 +157,3 @@ class SearchDialogFragment(val listener: SearchDialogFragmentListener) :
 	}
 }
 
-data class SearchForm(
-	val hashtag: String? = null,
-	val projectType: ProjectType? = null,
-	val projectStatus: ProjectStatus? = null,
-	val location: Location? = null
-)

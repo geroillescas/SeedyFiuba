@@ -1,4 +1,4 @@
-package com.fiuba.seedyfiuba.projects.view.fragments
+package com.fiuba.seedyfiuba.projects.view.adapters
 
 import android.view.LayoutInflater
 import android.view.MotionEvent

@@ -8,7 +8,7 @@ import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.domain.ProjectRequestDTO
 import com.fiuba.seedyfiuba.projects.domain.ProjectUpdateDTO
 import com.fiuba.seedyfiuba.projects.framework.requestmanager.api.ProjectApi
-import com.fiuba.seedyfiuba.projects.view.fragments.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.

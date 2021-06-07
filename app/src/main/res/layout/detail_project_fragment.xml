@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="viewmodel"
+			type="com.fiuba.seedyfiuba.projects.viewmodel.DetailProjectViewModel" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".projects.view.fragments.AbstractProjectFragment">
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintBottom_toTopOf="@+id/fragmentDetailProject_continue_button_container"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:orientation="vertical"
+				tools:context=".projects.view.fragments.AbstractProjectFragment">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/fragmentDetailProject_images"
+					android:layout_width="match_parent"
+					android:layout_height="160dp"
+					android:background="@color/primaryVariant"
+					android:orientation="horizontal"
+					android:overScrollMode="never"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					tools:listitem="@layout/fragment_projects_image_preview" />
+
+
+				<TextView
+					android:id="@+id/abstractProjectFragment_title_container"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_3"
+					android:layout_marginVertical="@dimen/dimension"
+					android:text="@{viewmodel.project.title}"
+					android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+					app:errorEnabled="true"
+					app:helperText="Ayudara a los demas a identificar. No puede estar vacio." />
+
+
+				<TextView
+					android:id="@+id/abstractProjectFragment_description_container"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_3"
+					android:layout_marginVertical="@dimen/dimension"
+					android:text="@{viewmodel.project.description}"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+
+				<TextView
+					android:id="@+id/abstractProjectFragment_hashtags_container"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_3"
+					android:layout_marginTop="@dimen/dimension"
+					android:text="Hashtags asociados"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+				<TextView
+					android:id="@+id/abstractProjectFragment_hashtags_label"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_3"
+					android:layout_marginVertical="@dimen/dimension"
+					android:text="@{viewmodel.getHasthtags()}"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+
+				<TextView
+					android:id="@+id/abstractProjectFragment_type_label"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_3"
+					android:layout_marginVertical="@dimen/dimension"
+					android:text="@{viewmodel.project.type.value}"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+
+				<TextView
+					android:id="@+id/abstractProjectFragment_date_label"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_3"
+					android:layout_marginVertical="@dimen/dimension"
+					android:text="@{viewmodel.getDate()}"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_3"
+					android:layout_marginVertical="@dimen/dimension"
+					android:text="Etapas"
+					android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/fragmentDetailProject_stages"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginHorizontal="@dimen/dimension_2"
+					app:layoutManager="LinearLayoutManager"
+					tools:layout_height="450dp"
+					tools:listitem="@layout/fragment_stage_project_item_small" />
+			</LinearLayout>
+
+		</ScrollView>
+
+		<FrameLayout
+			android:id="@+id/fragmentDetailProject_continue_button_container"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/white"
+			android:elevation="@dimen/dimension_3"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent">
+
+			<Button
+				android:id="@+id/fragmentDetailProject_edit_button"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimension_2"
+				android:text="@string/edit" />
+		</FrameLayout>
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

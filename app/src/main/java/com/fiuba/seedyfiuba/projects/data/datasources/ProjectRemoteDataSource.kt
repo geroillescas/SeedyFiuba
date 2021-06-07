@@ -2,7 +2,7 @@ package com.fiuba.seedyfiuba.projects.data.datasources
 
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.view.fragments.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 
 interface ProjectRemoteDataSource {
 	suspend fun updateProject(project: Project): Result<Project>

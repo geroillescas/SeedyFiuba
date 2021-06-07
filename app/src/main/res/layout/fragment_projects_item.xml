@@ -59,27 +59,29 @@
 		</LinearLayout>
 
 		<!-- Buttons -->
-		<LinearLayout
+		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_margin="@dimen/dimension"
+			android:gravity="fill_horizontal"
 			android:orientation="horizontal">
+
 			<com.google.android.material.button.MaterialButton
 				android:id="@+id/project_item_edit_button"
+				style="?attr/borderlessButtonStyle"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="8dp"
-				style="?attr/borderlessButtonStyle"
-				android:text="@string/edite"
-				/>
+				android:layout_marginEnd="@dimen/dimension"
+				android:layout_alignParentEnd="false"
+				android:text="@string/edite" />
+
 			<com.google.android.material.button.MaterialButton
-				android:id="@+id/project_item_delete_button"
+				android:id="@+id/project_item_detail_button"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				style="?attr/borderlessButtonStyle"
-				android:text="@string/delete"
-				/>
-		</LinearLayout>
+				android:layout_alignParentEnd="true"
+				android:text="Ver detalle" />
+		</RelativeLayout>
 
 	</LinearLayout>
 

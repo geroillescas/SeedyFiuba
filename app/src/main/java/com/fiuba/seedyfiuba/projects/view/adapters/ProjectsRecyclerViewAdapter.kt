@@ -1,4 +1,4 @@
-package com.fiuba.seedyfiuba.projects.view.fragments
+package com.fiuba.seedyfiuba.projects.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
+import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.google.android.material.button.MaterialButton
 
@@ -40,8 +42,13 @@ class ProjectsRecyclerViewAdapter(
 		holder.descriptionTextView.text = item.description
 		//holder.typeTextView.text = item.type.value
 
+		if(AuthenticationManager.session?.user?.profileType == ProfileType.PATROCINADOR) {
+			holder.editButton.text = "Patrocinar"
+			holder.editButton.isEnabled = false
+		}
+
 		holder.editButton.setOnClickListener { listener.onEdit(position) }
-		holder.deleteButton.setOnClickListener { listener.onDeleted(position) }
+		holder.detailButton.setOnClickListener { listener.onDetail(position) }
 	}
 
 	override fun getItemCount(): Int = values.size
@@ -57,11 +64,11 @@ class ProjectsRecyclerViewAdapter(
 		val typeTextView: TextView = view.findViewById(R.id.project_item_type)
 		val mediaImageView: ImageView = view.findViewById(R.id.project_item_media)
 		val editButton: MaterialButton = view.findViewById(R.id.project_item_edit_button)
-		val deleteButton: MaterialButton = view.findViewById(R.id.project_item_delete_button)
+		val detailButton: MaterialButton = view.findViewById(R.id.project_item_detail_button)
 	}
 
 	interface ProjectViewHolderListener {
-		fun onDeleted(position: Int)
+		fun onDetail(position: Int)
 		fun onEdit(position: Int)
 	}
 }
