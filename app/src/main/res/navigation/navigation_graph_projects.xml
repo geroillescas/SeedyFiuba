@@ -18,6 +18,10 @@
 			android:id="@+id/action_projectsListFragment_to_createProjectFragment"
 			app:destination="@id/createProjectFragment"
 			app:popUpTo="@id/projectsListFragment" />
+		<action
+			android:id="@+id/action_projectsListFragment_to_detailProjectFragment"
+			app:destination="@id/detailProjectFragment"
+			app:popUpTo="@id/projectsListFragment" />
 	</fragment>
 
 	<fragment
@@ -44,6 +48,15 @@
 			android:id="@+id/action_stageProjectFragment_to_projectsListFragment"
 			app:destination="@id/projectsListFragment"
 			app:launchSingleTop="true" />
+	</fragment>
+	<fragment
+		android:id="@+id/detailProjectFragment"
+		android:name="com.fiuba.seedyfiuba.projects.view.fragments.DetailProjectFragment"
+		android:label="DetailProjectFragment" >
+		<action
+			android:id="@+id/action_detailProjectFragment_to_editProjectFragment"
+			app:destination="@id/editProjectFragment"
+			app:popUpTo="@id/detailProjectFragment" />
 	</fragment>
 
 </navigation>

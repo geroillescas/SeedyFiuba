@@ -26,6 +26,7 @@ import com.fiuba.seedyfiuba.login.domain.ProjectType
 import com.fiuba.seedyfiuba.login.view.activities.afterTextChanged
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
+import com.fiuba.seedyfiuba.projects.view.adapters.ProjectsImageRecyclerViewAdapter
 import com.fiuba.seedyfiuba.projects.viewmodel.EditProjectViewModel
 import com.fiuba.seedyfiuba.projects.viewmodel.EditProjectViewModelFactory
 import com.google.android.material.datepicker.CalendarConstraints
@@ -111,14 +112,16 @@ open class AbstractProjectFragment : Fragment() {
 
 	@SuppressLint("SimpleDateFormat")
 	protected open fun setupView(view: FragmentAbstractProjectBinding) {
-		val adapter = ProjectsImageRecyclerViewAdapter(
-			mediaUrls = editProjectViewModel.project.mediaUrls,
-			listener = object : ProjectsImageRecyclerViewAdapter.ProjectsImageViewHolderListener {
-				override fun onCloseSelected(position: Int) {
-					editProjectViewModel.removeMediaUrlAt(position)
+		val adapter =
+			ProjectsImageRecyclerViewAdapter(
+				mediaUrls = editProjectViewModel.project.mediaUrls,
+				listener = object :
+					ProjectsImageRecyclerViewAdapter.ProjectsImageViewHolderListener {
+					override fun onCloseSelected(position: Int) {
+						editProjectViewModel.removeMediaUrlAt(position)
+					}
 				}
-			}
-		)
+			)
 
 		view.fragmentAbstractProjectImage.adapter = adapter
 		editProjectViewModel.mediaUrls.observe(viewLifecycleOwner, Observer {

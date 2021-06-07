@@ -2,7 +2,7 @@ package com.fiuba.seedyfiuba.projects.usecases
 
 import com.fiuba.seedyfiuba.projects.data.repositories.ProjectsRepository
 import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.view.fragments.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 
 class GetProjectsUseCase(private val projectsRepository: ProjectsRepository) {
 	suspend fun invoke() = projectsRepository.getProjects()

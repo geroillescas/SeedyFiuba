@@ -5,7 +5,7 @@ import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.projects.data.datasources.ProjectRemoteDataSource
 import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.view.fragments.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 import com.google.gson.Gson
 
 class ProjectsLocalDataSourceImpl(private val sharedPreferences: SharedPreferences) :

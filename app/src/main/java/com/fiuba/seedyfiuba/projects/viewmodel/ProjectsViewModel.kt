@@ -7,7 +7,7 @@ import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.usecases.GetProjectsUseCase
 import com.fiuba.seedyfiuba.projects.usecases.SearchProjectsUseCase
-import com.fiuba.seedyfiuba.projects.view.fragments.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 
 class ProjectsViewModel(
 	private val getProjectsUseCase: GetProjectsUseCase,

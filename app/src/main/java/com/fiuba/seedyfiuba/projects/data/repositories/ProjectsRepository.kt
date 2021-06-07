@@ -3,7 +3,7 @@ package com.fiuba.seedyfiuba.projects.data.repositories
 
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.view.fragments.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 
 interface ProjectsRepository {
 	suspend fun updateProject(project: Project): Result<Project>

@@ -17,6 +17,7 @@ import com.fiuba.seedyfiuba.databinding.FragmentStageProjectBinding
 import com.fiuba.seedyfiuba.login.view.activities.afterTextChanged
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.domain.Stages
+import com.fiuba.seedyfiuba.projects.view.adapters.StageProjectsViewAdapter
 import com.fiuba.seedyfiuba.projects.view.fragments.AbstractProjectFragment.Companion.ARG_PROJECT
 import com.fiuba.seedyfiuba.projects.view.helpers.TouchHelper
 import com.fiuba.seedyfiuba.projects.viewmodel.StageProjectViewModel
@@ -85,20 +86,23 @@ class StageProjectFragment : Fragment() {
 
 			with(list) {
 				layoutManager = LinearLayoutManager(context)
-				stagesAdapter = StageProjectsViewAdapter(listOf(), object :
-					StageProjectsViewAdapter.StagesActionListener {
-					override fun onStagesReordered(stages: List<Stages>) {
-						stageProjectViewModel.reorderStages(stages)
-					}
+				stagesAdapter =
+					StageProjectsViewAdapter(
+						listOf(),
+						object :
+							StageProjectsViewAdapter.StagesActionListener {
+							override fun onStagesReordered(stages: List<Stages>) {
+								stageProjectViewModel.reorderStages(stages)
+							}
 
-					override fun onStagesDropped(position: Int) {
-						stageProjectViewModel.stagesDrop(position)
-					}
+							override fun onStagesDropped(position: Int) {
+								stageProjectViewModel.stagesDrop(position)
+							}
 
-					override fun onDragStarted(view: StageProjectsViewAdapter.ViewHolder) {
-						itemTouchHelper.startDrag(view)
-					}
-				})
+							override fun onDragStarted(view: StageProjectsViewAdapter.ViewHolder) {
+								itemTouchHelper.startDrag(view)
+							}
+						})
 
 				val callbacks = TouchHelper(stagesAdapter)
 				itemTouchHelper = ItemTouchHelper(callbacks)

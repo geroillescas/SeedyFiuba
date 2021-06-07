@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.databinding.FragmentProjectsListBinding
+import com.fiuba.seedyfiuba.projects.domain.SearchForm
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
+import com.fiuba.seedyfiuba.projects.view.adapters.ProjectsRecyclerViewAdapter
 import com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModel
 import com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModelFactory
 
@@ -29,7 +31,11 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 	private var columnCount = 1
 	private lateinit var binding: FragmentProjectsListBinding
 
-	private val adapter = ProjectsRecyclerViewAdapter(listOf(), this)
+	private val adapter =
+		ProjectsRecyclerViewAdapter(
+			listOf(),
+			this
+		)
 
 	private val projectViewModel by lazy {
 		ViewModelProvider(this, ProjectsViewModelFactory()).get(ProjectsViewModel::class.java)
@@ -115,8 +121,13 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 		const val ARG_COLUMN_COUNT = "column-count"
 	}
 
-	override fun onDeleted(position: Int) {
-
+	override fun onDetail(position: Int) {
+		projectViewModel.projects.value?.getOrNull(position)?.let {
+			val bundle = Bundle().apply {
+				putParcelable(DetailProjectFragment.ARG_PROJECT, it)
+			}
+			findNavController().navigate(R.id.detailProjectFragment, bundle)
+		}
 	}
 
 	override fun onEdit(position: Int) {
