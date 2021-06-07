@@ -8,5 +8,5 @@ data class SearchForm(
     val hashtag: String? = null,
     val projectType: ProjectType? = null,
     val projectStatus: ProjectStatus? = null,
-    val location: Location? = null
+    val location: LocationProject? = null
 )

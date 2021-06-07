@@ -67,8 +67,8 @@ class ProjectsRemoteDataSourceImpl(private val projectApi: ProjectApi) : RemoteB
 				hashtag,
 				searchForm.projectType?.name?.toLowerCase(),
 				searchForm.projectStatus?.name?.toLowerCase(),
-				searchForm.location?.latitude,
-				searchForm.location?.longitude
+				searchForm.location?.x?.toDouble(),
+				searchForm.location?.y?.toDouble()
 			)
 		}.let {
 			when (val result = it) {
