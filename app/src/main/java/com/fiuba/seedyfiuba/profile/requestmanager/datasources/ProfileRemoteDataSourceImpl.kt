@@ -1,5 +1,6 @@
 package com.fiuba.seedyfiuba.profile.requestmanager.datasources
 
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
@@ -14,7 +15,12 @@ class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi) : RemoteBa
 	ProfileRemoteDataSource {
 
 	override suspend fun getProfile(): Result<Profile> {
-		TODO("Not yet implemented")
+		val userId = AuthenticationManager.session!!.user.userId
+		return getResult {
+			profileApi.getProfile(
+				userId = userId
+			)
+		}
 	}
 
 	override suspend fun getAllProfile(): Result<ProfilesListResponse> {
@@ -24,9 +30,14 @@ class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi) : RemoteBa
 	}
 
 	override suspend fun saveProfile(profile: Profile): Result<Profile> {
-		TODO("Not yet implemented")
+		val userId = AuthenticationManager.session!!.user.userId
+		return getResult {
+			profileApi.saveProfile(
+				userId = userId,
+				profile = profile
+			)
+		}
 	}
-
 }
 
 

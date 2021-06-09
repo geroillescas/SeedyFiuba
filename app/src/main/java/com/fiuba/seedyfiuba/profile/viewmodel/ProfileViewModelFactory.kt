@@ -6,6 +6,7 @@ import com.fiuba.seedyfiuba.profile.ProfileContainer
 import com.fiuba.seedyfiuba.profile.usecases.GetAllProfilesUseCase
 import com.fiuba.seedyfiuba.profile.usecases.GetProfileUseCase
 import com.fiuba.seedyfiuba.profile.usecases.SaveProfileUseCase
+import com.fiuba.seedyfiuba.profile.usecases.UpdateProfileUseCase
 import com.fiuba.seedyfiuba.projects.ProjectsContainer
 import com.fiuba.seedyfiuba.projects.usecases.SaveProjectUseCase
 import com.fiuba.seedyfiuba.projects.usecases.UpdateProjectUseCase

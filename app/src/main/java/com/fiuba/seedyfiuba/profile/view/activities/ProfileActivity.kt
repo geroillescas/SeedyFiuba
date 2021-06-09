@@ -1,6 +1,7 @@
 package com.fiuba.seedyfiuba.profile.view.activities
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -13,13 +14,16 @@ import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.profile.viewmodel.ProfileViewModel
 import com.fiuba.seedyfiuba.profile.viewmodel.ProfileViewModelFactory
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.activity_profile.*
 
 
 class ProfileActivity : BaseActivity() {
-	private lateinit var name: View
-	private lateinit var role: View
-	private lateinit var email: View
-	private lateinit var description: TextInputEditText
+	private lateinit var name: TextView
+	private lateinit var role: TextView
+	private lateinit var email: TextView
+	private lateinit var description: TextView
+	private lateinit var descriptionInput: TextInputEditText
+	private lateinit var editButton: Button
 
 	private val profileViewModel by lazy {
 		ViewModelProvider(this, ProfileViewModelFactory()).get(ProfileViewModel::class.java)
@@ -32,10 +36,11 @@ class ProfileActivity : BaseActivity() {
 
 		setActionBarMode(ActionBarMode.Back)
 
-		findViewById<Button>(R.id.button).setOnClickListener{
-			findViewById<TextView>(R.id.profile_name).text= findViewById<TextInputEditText>(R.id.profile_description).text.toString()
+		editButton.setOnClickListener{
+			profileViewModel.saveProfile(description = descriptionInput.text.toString())
 		}
 
+		profileViewModel.getProfile()
 	}
 
 	private fun setupObservers() {
@@ -47,6 +52,13 @@ class ProfileActivity : BaseActivity() {
 			}
 		})
 
+		profileViewModel.profileLiveData.observe(this, Observer {
+			name.text = "${it.name} ${it.lastName}"
+			role.text = it.role.name
+			email.text = it.email
+			description.text = it.description
+			descriptionInput.text?.clear()
+		})
 	}
 
 	private fun setupView() {
@@ -54,6 +66,8 @@ class ProfileActivity : BaseActivity() {
 		role = findViewById(R.id.profile_role)
 		email = findViewById(R.id.profile_email)
 		description = findViewById(R.id.profile_description)
+		descriptionInput = findViewById(R.id.profile_description_input)
+		editButton = findViewById(R.id.profileActivity_button)
 	}
 
 	override var layoutResource: Int = R.layout.activity_profile
