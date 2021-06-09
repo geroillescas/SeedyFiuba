@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.profile.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.seedyfiuba.BaseViewModel
+import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.profile.usecases.GetAllProfilesUseCase
 import com.fiuba.seedyfiuba.profile.usecases.GetProfileUseCase
@@ -23,6 +24,17 @@ class ProfileViewModel(
 	private val _profileList = MutableLiveData<List<Profile>>()
 	val profileListLiveData: LiveData<List<Profile>> = _profileList
 
+	fun getListProfiles() {
+		launch {
+			when(val result = getAllProfilesUseCase.invoke()){
+				is Result.Success -> {
+					_profileList.postValue(result.data)
+				}
 
-
+				is Result.Error -> {
+					_error.postValue(true)
+				}
+			}
+		}
+	}
 }
