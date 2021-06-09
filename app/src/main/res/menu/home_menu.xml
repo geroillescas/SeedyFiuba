@@ -4,6 +4,10 @@
 	<item
 		android:id="@+id/account"
 		android:title="Mi cuenta" />
+
+	<item
+		android:id="@+id/accounts"
+		android:title="Otros perfiles" />
 	<item
 		android:id="@+id/projects"
 		android:title="Proyectos" />

@@ -17,7 +17,10 @@ class ProfileRepositoryImpl(
 	}
 
 	override suspend fun getAllProfile(): Result<List<Profile>> {
-		return remoteDataSource.getAllProfile()
+		return when (val result = remoteDataSource.getAllProfile()) {
+			is Result.Success -> Result.Success(result.data.users)
+			is Result.Error -> result
+		}
 	}
 
 	override suspend fun saveProfile(profile: Profile): Result<Profile> {
