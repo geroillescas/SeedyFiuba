@@ -8,4 +8,5 @@ interface ProfileRepository {
 	suspend fun getProfile(): Result<Profile>
 	suspend fun getAllProfile(): Result<List<Profile>>
 	suspend fun saveProfile(profile: Profile): Result<Profile>
+	suspend fun updateProfile(profile: Profile): Result<Profile>
 }

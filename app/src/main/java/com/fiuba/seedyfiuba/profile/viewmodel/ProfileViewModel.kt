@@ -8,6 +8,7 @@ import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.profile.usecases.GetAllProfilesUseCase
 import com.fiuba.seedyfiuba.profile.usecases.GetProfileUseCase
 import com.fiuba.seedyfiuba.profile.usecases.SaveProfileUseCase
+import com.fiuba.seedyfiuba.profile.usecases.UpdateProfileUseCase
 import com.fiuba.seedyfiuba.projects.domain.EditFormState
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.google.firebase.storage.FirebaseStorage
@@ -16,7 +17,8 @@ import com.google.firebase.storage.FirebaseStorage
 class ProfileViewModel(
 	private val getAllProfilesUseCase: GetAllProfilesUseCase,
 	private val getProfileUseCase: GetProfileUseCase,
-	private val saveProfileUseCase: SaveProfileUseCase
+	private val saveProfileUseCase: SaveProfileUseCase,
+	private val updateProfileUseCase: UpdateProfileUseCase
 ) : BaseViewModel() {
 	private val _profile = MutableLiveData<Profile>()
 	val profileLiveData: LiveData<Profile> = _profile

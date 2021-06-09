@@ -60,7 +60,7 @@ class RegisterActivity : BaseActivity() {
 	}
 
 	private fun setupView() {
-		name = findViewById(R.id.name_register)
+		name = findViewById(R.id.profile_description)
 		lastname = findViewById(R.id.lastname_register)
 		email = findViewById(R.id.email_register)
 		password = findViewById(R.id.password_register)

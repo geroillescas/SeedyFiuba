@@ -11,6 +11,7 @@ data class Profile(
 	val name: String,
 	val lastName: String,
 	val email: String,
+	val password: String?,
 	val role: ProfileType,
 	val description: String?
 ) : Parcelable

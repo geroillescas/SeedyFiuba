@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
 	<TextView
-		android:id="@+id/textView4"
+		android:id="@+id/profile_name"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Daniel bizar"
@@ -17,6 +17,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
+		android:id="@+id/profile_email"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="28dp"
@@ -24,10 +25,10 @@
 		android:textAppearance="@style/TextAppearance.AppCompat.Display1"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView3" />
+		app:layout_constraintTop_toBottomOf="@+id/profile_role" />
 
 	<TextView
-		android:id="@+id/textView3"
+		android:id="@+id/profile_role"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="88dp"
@@ -35,7 +36,7 @@
 		android:textAppearance="@style/TextAppearance.AppCompat.Display1"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView4" />
+		app:layout_constraintTop_toBottomOf="@+id/profile_name" />
 
 	<com.google.android.material.textfield.TextInputLayout
 		android:id="@+id/name_register_container"
@@ -48,7 +49,7 @@
 		app:layout_constraintStart_toStartOf="parent">
 
 		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/name_register"
+			android:id="@+id/profile_description"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:maxLength="10"

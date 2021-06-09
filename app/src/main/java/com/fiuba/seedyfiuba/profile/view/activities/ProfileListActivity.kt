@@ -23,12 +23,12 @@ class ProfileListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 		setupView()
-		setuObservers()
+		setupObservers()
 		setActionBarMode(ActionBarMode.Back)
 		profileListViewModel.getListProfiles()
     }
 
-	private fun setuObservers() {
+	private fun setupObservers() {
 		profileListViewModel.showLoading.observe(this, Observer {
 			if(it){
 				setViewState(ViewState.Loading)
