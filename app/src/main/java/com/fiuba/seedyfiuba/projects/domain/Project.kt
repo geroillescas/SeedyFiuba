@@ -73,6 +73,6 @@ data class Stages(
 
 @Parcelize
 data class LocationProject(
-	val x: BigDecimal = BigDecimal.ZERO,
-	val y: BigDecimal = BigDecimal.ZERO
+	var x: BigDecimal = BigDecimal.ZERO,
+	var y: BigDecimal = BigDecimal.ZERO
 ) : Parcelable

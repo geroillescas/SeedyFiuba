@@ -82,6 +82,37 @@
 			android:text="Filtrar por proyectos cercanos a ti" />
 
 
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/relativeLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/searchDialogFragment_latitude"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimension"
+				android:hint="Latitud"
+				android:inputType="numberDecimal"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@+id/searchDialogFragment_longitude"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/searchDialogFragment_longitude"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimension"
+				android:hint="Longitud"
+				android:inputType="numberDecimal"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@+id/searchDialogFragment_latitude"
+				app:layout_constraintTop_toTopOf="parent" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
 		<Button
 			android:id="@+id/searchDialogFragment_continueButton"
 			android:layout_margin="@dimen/dimension"

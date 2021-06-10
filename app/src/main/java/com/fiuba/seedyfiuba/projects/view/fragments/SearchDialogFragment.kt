@@ -13,13 +13,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.commons.convertToBigDecimal
 import com.fiuba.seedyfiuba.databinding.FragmentSearchDialogBinding
 import com.fiuba.seedyfiuba.login.domain.ProjectType
+import com.fiuba.seedyfiuba.login.view.activities.afterTextChanged
+import com.fiuba.seedyfiuba.projects.domain.LocationProject
 import com.fiuba.seedyfiuba.projects.domain.ProjectStatus
 import com.fiuba.seedyfiuba.projects.domain.SearchForm
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.math.BigDecimal
 
 /**
  *
@@ -37,6 +41,7 @@ class SearchDialogFragment(val listener: SearchDialogFragmentListener) :
 	private lateinit var fusedLocationClient: FusedLocationProviderClient
 	private lateinit var checkLocationPermission: ActivityResultLauncher<Array<String>>
 	private var searchForm = SearchForm()
+	private var locationProject = LocationProject()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -73,7 +78,11 @@ class SearchDialogFragment(val listener: SearchDialogFragmentListener) :
 			return
 		}
 		fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-			location?.let { searchForm = searchForm.copy(location = it) }
+			location?.let {
+				locationProject.x = location.latitude.toBigDecimal()
+				locationProject.y = location.longitude.toBigDecimal()
+				searchForm = searchForm.copy(location = locationProject)
+			}
 			listener.searchWith(searchForm)
 			dismiss()
 		}
@@ -135,14 +144,23 @@ class SearchDialogFragment(val listener: SearchDialogFragmentListener) :
 			}
 		}
 
+		binding.searchDialogFragmentLatitude.afterTextChanged {
+			locationProject.x = it.convertToBigDecimal()
+		}
 
+		binding.searchDialogFragmentLongitude.afterTextChanged {
+			locationProject.y = it.convertToBigDecimal()
+		}
 
 		binding.searchDialogFragmentContinueButton.setOnClickListener {
 			searchForm =
 				searchForm.copy(hashtag = binding.searchDialogFragmentHashtagsInput.text.toString())
-			if (binding.searchDialogFragmentLocationCheckbox.isSelected) {
+			if (binding.searchDialogFragmentLocationCheckbox.isChecked) {
 				search()
 			} else {
+				if(locationProject.x + locationProject.y != BigDecimal.ZERO ){
+					searchForm = searchForm.copy(location = locationProject)
+				}
 				listener.searchWith(searchForm)
 				dismiss()
 			}
