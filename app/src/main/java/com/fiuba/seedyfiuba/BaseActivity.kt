@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.fiuba.seedyfiuba.login.LoginContainer
+import com.fiuba.seedyfiuba.profile.view.activities.ProfileActivity
+import com.fiuba.seedyfiuba.profile.view.activities.ProfileListActivity
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
@@ -144,6 +146,18 @@ open class BaseActivity : AppCompatActivity() {
 	private fun setupNavigationView() {
 		navigationView.setNavigationItemSelectedListener { item ->
 			when (item.itemId) {
+				R.id.account -> {
+					val intent = Intent(this, ProfileActivity::class.java)
+					startActivity(intent)
+					closeDrawer()
+				}
+
+				R.id.accounts -> {
+					val intent = Intent(this, ProfileListActivity::class.java)
+					startActivity(intent)
+					closeDrawer()
+				}
+
 				R.id.projects -> {
 					val intent = Intent(this, ProjectsActivity::class.java)
 					startActivity(intent)

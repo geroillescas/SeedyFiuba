@@ -3,11 +3,12 @@
 	package="com.fiuba.seedyfiuba">
 
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-
 	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.hardware.camera" android:required="true" />
+	<uses-permission
+		android:name="android.hardware.camera"
+		android:required="true" />
 
 	<application
 		android:allowBackup="true"
@@ -15,6 +16,9 @@
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/Theme.SeedyFiuba">
+		<activity
+			android:name=".profile.view.activities.ProfileListActivity"
+			android:label="@string/title_activity_profile_list" />
 
 		<provider
 			android:name="androidx.core.content.FileProvider"
@@ -36,14 +40,15 @@
 		<activity
 			android:name=".login.view.activities.LoginActivity"
 			android:label="@string/title_activity_login" />
-
+		<activity
+			android:name=".profile.view.activities.ProfileActivity"
+			android:label="@string/title_activity_profile" />
 		<activity
 			android:name=".projects.view.activities.ProjectsActivity"
 			android:label="@string/title_activity_projects" />
 		<activity
 			android:name=".home.view.activities.HomeActivity"
-			android:label="@string/title_activity_home"/>
-
+			android:label="@string/title_activity_home" />
 		<activity android:name=".BaseActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
