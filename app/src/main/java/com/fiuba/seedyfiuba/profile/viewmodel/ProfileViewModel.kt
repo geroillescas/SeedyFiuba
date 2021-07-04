@@ -29,7 +29,7 @@ class ProfileViewModel(
 		launch {
 			when(val result = getAllProfilesUseCase.invoke()){
 				is Result.Success -> {
-					_profileList.postValue(result.data!!)
+					_profileList.postValue(result.data)
 				}
 
 				is Result.Error -> {
@@ -50,7 +50,7 @@ class ProfileViewModel(
 		launch {
 			when(val result = getProfileUseCase.invoke()){
 				is Result.Success -> {
-					_profile.postValue(result.data!!)
+					_profile.postValue(result.data)
 				}
 
 				is Result.Error -> {

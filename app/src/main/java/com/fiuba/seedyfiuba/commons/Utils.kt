@@ -7,8 +7,8 @@ import com.fiuba.seedyfiuba.login.framework.requestmanager.dto.ErrorBodyDto
 
 private const val INTERNAL = "INTERNAL"
 
-sealed class Result<out T : Any?> {
-	data class Success<out T : Any?>(val data: T) : Result<T>()
+sealed class Result<out T : Any> {
+	data class Success<out T : Any>(val data: T) : Result<T>()
 	data class Error(val exception: SeedyFiubaError) : Result<Nothing>()
 }
 
