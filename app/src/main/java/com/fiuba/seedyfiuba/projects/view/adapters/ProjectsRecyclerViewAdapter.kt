@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.projects.domain.Project
+import com.fiuba.seedyfiuba.projects.domain.ProjectStatus
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.Chip
+import com.google.firebase.storage.FirebaseStorage
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class ProjectsRecyclerViewAdapter(
 	private var values: List<Project>,
 	private val listener: ProjectViewHolderListener
@@ -29,22 +29,52 @@ class ProjectsRecyclerViewAdapter(
 
 	override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
 		val item = values[position]
-		/*item.mediaUrls.firstOrNull()?.let { url ->
+		item.mediaUrls.firstOrNull()?.let { url ->
 			FirebaseStorage.getInstance()
 				.getReferenceFromUrl(url).downloadUrl.addOnSuccessListener {
-				Glide.with(holder.itemView.context)
-					.load(it)
-					.into(holder.mediaImageView)
-			}
-		}*/
+					Glide.with(holder.itemView.context)
+						.load(it)
+						.into(holder.mediaImageView)
+				}
+		}
 
 		holder.titleTextView.text = item.title
 		holder.descriptionTextView.text = item.description
-		//holder.typeTextView.text = item.type.value
+		holder.typeTextView.text = item.type.value
 
-		if(AuthenticationManager.session?.user?.profileType == ProfileType.PATROCINADOR) {
-			holder.editButton.text = "Patrocinar"
-			holder.editButton.isEnabled = false
+		when (AuthenticationManager.session?.user?.profileType) {
+			ProfileType.PATROCINADOR -> {
+				holder.detailButton.text = "Patrocinar"
+				holder.editButton.visibility = View.INVISIBLE
+			}
+
+			ProfileType.VEEDOR -> {
+				if (item.status == ProjectStatus.PENDING_REVIEWER_CONFIRMATION) {
+					holder.pendingReviewerChip.visibility = View.VISIBLE
+				} else {
+					holder.pendingReviewerChip.visibility = View.GONE
+				}
+				holder.editButton.visibility = View.INVISIBLE
+			}
+
+			else -> {
+				if (item.status == ProjectStatus.CREATED) {
+					holder.pendingReviewerChip.visibility = View.VISIBLE
+				} else {
+					holder.pendingReviewerChip.visibility = View.GONE
+				}
+			}
+		}
+
+
+		if (AuthenticationManager.session?.user?.profileType == ProfileType.PATROCINADOR) {
+			holder.detailButton.text = "Patrocinar"
+			holder.editButton.visibility = View.INVISIBLE
+		}
+
+		if (AuthenticationManager.session?.user?.profileType == ProfileType.VEEDOR) {
+			holder.detailButton.text = "Aceptar veeduria"
+			holder.editButton.visibility = View.INVISIBLE
 		}
 
 		holder.editButton.setOnClickListener { listener.onEdit(position) }
@@ -65,6 +95,7 @@ class ProjectsRecyclerViewAdapter(
 		val mediaImageView: ImageView = view.findViewById(R.id.project_item_media)
 		val editButton: MaterialButton = view.findViewById(R.id.project_item_edit_button)
 		val detailButton: MaterialButton = view.findViewById(R.id.project_item_detail_button)
+		val pendingReviewerChip: Chip = view.findViewById(R.id.project_item_status)
 	}
 
 	interface ProjectViewHolderListener {

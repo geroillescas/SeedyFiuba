@@ -56,6 +56,13 @@
 				android:textColor="?android:attr/textColorSecondary"
 				android:textSize="14sp" />
 
+			<com.google.android.material.chip.Chip
+				android:id="@+id/project_item_status"
+				android:layout_marginTop="@dimen/dimension_2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Proyecto pendiente de veedor"/>
+
 		</LinearLayout>
 
 		<!-- Buttons -->

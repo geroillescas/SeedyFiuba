@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
 import com.fiuba.seedyfiuba.profile.data.repositories.ProfileRepository
 import com.fiuba.seedyfiuba.profile.data.repositories.ProfileRepositoryImpl
-import com.fiuba.seedyfiuba.profile.requestmanager.RequestManagerContainer
+import com.fiuba.seedyfiuba.commons.RequestManagerContainer
 import com.fiuba.seedyfiuba.profile.requestmanager.datasources.ProfileRemoteDataSourceImpl
 import com.fiuba.seedyfiuba.profile.usecases.GetAllProfilesUseCase
 import com.fiuba.seedyfiuba.profile.usecases.GetProfileUseCase

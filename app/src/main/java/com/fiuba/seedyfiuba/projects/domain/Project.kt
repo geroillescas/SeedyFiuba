@@ -10,7 +10,6 @@ import java.util.*
 
 @Parcelize
 data class Project(
-	@SerializedName("_id")
 	val id: Int = 0,
 	val title: String,
 	val description: String,
@@ -20,7 +19,8 @@ data class Project(
 	val hashtags: List<String> = listOf(),
 	val mediaUrls: MutableList<String> = mutableListOf(),
 	val stages: List<Stages> = listOf(),
-	val finishDate: Date = Date()
+	val finishDate: Date = Date(),
+	val status: ProjectStatus = ProjectStatus.CREATED
 ) : Serializable, Parcelable {
 	companion object {
 		fun newInstance(): Project {

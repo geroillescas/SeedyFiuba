@@ -37,6 +37,14 @@ open class BaseViewModel(private val dispatcher: CoroutineDispatcher = Dispatche
 		}
 	}
 
+	fun launchWithoutLoading(block: suspend CoroutineScope.() -> Unit) {
+		viewModelScope.launch(dispatcher + coroutineExceptionHandler) {
+			withContext(Dispatchers.IO) {
+				block()
+			}
+		}
+	}
+
 	fun getLocalSession() {
 		launch {
 			_session.postValue(LoginContainer.getSessionUseCase.invoke())

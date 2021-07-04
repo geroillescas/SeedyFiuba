@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.profile.requestmanager.datasources
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.profile.requestmanager.api.ProfileApi
@@ -23,9 +24,15 @@ class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi) : RemoteBa
 		}
 	}
 
-	override suspend fun getAllProfile(): Result<ProfilesListResponse> {
+	override suspend fun getReviewersFilteredBy(profileType: ProfileType, size: Int?, page: Int?): Result<ProfilesListResponse> {
 		return getResult {
-			profileApi.getAllProfile()
+			profileApi.getProfilesFilteredBy(profileType.value)
+		}
+	}
+
+	override suspend fun getAllProfile(size: Int?, page: Int?): Result<ProfilesListResponse> {
+		return getResult {
+			profileApi.getAllProfile(size, page)
 		}
 	}
 

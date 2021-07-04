@@ -3,17 +3,24 @@ package com.fiuba.seedyfiuba.projects.framework.requestmanager.datasources
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
 import com.fiuba.seedyfiuba.projects.data.datasources.ProjectRemoteDataSource
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.domain.ProjectRequestDTO
 import com.fiuba.seedyfiuba.projects.domain.ProjectUpdateDTO
 import com.fiuba.seedyfiuba.projects.framework.requestmanager.api.ProjectApi
 import com.fiuba.seedyfiuba.projects.domain.SearchForm
+import com.fiuba.seedyfiuba.projects.framework.requestmanager.api.MiddleApi
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class ProjectsRemoteDataSourceImpl(private val projectApi: ProjectApi) : RemoteBaseDataSource(),
+class ProjectsRemoteDataSourceImpl(
+	private val projectApi: ProjectApi,
+	private val middleApi: MiddleApi
+) : RemoteBaseDataSource(),
 	ProjectRemoteDataSource {
 	override suspend fun updateProject(project: Project): Result<Project> {
 		val projectRequestDTO = ProjectUpdateDTO(
@@ -77,6 +84,23 @@ class ProjectsRemoteDataSourceImpl(private val projectApi: ProjectApi) : RemoteB
 			}
 		}
 	}
+
+	override suspend fun setReviewer(reviewerPostRequest: ReviewerPostRequest): Result<ReviewerResponse> {
+		return getResult {
+			middleApi.saveReview(reviewerPostRequest)
+		}
+
+	}
+
+	override suspend fun setReviewStatus(
+		reviewerPutRequest: ReviewerPutRequest,
+		reviewId: String
+	): Result<ReviewerResponse> {
+		return getResult {
+			middleApi.updateReview(reviewerPutRequest, reviewId)
+		}
+	}
+
 }
 
 

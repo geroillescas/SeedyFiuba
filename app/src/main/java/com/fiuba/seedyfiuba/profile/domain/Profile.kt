@@ -14,4 +14,7 @@ data class Profile(
 	val password: String?,
 	val role: ProfileType,
 	val description: String?
-) : Parcelable
+) : Parcelable {
+	fun getInitials(): String = "${name.first().toUpperCase()}${lastName.first().toUpperCase()}"
+	fun getFullName(): String = "$name $lastName"
+}
