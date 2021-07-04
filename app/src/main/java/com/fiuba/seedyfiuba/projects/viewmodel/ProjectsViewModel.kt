@@ -23,7 +23,7 @@ class ProjectsViewModel(
 			when (val result = getProjectsUseCase.invoke()) {
 				is Result.Success -> {
 					mShowLoading.postValue(false)
-					_projects.postValue(result.data)
+					_projects.postValue(result.data!!)
 				}
 				is Result.Error -> {
 					mShowLoading.postValue(false)
