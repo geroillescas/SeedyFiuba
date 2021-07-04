@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".projects.view.fragments.SponsorFragment">
+
+		<LinearLayout
+			android:id="@+id/fragmentSponsor_content"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="@dimen/dimension_3"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<TextView
+				android:id="@+id/fragmentSponsor_title"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginVertical="@dimen/dimension_2"
+				android:text="Ingresa el monto que deseas destinar al patrocinio de proyecto"
+				android:textAlignment="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+				android:textSize="30sp" />
+
+			<TextView
+				android:id="@+id/fragmentSponsor_subtitule"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginVertical="@dimen/dimension_2"
+				android:text="Tu saldo disponible es de: 23 ETHS"
+				android:textAlignment="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+				android:textSize="24sp"
+				android:textStyle="italic" />
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/fragmentSponsor_amountContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginVertical="@dimen/dimension_2"
+				android:hint="Monto a patrocionar"
+				app:errorContentDescription="Monto a patrocionar"
+				app:errorEnabled="true">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/fragmentSponsor_amountInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:focusedByDefault="true"
+					android:imeOptions="actionDone"
+					android:inputType="numberDecimal" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/fragmentSponsor_amountButton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Patrocinar"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent" />
+		</LinearLayout>
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/fragmentSponsor_congrats"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:paddingTop="@dimen/dimension_6"
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				android:id="@+id/fragmentSponsor_image"
+				android:layout_width="wrap_content"
+				android:layout_height="250dp"
+				android:layout_marginTop="48dp"
+				android:src="@drawable/sponsor_congrats"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<TextView
+				android:id="@+id/fragmentSponsor_titleCongrats"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimension_3"
+				android:text="¡Listo! Ya estamos acreditando tu patrocionio"
+				android:textAlignment="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large"
+				app:layout_constraintBottom_toTopOf="@+id/subititle_congrats"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/fragmentSponsor_image" />
+
+			<TextView
+				android:id="@+id/fragmentSponsor_subtitleCongrats"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimension_3"
+				android:text="Muchas gracias por contribuir"
+				android:textAlignment="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/fragmentSponsor_titleCongrats" />
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/fragmentSponsor_congratsButton"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimension_2"
+				android:text="Ir a proyectos"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

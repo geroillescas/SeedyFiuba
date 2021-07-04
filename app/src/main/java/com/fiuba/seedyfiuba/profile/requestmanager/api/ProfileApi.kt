@@ -5,14 +5,19 @@ import com.fiuba.seedyfiuba.profile.requestmanager.api.ProfileConstant.END_POINT
 import com.fiuba.seedyfiuba.profile.requestmanager.api.ProfileConstant.END_POINT_PROFILE_ID
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ProfileApi {
 	@GET(END_POINT_PROFILES)
-	suspend fun getAllProfile(): Response<ProfilesListResponse>
+	suspend fun getAllProfile(
+		@Query(value = "size") size: Int? = null,
+		@Query(value = "page") page: Int? = null
+	): Response<ProfilesListResponse>
+
+	@GET(END_POINT_PROFILES)
+	suspend fun getProfilesFilteredBy(
+		@Query(value = "role") profileType: String
+	): Response<ProfilesListResponse>
 
 	@PUT(END_POINT_PROFILE_ID)
 	suspend fun saveProfile(

@@ -141,7 +141,7 @@ class RegisterViewModel(
 		if (!isEmailNameValid(email)) {
 			_registerFormState.value = RegisterFormState(emailError = R.string.invalid_email)
 		} else {
-			_registerFormState.value = RegisterFormState(emailError = 0)
+			_registerFormState.value = RegisterFormState(emailError = null)
 		}
 	}
 

@@ -6,9 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.projects.domain.Project
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 
-class DetailProjectViewModel : BaseViewModel() {
+open class DetailProjectViewModel : BaseViewModel() {
 
 	private val _project = MutableLiveData<Project>()
 	val project: LiveData<Project> = _project

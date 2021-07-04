@@ -12,16 +12,27 @@
 		<action
 			android:id="@+id/action_projectsListFragment_to_editProjectFragment"
 			app:destination="@id/editProjectFragment"
-			app:popUpTo="@id/projectsListFragment" />
+			app:popUpTo="@id/projectsListFragment"
+			app:popUpToInclusive="true"
+			app:launchSingleTop="true" />
 
 		<action
 			android:id="@+id/action_projectsListFragment_to_createProjectFragment"
 			app:destination="@id/createProjectFragment"
-			app:popUpTo="@id/projectsListFragment" />
+			app:popUpTo="@id/projectsListFragment"
+			app:popUpToInclusive="true"
+			app:launchSingleTop="true" />
 		<action
 			android:id="@+id/action_projectsListFragment_to_detailProjectFragment"
 			app:destination="@id/detailProjectFragment"
-			app:popUpTo="@id/projectsListFragment" />
+			app:popUpTo="@id/projectsListFragment"
+			app:popUpToInclusive="true"
+			app:launchSingleTop="true" />
+		<action
+			android:id="@+id/action_projectsListFragment_to_reviewerDetailProjectFragment"
+			app:destination="@id/reviewerDetailProjectFragment"
+			app:popUpTo="@id/projectsListFragment"
+			app:launchSingleTop="true" />
 	</fragment>
 
 	<fragment
@@ -43,12 +54,7 @@
 	<fragment
 		android:id="@+id/stageProjectFragment"
 		android:name="com.fiuba.seedyfiuba.projects.view.fragments.StageProjectFragment"
-		android:label="StageProjectFragment" >
-		<action
-			android:id="@+id/action_stageProjectFragment_to_projectsListFragment"
-			app:destination="@id/projectsListFragment"
-			app:launchSingleTop="true" />
-	</fragment>
+		android:label="StageProjectFragment" />
 	<fragment
 		android:id="@+id/detailProjectFragment"
 		android:name="com.fiuba.seedyfiuba.projects.view.fragments.DetailProjectFragment"
@@ -57,6 +63,22 @@
 			android:id="@+id/action_detailProjectFragment_to_editProjectFragment"
 			app:destination="@id/editProjectFragment"
 			app:popUpTo="@id/detailProjectFragment" />
+		<action
+			android:id="@+id/action_detailProjectFragment_to_sponsorFragment"
+			app:destination="@id/sponsorFragment"
+			app:popUpTo="@id/detailProjectFragment" />
 	</fragment>
+	<fragment
+		android:id="@+id/reviewerDetailProjectFragment"
+		android:name="com.fiuba.seedyfiuba.projects.view.fragments.ReviewerDetailProjectFragment"
+		android:label="ReviewerDetailProjectFragment" />
+	<fragment
+		android:id="@+id/reviewerChooserFragment"
+		android:name="com.fiuba.seedyfiuba.projects.view.fragments.ReviewerChooserFragment"
+		android:label="ReviewerChooserFragment" />
+	<fragment
+		android:id="@+id/sponsorFragment"
+		android:name="com.fiuba.seedyfiuba.projects.view.fragments.SponsorFragment"
+		android:label="SponsorFragment" />
 
 </navigation>

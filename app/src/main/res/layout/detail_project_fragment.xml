@@ -120,11 +120,12 @@
 
 		</ScrollView>
 
-		<FrameLayout
+		<LinearLayout
 			android:id="@+id/fragmentDetailProject_continue_button_container"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@color/white"
+			android:orientation="vertical"
 			android:elevation="@dimen/dimension_3"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +137,15 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="@dimen/dimension_2"
 				android:text="@string/edit" />
-		</FrameLayout>
+
+			<Button
+				android:id="@+id/fragmentDetailProject_reviewer_button"
+				style="?attr/borderlessButtonStyle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/dimension_2"
+				android:text="Seleccionar veedor" />
+		</LinearLayout>
 
 
 	</androidx.constraintlayout.widget.ConstraintLayout>

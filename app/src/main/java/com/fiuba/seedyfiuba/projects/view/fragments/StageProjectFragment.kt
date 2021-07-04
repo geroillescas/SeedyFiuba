@@ -130,7 +130,7 @@ class StageProjectFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 		with(stageProjectViewModel) {
 			projectResult.observe(viewLifecycleOwner, Observer {
-				findNavController().popBackStack(R.id.projectsListFragment, false)
+				findNavController().popBackStack(R.id.projectsListFragment, true)
 			})
 
 			isAddValid.observe(viewLifecycleOwner, Observer {

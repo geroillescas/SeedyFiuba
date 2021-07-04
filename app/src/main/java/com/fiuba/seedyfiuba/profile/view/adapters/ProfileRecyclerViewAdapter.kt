@@ -32,10 +32,7 @@ class ProfileRecyclerViewAdapter(
 		val item = values[position]
 		holder.fullname.text = "${item.name} ${item.lastName}"
 		holder.email.text = item.email
-		if(item.role != null) {
-			holder.type.text = item.role.value
-		}
-
+		holder.type.text = item.role.name
 	}
 
 	override fun getItemCount(): Int = values.size

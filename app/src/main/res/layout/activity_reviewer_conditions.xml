@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="@dimen/dimension_2"
+	tools:context=".projects.view.activities.ReviewerConditionsActivity">
+
+	<ImageView
+		android:id="@+id/reviewerConditionActivity_image"
+		android:layout_width="wrap_content"
+		android:layout_height="300dp"
+		android:maxHeight="350dp"
+		android:scaleType="centerInside"
+		android:src="@drawable/reviewer_modal"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+
+	<TextView
+		android:id="@+id/reviewerConditionActivity_title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="@dimen/dimension"
+		android:layout_marginVertical="@dimen/dimension_3"
+		android:gravity="center"
+		android:text="¿Deseas aceptar la veeduria del proyecto?"
+		android:textAppearance="@style/TextAppearance.AppCompat.Large"
+		android:textSize="30sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/reviewerConditionActivity_image" />
+
+	<TextView
+		android:id="@+id/reviewerConditionActivity_subtitle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="@dimen/dimension"
+		android:gravity="center"
+		android:text="Si lo aceptas enotnces debe cumplir con las reglas de negocio dispuestas para garantizar el correcto avance del proyecto y el ingreso de fondos correspondiente. Quedando asociado al proyecto hasta la finalización del mismo."
+		android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+		app:layout_constraintBottom_toTopOf="@id/reviewerConditionActivity_buttonContainer"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/reviewerConditionActivity_title" />
+
+	<LinearLayout
+		android:id="@+id/reviewerConditionActivity_buttonContainer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent">
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/reviewerConditionActivity_confirm"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginVertical="@dimen/dimension"
+			android:text="Aceptar veeduria" />
+
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/reviewerConditionActivity_reject"
+			style="?attr/borderlessButtonStyle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginVertical="@dimen/dimension"
+			android:text="Rechazar" />
+
+	</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.databinding.FragmentProjectsListBinding
+import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.projects.domain.SearchForm
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.view.adapters.ProjectsRecyclerViewAdapter
@@ -24,7 +26,7 @@ import com.fiuba.seedyfiuba.projects.viewmodel.ProjectsViewModelFactory
 /**
  * A fragment representing a list of Items.
  */
-class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectViewHolderListener,
+open class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectViewHolderListener,
 	SearchDialogFragment.SearchDialogFragmentListener {
 
 	private var isSearched: Boolean = false
@@ -37,7 +39,7 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 			this
 		)
 
-	private val projectViewModel by lazy {
+	protected val projectViewModel by lazy {
 		ViewModelProvider(this, ProjectsViewModelFactory()).get(ProjectsViewModel::class.java)
 	}
 
@@ -75,7 +77,7 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 	override fun onResume() {
 		super.onResume()
 		activity?.setTitle(R.string.title_activity_projects)
-		projectViewModel.getProjects()
+		fetchInfo()
 	}
 
 	override fun onCreateView(
@@ -99,6 +101,10 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 
 		binding.projectsListFragmentAddButton.setOnClickListener {
 			findNavController().navigate(R.id.createProjectFragment)
+		}
+
+		if(AuthenticationManager.session?.user?.profileType != ProfileType.EMPRENDEDOR) {
+			binding.projectsListFragmentAddButton.visibility = View.GONE
 		}
 
 		binding.projectsListFragmentSearchView.setOnClickListener {
@@ -126,7 +132,15 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 			val bundle = Bundle().apply {
 				putParcelable(DetailProjectFragment.ARG_PROJECT, it)
 			}
-			findNavController().navigate(R.id.detailProjectFragment, bundle)
+			when (AuthenticationManager.session?.user?.profileType) {
+				ProfileType.VEEDOR -> {
+					findNavController().navigate(R.id.reviewerDetailProjectFragment, bundle)
+				}
+
+				else -> {
+					findNavController().navigate(R.id.detailProjectFragment, bundle)
+				}
+			}
 		}
 	}
 
@@ -144,5 +158,10 @@ class ProjectsListFragment : Fragment(), ProjectsRecyclerViewAdapter.ProjectView
 	) {
 		isSearched = true
 		projectViewModel.searchProjects(searchForm)
+	}
+
+
+	protected open fun fetchInfo(){
+		projectViewModel.getProjects()
 	}
 }

@@ -6,23 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.databinding.DetailProjectFragmentBinding
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.projects.domain.Project
+import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.view.adapters.DetailProjectsImageRecyclerViewAdapter
 import com.fiuba.seedyfiuba.projects.view.adapters.DetailProjectsViewAdapter
 import com.fiuba.seedyfiuba.projects.viewmodel.DetailProjectViewModel
 import com.fiuba.seedyfiuba.projects.viewmodel.DetailProjectViewModelFactory
 
-class DetailProjectFragment : Fragment() {
-	private lateinit var binding: DetailProjectFragmentBinding
+open class DetailProjectFragment : Fragment() {
+	protected lateinit var binding: DetailProjectFragmentBinding
 
-	private val detailProjectViewModel by lazy {
+	protected open val detailProjectViewModel by lazy {
 		ViewModelProvider(
 			this,
 			DetailProjectViewModelFactory()
@@ -53,8 +56,16 @@ class DetailProjectFragment : Fragment() {
 		return binding.root
 	}
 
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		detailProjectViewModel.showLoading.observe(viewLifecycleOwner, Observer {
+			val viewState = if (it) ViewState.Loading else ViewState.Initial
+			(requireActivity() as ProjectsActivity).setViewState(viewState)
+		})
+	}
 
-	private fun setupView(binding: DetailProjectFragmentBinding) {
+
+	protected open fun setupView(binding: DetailProjectFragmentBinding) {
 		with(binding.fragmentDetailProjectStages){
 			layoutManager = LinearLayoutManager(context)
 			val detailProjectsViewAdapter =
@@ -79,11 +90,6 @@ class DetailProjectFragment : Fragment() {
 			}
 		}
 
-		if(AuthenticationManager.session?.user?.profileType == ProfileType.PATROCINADOR) {
-			binding.fragmentDetailProjectEditButton.text = "Patrocinar"
-			binding.fragmentDetailProjectEditButton.isEnabled = false
-		}
-
 		binding.fragmentDetailProjectEditButton.setOnClickListener {
 			detailProjectViewModel.project.value?.let {
 				val bundle = Bundle().apply {
@@ -92,11 +98,32 @@ class DetailProjectFragment : Fragment() {
 				findNavController().navigate(R.id.editProjectFragment, bundle)
 			}
 		}
+
+		binding.fragmentDetailProjectReviewerButton.setOnClickListener {
+			detailProjectViewModel.project.value?.let {
+				val bundle = Bundle().apply {
+					putParcelable(AbstractProjectFragment.ARG_PROJECT, it)
+				}
+				findNavController().navigate(R.id.reviewerChooserFragment, bundle)
+			}
+		}
+
+		if(AuthenticationManager.session?.user?.profileType == ProfileType.PATROCINADOR) {
+			binding.fragmentDetailProjectEditButton.text = "Patrocinar"
+			binding.fragmentDetailProjectReviewerButton.visibility = View.GONE
+			binding.fragmentDetailProjectEditButton.setOnClickListener {
+				detailProjectViewModel.project.value?.let {
+					val bundle = Bundle().apply {
+						putParcelable(AbstractProjectFragment.ARG_PROJECT, it)
+					}
+					findNavController().navigate(R.id.sponsorFragment, bundle)
+				}
+			}
+		}
 	}
 
 	companion object {
 		const val ARG_PROJECT = "ARG_PROJECT"
 	}
 }
-
 

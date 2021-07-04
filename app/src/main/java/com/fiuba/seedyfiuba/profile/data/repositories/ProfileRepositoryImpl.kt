@@ -16,8 +16,8 @@ class ProfileRepositoryImpl(
 		return remoteDataSource.getProfile()
 	}
 
-	override suspend fun getAllProfile(): Result<List<Profile>> {
-		return when (val result = remoteDataSource.getAllProfile()) {
+	override suspend fun getAllProfile( size: Int?, page: Int?): Result<List<Profile>> {
+		return when (val result = remoteDataSource.getAllProfile(size, page)) {
 			is Result.Success -> Result.Success(result.data.users)
 			is Result.Error -> result
 		}
