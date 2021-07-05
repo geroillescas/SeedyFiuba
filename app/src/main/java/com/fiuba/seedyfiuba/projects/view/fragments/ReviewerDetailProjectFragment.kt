@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.databinding.DetailProjectFragmentBinding
+import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.view.activities.ReviewerConditionsActivity
-import com.fiuba.seedyfiuba.projects.view.activities.SponsorConditionsActivity
 import com.fiuba.seedyfiuba.projects.viewmodel.ReviewerDetailProjectViewModel
 import com.fiuba.seedyfiuba.projects.viewmodel.ReviewerDetailProjectViewModelFactory
 
@@ -30,19 +33,33 @@ class ReviewerDetailProjectFragment : DetailProjectFragment() {
 		super.onCreate(savedInstanceState)
 		resultLauncherPick =
 			registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-				if (result.resultCode == Activity.RESULT_OK) {
-					val acepted = result.data?.getBooleanExtra(ReviewerConditionsActivity.EXTRA_RESULT, false) ?: false
-					detailProjectViewModel.setReviewStatus(acepted)
-				}
+				val acepted = result.data?.getBooleanExtra(ReviewerConditionsActivity.EXTRA_RESULT, false) ?: false
+				val status = if(acepted) { "approved" } else { "rejected"}
+				detailProjectViewModel.setReviewStatus(status)
 			}
+
+
 	}
 	 override fun setupView(binding: DetailProjectFragmentBinding) {
 		 binding.fragmentDetailProjectReviewerButton.visibility =
              View.GONE
 		 binding.fragmentDetailProjectEditButton.text = "Aceptar veeduria"
 		 binding.fragmentDetailProjectEditButton.setOnClickListener {
-			 resultLauncherPick.launch(Intent(requireActivity(), SponsorConditionsActivity::class.java))
+			 resultLauncherPick.launch(Intent(requireActivity(), ReviewerConditionsActivity::class.java))
 			 requireActivity().overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_top)
 		 }
+
+		 setupObservers()
+	}
+
+	private fun setupObservers() {
+		detailProjectViewModel.showLoading.observe(viewLifecycleOwner, Observer {
+			val viewState = if (it) ViewState.Loading else ViewState.Initial
+			(requireActivity() as ProjectsActivity).setViewState(viewState)
+		})
+
+		detailProjectViewModel.updated.observe(viewLifecycleOwner, Observer {
+			findNavController().popBackStack(R.id.projectsListFragment, true)
+		})
 	}
 }

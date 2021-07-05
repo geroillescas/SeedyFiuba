@@ -3,10 +3,7 @@ package com.fiuba.seedyfiuba.projects.data.repositories
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
-import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
-import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
-import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
-import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.*
 import com.fiuba.seedyfiuba.projects.data.datasources.ProjectRemoteDataSource
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.domain.ProjectStatus
@@ -37,6 +34,15 @@ class ProjectRepositoryImpl(
 		return remoteDataSource.getProjects()
 	}
 
+	override suspend fun getReviewerProjects(reviewerId: String?, reviewsStatus: String?): Result<List<Project>> {
+		return when (val result = remoteDataSource.getProjectsReviewer(reviewerId, reviewsStatus)) {
+			is Result.Success -> Result.Success(result.data.results.mapNotNull {
+				it.project?.copy(review = it.review)
+			})
+			is Result.Error -> result
+		}
+	}
+
 	override suspend fun search(searchForm: SearchForm): Result<List<Project>> {
 		return remoteDataSource.search(searchForm)
 	}
@@ -54,15 +60,15 @@ class ProjectRepositoryImpl(
 	}
 
 	override suspend fun setReviewer(reviewerId: Int, projectId: Int): Result<ReviewerResponse> {
-		val reviewerPostRequest = ReviewerPostRequest(reviewerId.toLong(), projectId.toLong())
+		val reviewerPostRequest = ReviewerPostRequest(reviewerId, projectId)
 		return remoteDataSource.setReviewer(reviewerPostRequest)
 	}
 
 	override suspend fun setReviewStatus(
-		status: ProjectStatus,
-		projectId: Int
+		status: String,
+		reviewId: Int
 	): Result<ReviewerResponse> {
-		val reviewerPutRequest = ReviewerPutRequest(status.value)
-		return remoteDataSource.setReviewStatus(reviewerPutRequest, projectId.toString())
+		val reviewerPutRequest = ReviewerPutRequest(status)
+		return remoteDataSource.setReviewStatus(reviewerPutRequest, reviewId)
 	}
 }

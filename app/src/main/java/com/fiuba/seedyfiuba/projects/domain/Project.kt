@@ -2,6 +2,7 @@ package com.fiuba.seedyfiuba.projects.domain
 
 import android.os.Parcelable
 import com.fiuba.seedyfiuba.login.domain.ProjectType
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.Review
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
@@ -20,7 +21,8 @@ data class Project(
 	val mediaUrls: MutableList<String> = mutableListOf(),
 	val stages: List<Stages> = listOf(),
 	val finishDate: Date = Date(),
-	val status: ProjectStatus = ProjectStatus.CREATED
+	val status: ProjectStatus = ProjectStatus.CREATED,
+	val review: Review? = null
 ) : Serializable, Parcelable {
 	companion object {
 		fun newInstance(): Project {

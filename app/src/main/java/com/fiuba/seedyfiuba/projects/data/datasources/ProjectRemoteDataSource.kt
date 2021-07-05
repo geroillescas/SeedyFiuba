@@ -1,6 +1,7 @@
 package com.fiuba.seedyfiuba.projects.data.datasources
 
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
@@ -14,5 +15,6 @@ interface ProjectRemoteDataSource {
 	suspend fun getProjects(): Result<List<Project>>
 	suspend fun search(searchForm: SearchForm): Result<List<Project>>
 	suspend fun setReviewer(reviewerPostRequest: ReviewerPostRequest): Result<ReviewerResponse>
-	suspend fun setReviewStatus(reviewerPutRequest: ReviewerPutRequest, reviewId:String): Result<ReviewerResponse>
+	suspend fun setReviewStatus(reviewerPutRequest: ReviewerPutRequest, reviewId:Int): Result<ReviewerResponse>
+	suspend fun getProjectsReviewer(reviewerId: String?, reviewsStatus: String?): Result<ReviewerListResponse>
 }

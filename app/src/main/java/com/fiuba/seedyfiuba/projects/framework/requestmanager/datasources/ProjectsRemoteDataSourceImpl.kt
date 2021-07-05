@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.projects.framework.requestmanager.datasources
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
@@ -94,10 +95,16 @@ class ProjectsRemoteDataSourceImpl(
 
 	override suspend fun setReviewStatus(
 		reviewerPutRequest: ReviewerPutRequest,
-		reviewId: String
+		reviewId: Int
 	): Result<ReviewerResponse> {
 		return getResult {
 			middleApi.updateReview(reviewerPutRequest, reviewId)
+		}
+	}
+
+	override suspend fun getProjectsReviewer(reviewerId: String?, reviewsStatus: String?): Result<ReviewerListResponse> {
+		return getResult {
+			middleApi.getProjects(reviewerId, reviewsStatus)
 		}
 	}
 

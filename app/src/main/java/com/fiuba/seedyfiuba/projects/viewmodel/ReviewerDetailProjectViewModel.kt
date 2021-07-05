@@ -13,16 +13,13 @@ class ReviewerDetailProjectViewModel(
 	val updated: LiveData<Boolean> = _updated
 
 
-	fun setReviewStatus(status: Boolean) {
+	fun setReviewStatus(status: String) {
 		launch {
-			mShowLoading.postValue(true)
-			when (setReviewStatusUseCase.invoke(ProjectStatus.NONE, project.value?.id!!)) {
+			when (setReviewStatusUseCase.invoke(status, project.value?.review?.id!!)) {
 				is Result.Success -> {
 					_updated.postValue(true)
-					mShowLoading.postValue(false)
 				}
 				else -> {
-					mShowLoading.postValue(false)
 					_error.postValue(true)
 				}
 			}

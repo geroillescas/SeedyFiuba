@@ -1,8 +1,10 @@
 package com.fiuba.seedyfiuba.profile.requestmanager.dto
 
+import android.os.Parcelable
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class ProfilesListResponse(
 	val totalItems: Int,
@@ -10,28 +12,31 @@ data class ProfilesListResponse(
 	val totalPages: Int,
 	val currentPage: Int
 )
-
+data class ReviewerListResponse(
+	val size: Int,
+	val results: List<ReviewerResponse>
+)
 
 data class ReviewerResponse(
-	val project: Project,
-	val reviewer: Review
+	val project: Project?,
+	val review: Review
 )
 
+@Parcelize
 data class Review(
 	@SerializedName("reviewerId")
-	val reviewerID: Long,
+	val reviewerID: Int,
 	@SerializedName("projectId")
-	val projectID: Long,
-	val id: Long,
+	val projectID: Int,
+	val id: Int,
 	val status: String
-)
-
+) : Parcelable
 
 data class ReviewerPostRequest(
 	@SerializedName("reviewerId")
-	val reviewerID: Long,
+	val reviewerID: Int,
 	@SerializedName("projectId")
-	val projectID: Long
+	val projectID: Int
 )
 
 data class ReviewerPutRequest(

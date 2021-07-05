@@ -2,7 +2,7 @@ package com.fiuba.seedyfiuba.login.domain
 
 enum class ProjectType(val value: String) {
 	SOCIAL("Social"),
-	AMBIENT("Ambiental"),
+	AMBIENTAL("Ambiental"),
 	ECONOMICAL("Economico"),
 	ACADEMIC("Academico"),
 	HUMANITARIAN("Humanitario"),

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.fiuba.seedyfiuba.R
@@ -55,6 +56,10 @@ class SponsorFragment : Fragment() {
 
 		binding.fragmentSponsorCongratsButton.setOnClickListener {
 			findNavController().popBackStack(R.id.projectsListFragment, true)
+		}
+
+		binding.fragmentSponsorAmountInput.addTextChangedListener {
+			binding.fragmentSponsorAmountButton.isEnabled = !it.isNullOrEmpty()
 		}
 
 		binding.fragmentSponsorAmountButton.setOnClickListener {
