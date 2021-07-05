@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.projects.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -30,12 +31,14 @@ class ProjectsRecyclerViewAdapter(
 	override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
 		val item = values[position]
 		item.mediaUrls.firstOrNull()?.let { url ->
-			FirebaseStorage.getInstance()
-				.getReferenceFromUrl(url).downloadUrl.addOnSuccessListener {
-					Glide.with(holder.itemView.context)
-						.load(it)
-						.into(holder.mediaImageView)
-				}
+			if(URLUtil.isValidUrl(url)){
+				FirebaseStorage.getInstance()
+					.getReferenceFromUrl(url).downloadUrl.addOnSuccessListener {
+						Glide.with(holder.itemView.context)
+							.load(it)
+							.into(holder.mediaImageView)
+					}
+			}
 		}
 
 		holder.titleTextView.text = item.title

@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.projects.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -23,10 +24,13 @@ class DetailProjectsImageRecyclerViewAdapter(
 	override fun onBindViewHolder(holder: ProjectsImageViewHolder, position: Int) {
 		val url = mediaUrls[position]
 
-		FirebaseStorage.getInstance().getReferenceFromUrl(url).downloadUrl.addOnSuccessListener {
-			Glide.with(holder.itemView.context)
-				.load(it)
-				.into(holder.projectMedia)
+		if(URLUtil.isValidUrl(url)){
+			FirebaseStorage.getInstance()
+				.getReferenceFromUrl(url).downloadUrl.addOnSuccessListener {
+					Glide.with(holder.itemView.context)
+						.load(it)
+						.into(holder.projectMedia)
+				}
 		}
 
 		holder.closeButton.visibility = View.GONE

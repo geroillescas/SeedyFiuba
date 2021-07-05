@@ -14,7 +14,7 @@ import com.fiuba.seedyfiuba.projects.usecases.*
 
 object ProjectsContainer {
 
-	private lateinit var context: Context
+    private lateinit var context: Context
 
 	//Use Cases
 	val getProjectsUseCase: GetProjectsUseCase by lazy {
@@ -47,6 +47,10 @@ object ProjectsContainer {
 
 	val setReviewStatusUseCase: SetReviewStatusUseCase by lazy {
 		SetReviewStatusUseCase(projectRepository)
+	}
+
+	val getProjectsReviewerUseCase: GetProjectsReviewerUseCase by lazy {
+		GetProjectsReviewerUseCase(projectRepository)
 	}
 
 	private val projectRepository: ProjectsRepository by lazy {
