@@ -8,12 +8,9 @@ import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
 import com.fiuba.seedyfiuba.projects.data.datasources.ProjectRemoteDataSource
-import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.domain.ProjectRequestDTO
-import com.fiuba.seedyfiuba.projects.domain.ProjectUpdateDTO
-import com.fiuba.seedyfiuba.projects.framework.requestmanager.api.ProjectApi
-import com.fiuba.seedyfiuba.projects.domain.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.*
 import com.fiuba.seedyfiuba.projects.framework.requestmanager.api.MiddleApi
+import com.fiuba.seedyfiuba.projects.framework.requestmanager.api.ProjectApi
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -63,7 +60,13 @@ class ProjectsRemoteDataSourceImpl(
 
 	override suspend fun getProjects(): Result<List<Project>> {
 		return getResult {
-			projectApi.getProjects()
+			projectApi.getProjects(null)
+		}
+	}
+
+	override suspend fun getProjects(status: String): Result<List<Project>> {
+		return getResult {
+			projectApi.getProjects(status)
 		}
 	}
 
@@ -102,12 +105,31 @@ class ProjectsRemoteDataSourceImpl(
 		}
 	}
 
-	override suspend fun getProjectsReviewer(reviewerId: String?, reviewsStatus: String?): Result<ReviewerListResponse> {
+	override suspend fun getProjectsReviewer(reviewerId: String?, reviewsStatus: List<String>?): Result<ReviewerListResponse> {
 		return getResult {
 			middleApi.getProjects(reviewerId, reviewsStatus)
 		}
 	}
 
+	override suspend fun sponsorProject(sponsorDTO: SponsorDTO, projectId: String): Result<Unit> {
+		return getResult {
+			middleApi.sponsorProject(sponsorDTO, projectId)
+		}
+	}
+
+	override suspend fun setStageReviewStatus(
+		sponsorDTO: StageStatusDTO,
+		projectId: String,
+		stageId: String
+	): Result<ReviewerResponse> {
+		return getResult {
+			middleApi.updateStage(
+				sponsorDTO,
+				projectId,
+				stageId
+			)
+		}
+	}
 }
 
 

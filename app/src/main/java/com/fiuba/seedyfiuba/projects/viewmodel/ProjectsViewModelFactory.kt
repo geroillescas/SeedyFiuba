@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.projects.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fiuba.seedyfiuba.projects.ProjectsContainer
+import com.fiuba.seedyfiuba.projects.usecases.GetProjectsByStateUseCase
 import com.fiuba.seedyfiuba.projects.usecases.GetProjectsReviewerUseCase
 import com.fiuba.seedyfiuba.projects.usecases.GetProjectsUseCase
 import com.fiuba.seedyfiuba.projects.usecases.SearchProjectsUseCase
@@ -16,11 +17,13 @@ class ProjectsViewModelFactory : ViewModelProvider.Factory {
 		return modelClass.getConstructor(
 			GetProjectsUseCase::class.java,
 			SearchProjectsUseCase::class.java,
-			GetProjectsReviewerUseCase::class.java
+			GetProjectsReviewerUseCase::class.java,
+			GetProjectsByStateUseCase::class.java
 		).newInstance(
 			ProjectsContainer.getProjectsUseCase,
 			ProjectsContainer.searchProjectsUseCase,
-			ProjectsContainer.getProjectsReviewerUseCase
+			ProjectsContainer.getProjectsReviewerUseCase,
+			ProjectsContainer.getProjectsByStateUseCase
 		)
 	}
 }

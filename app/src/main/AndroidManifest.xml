@@ -20,6 +20,9 @@
 			android:name=".projects.view.activities.ReviewerConditionsActivity"
 			android:theme="@style/Theme.SeedyFiuba.NoActionBar"/>
 		<activity
+			android:name=".projects.view.activities.StageReviewConditionsActivity"
+			android:theme="@style/Theme.SeedyFiuba.NoActionBar"/>
+		<activity
 			android:name=".profile.view.activities.ProfileListActivity"
 			android:label="@string/title_activity_profile_list" />
 

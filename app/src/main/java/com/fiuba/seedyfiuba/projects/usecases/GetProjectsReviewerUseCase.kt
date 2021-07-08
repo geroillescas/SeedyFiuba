@@ -5,6 +5,6 @@ import com.fiuba.seedyfiuba.projects.data.repositories.ProjectsRepository
 class GetProjectsReviewerUseCase(private val projectsRepository: ProjectsRepository) {
 	suspend fun invoke(
 		reviewerId: String?,
-		reviewsStatus: String
+		reviewsStatus: List<String>
 	) = projectsRepository.getReviewerProjects(reviewerId, reviewsStatus)
 }

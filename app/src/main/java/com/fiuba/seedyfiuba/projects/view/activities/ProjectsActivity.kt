@@ -1,11 +1,9 @@
 package com.fiuba.seedyfiuba.projects.view.activities
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.fragment.app.FragmentResultListener
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.onNavDestinationSelected
 import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
@@ -25,10 +23,6 @@ class ProjectsActivity : BaseActivity(), FragmentResultListener {
 		navController = navHostFragment.navController
 
 		supportFragmentManager.setFragmentResultListener("requestKey", this, this)
-	}
-
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
 	}
 
 	override fun onBackPressed() {

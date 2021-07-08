@@ -6,7 +6,6 @@ import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.domain.SearchForm
 import com.fiuba.seedyfiuba.projects.usecases.GetReviewerUseCase
 import com.fiuba.seedyfiuba.projects.usecases.SaveReviewerUseCase
 

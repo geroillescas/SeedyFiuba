@@ -54,30 +54,21 @@ class ProjectsRecyclerViewAdapter(
 			ProfileType.VEEDOR -> {
 				if (item.status == ProjectStatus.PENDING_REVIEWER_CONFIRMATION) {
 					holder.pendingReviewerChip.visibility = View.VISIBLE
+					holder.detailButton.text = "Aceptar veeduria"
 				} else {
+					holder.detailButton.text = "Aprobar etapa"
 					holder.pendingReviewerChip.visibility = View.GONE
 				}
 				holder.editButton.visibility = View.INVISIBLE
 			}
 
 			else -> {
-				if (item.status == ProjectStatus.CREATED) {
+				if (item.status == ProjectStatus.PENDING_REVIEWER_CONFIRMATION) {
 					holder.pendingReviewerChip.visibility = View.VISIBLE
 				} else {
 					holder.pendingReviewerChip.visibility = View.GONE
 				}
 			}
-		}
-
-
-		if (AuthenticationManager.session?.user?.profileType == ProfileType.PATROCINADOR) {
-			holder.detailButton.text = "Patrocinar"
-			holder.editButton.visibility = View.INVISIBLE
-		}
-
-		if (AuthenticationManager.session?.user?.profileType == ProfileType.VEEDOR) {
-			holder.detailButton.text = "Aceptar veeduria"
-			holder.editButton.visibility = View.INVISIBLE
 		}
 
 		holder.editButton.setOnClickListener { listener.onEdit(position) }

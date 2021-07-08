@@ -10,6 +10,7 @@ import retrofit2.http.*
 interface ProjectApi {
 	@GET(ProjectsConstant.END_POINT_PROJECTS)
 	suspend fun getProjects(
+		@Query(value = "status") status: String?
 	): Response<List<Project>>
 
 	@GET(ProjectsConstant.END_POINT_PROJECT_ID)

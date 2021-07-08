@@ -1,5 +1,6 @@
 package com.fiuba.seedyfiuba
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ open class BaseViewModel(private val dispatcher: CoroutineDispatcher = Dispatche
 	ViewModel() {
 	private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
 		Logger.getGlobal().log(Level.ALL, throwable.message ?: "")
+		Log.e(BaseViewModel::class.simpleName, throwable.message ?: "")
 	}
 
 	protected val _session = MutableLiveData<Session>()

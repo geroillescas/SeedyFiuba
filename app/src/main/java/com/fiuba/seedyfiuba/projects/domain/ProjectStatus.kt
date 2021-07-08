@@ -7,9 +7,13 @@ enum class ProjectStatus(val value: String) {
 	CREATED("Iniciado"),
 	@SerializedName("pending-reviewer")
 	PENDING_REVIEWER_CONFIRMATION("Pendiente de confirmacion de veedor"),
+	@SerializedName("stage-pending-reviewer")
+	STAGE_PENDING_REVIEWER_CONFIRMATION("Pendiente de aprobacion de veedor"),
 	@SerializedName("in-progress")
 	IN_PROGRESS("En progreso"),
-	@SerializedName("done")
-	FINISHED("Terminado"),
+	@SerializedName("funding")
+	FUNDING("En progreso"),
+	@SerializedName("completed")
+	COMPLETED("Terminado"),
 	NONE("Ninguno")
 }

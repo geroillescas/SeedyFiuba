@@ -1,13 +1,19 @@
 package com.fiuba.seedyfiuba.projects.data.repositories
 
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
-import com.fiuba.seedyfiuba.profile.requestmanager.dto.*
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
 import com.fiuba.seedyfiuba.projects.data.datasources.ProjectRemoteDataSource
 import com.fiuba.seedyfiuba.projects.domain.Project
-import com.fiuba.seedyfiuba.projects.domain.ProjectStatus
 import com.fiuba.seedyfiuba.projects.domain.SearchForm
+import com.fiuba.seedyfiuba.projects.domain.SponsorDTO
+import com.fiuba.seedyfiuba.projects.domain.StageStatusDTO
+import java.math.BigDecimal
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -34,7 +40,11 @@ class ProjectRepositoryImpl(
 		return remoteDataSource.getProjects()
 	}
 
-	override suspend fun getReviewerProjects(reviewerId: String?, reviewsStatus: String?): Result<List<Project>> {
+	override suspend fun getProjects(status: String): Result<List<Project>> {
+		return remoteDataSource.getProjects(status)
+	}
+
+	override suspend fun getReviewerProjects(reviewerId: String?, reviewsStatus: List<String>?): Result<List<Project>> {
 		return when (val result = remoteDataSource.getProjectsReviewer(reviewerId, reviewsStatus)) {
 			is Result.Success -> Result.Success(result.data.results.mapNotNull {
 				it.project?.copy(review = it.review)
@@ -70,5 +80,21 @@ class ProjectRepositoryImpl(
 	): Result<ReviewerResponse> {
 		val reviewerPutRequest = ReviewerPutRequest(status)
 		return remoteDataSource.setReviewStatus(reviewerPutRequest, reviewId)
+	}
+
+	override suspend fun sponsor(amount: BigDecimal, projectId: Int): Result<Unit> {
+		val sponsorDTO = SponsorDTO(amount, AuthenticationManager.session!!.user.userId)
+		return remoteDataSource.sponsorProject(sponsorDTO, projectId.toString())
+
+	}
+
+	override suspend fun setStageReviewStatus(
+		status: String,
+		reviewerId: Int,
+		projectId: Int,
+		stageId: Int
+	): Result<ReviewerResponse> {
+		val sponsorDTO = StageStatusDTO(reviewerId)
+		return remoteDataSource.setStageReviewStatus(sponsorDTO, projectId.toString(), stageId.toString())
 	}
 }
