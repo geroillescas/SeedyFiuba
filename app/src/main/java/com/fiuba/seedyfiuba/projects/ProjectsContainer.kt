@@ -53,6 +53,18 @@ object ProjectsContainer {
 		GetProjectsReviewerUseCase(projectRepository)
 	}
 
+	val getProjectsByStateUseCase: GetProjectsByStateUseCase by lazy {
+		GetProjectsByStateUseCase(projectRepository)
+	}
+
+	val sponsorUseCase: SponsorUseCase by lazy {
+		SponsorUseCase(projectRepository)
+	}
+
+	val setStageReviewStatusUseCase: SetStageReviewStatusUseCase by lazy {
+		SetStageReviewStatusUseCase(projectRepository)
+	}
+
 	private val projectRepository: ProjectsRepository by lazy {
 		ProjectRepositoryImpl(projectRemoteDataSource, profileRemoteDataSource)
 	}

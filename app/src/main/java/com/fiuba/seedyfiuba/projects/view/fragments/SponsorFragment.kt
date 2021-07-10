@@ -1,9 +1,7 @@
 package com.fiuba.seedyfiuba.projects.view.fragments
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +9,26 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.databinding.FragmentSponsorBinding
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.view.activities.ReviewerConditionsActivity
+import com.fiuba.seedyfiuba.projects.view.activities.SponsorConditionsActivity
+import com.fiuba.seedyfiuba.projects.viewmodel.SponsorViewModel
+import com.fiuba.seedyfiuba.projects.viewmodel.SponsorViewModelFactory
 
 class SponsorFragment : Fragment() {
 	private lateinit var resultLauncherPick: ActivityResultLauncher<Intent>
 	lateinit var binding: FragmentSponsorBinding
 	private lateinit var project: Project
+
+	private val sponsorViewModel: SponsorViewModel by lazy {
+		ViewModelProvider(this, SponsorViewModelFactory()).get(SponsorViewModel::class.java)
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -28,18 +36,18 @@ class SponsorFragment : Fragment() {
 			project = it.getSerializable(ARG_PROJECT) as Project
 		}
 
+		sponsorViewModel.project = project
+
 		resultLauncherPick =
 			registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-				if (result.resultCode == Activity.RESULT_OK) {
-					val acepted =
-						result.data?.getBooleanExtra(ReviewerConditionsActivity.EXTRA_RESULT, false)
-							?: false
-					if (acepted) {
-						binding.fragmentSponsorContent.visibility = View.GONE
-						binding.fragmentSponsorCongrats.visibility = View.VISIBLE
-					} else {
-						findNavController().popBackStack(R.id.projectsListFragment, true)
-					}
+				val accepted =
+					result.data?.extras?.getBoolean(ReviewerConditionsActivity.EXTRA_RESULT) ?: false
+				if (accepted) {
+					sponsorViewModel.sponsor(
+						binding.fragmentSponsorAmountInput.text.toString().toBigDecimal()
+					)
+				} else {
+					findNavController().popBackStack(R.id.projectsListFragment, true)
 				}
 			}
 	}
@@ -66,7 +74,7 @@ class SponsorFragment : Fragment() {
 			resultLauncherPick.launch(
 				Intent(
 					requireActivity(),
-					ReviewerConditionsActivity::class.java
+					SponsorConditionsActivity::class.java
 				)
 			)
 			requireActivity().overridePendingTransition(
@@ -75,7 +83,17 @@ class SponsorFragment : Fragment() {
 			)
 		}
 
+		setupObservers()
 		return binding.root
+	}
+
+	private fun setupObservers() {
+		sponsorViewModel.updated.observe(viewLifecycleOwner, Observer {
+			if (it) {
+				binding.fragmentSponsorContent.visibility = View.GONE
+				binding.fragmentSponsorCongrats.visibility = View.VISIBLE
+			}
+		})
 	}
 
 	companion object {

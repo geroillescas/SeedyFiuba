@@ -6,3 +6,6 @@ class GetProjectsUseCase(private val projectsRepository: ProjectsRepository) {
 	suspend fun invoke() = projectsRepository.getProjects()
 }
 
+class GetProjectsByStateUseCase(private val projectsRepository: ProjectsRepository) {
+	suspend fun invoke(state: String) = projectsRepository.getProjects(state)
+}

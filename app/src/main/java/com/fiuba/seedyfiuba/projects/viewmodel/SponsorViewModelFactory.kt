@@ -3,21 +3,18 @@ package com.fiuba.seedyfiuba.projects.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fiuba.seedyfiuba.projects.ProjectsContainer
-import com.fiuba.seedyfiuba.projects.usecases.GetReviewerUseCase
-import com.fiuba.seedyfiuba.projects.usecases.SaveReviewerUseCase
+import com.fiuba.seedyfiuba.projects.usecases.SponsorUseCase
 
 /**
  * ViewModel provider factory to instantiate ProjectsViewModel.
  * Required given ProjectsViewModel has a non-empty constructor
  */
-class ReviewerViewModelFactory : ViewModelProvider.Factory {
+class SponsorViewModelFactory : ViewModelProvider.Factory {
 	override fun <T : ViewModel> create(modelClass: Class<T>): T {
 		return modelClass.getConstructor(
-			GetReviewerUseCase::class.java,
-			SaveReviewerUseCase::class.java
+			SponsorUseCase::class.java
 		).newInstance(
-			ProjectsContainer.getReviewerUseCase,
-			ProjectsContainer.saveReviewerUseCase
+			ProjectsContainer.sponsorUseCase
 		)
 	}
 }

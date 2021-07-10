@@ -12,3 +12,4 @@ class SponsorConditionsActivity : ReviewerConditionsActivity() {
 		confirmButton.text = "Aceptar condiciones"
 	}
 }
+

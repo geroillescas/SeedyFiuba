@@ -9,6 +9,7 @@ import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.projects.domain.Stages
 
 class DetailProjectsViewAdapter(
+	private val currentStageId: Int,
 	private var values: List<Stages>
 ) : RecyclerView.Adapter<DetailProjectsViewAdapter.ViewHolder>() {
 
@@ -22,6 +23,16 @@ class DetailProjectsViewAdapter(
 		val item = values[position]
 		holder.title.text = item.track
 		holder.amount.text = "Monto $ ${item.targetAmount}"
+
+		when(currentStageId) {
+			position -> {
+				holder.status.text = "En espera de aprobacion"
+				holder.status.visibility = View.VISIBLE
+			}
+			else -> {
+				holder.status.visibility = View.VISIBLE
+			}
+		}
 	}
 
 	override fun getItemCount(): Int = values.size
@@ -31,6 +42,7 @@ class DetailProjectsViewAdapter(
 		val amount: TextView = view.findViewById(
             R.id.stageProjectFragmentItem_amount
         )
+		val status: TextView = view.findViewById(R.id.stageProjectFragmentItem_status)
 	}
 
 	fun setNewStages(list: List<Stages>) {

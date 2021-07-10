@@ -25,11 +25,13 @@ open class ReviewerConditionsActivity
 
 		confirmButton.setOnClickListener {
 			intent.putExtra(EXTRA_RESULT, true)
+			setResult(RESULT_OK, intent)
 			finish()
 		}
 
 		rejectButton.setOnClickListener {
 			intent.putExtra(EXTRA_RESULT, false)
+			setResult(RESULT_OK, intent)
 			finish()
 		}
 	}

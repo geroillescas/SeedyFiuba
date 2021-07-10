@@ -24,6 +24,7 @@ import com.fiuba.seedyfiuba.projects.viewmodel.DetailProjectViewModelFactory
 
 open class DetailProjectFragment : Fragment() {
 	protected lateinit var binding: DetailProjectFragmentBinding
+	protected var currentStageId = -1
 
 	protected open val detailProjectViewModel by lazy {
 		ViewModelProvider(
@@ -70,6 +71,7 @@ open class DetailProjectFragment : Fragment() {
 			layoutManager = LinearLayoutManager(context)
 			val detailProjectsViewAdapter =
 				DetailProjectsViewAdapter(
+					currentStageId,
 					listOf()
 				)
 			detailProjectViewModel.project.value?.let {
