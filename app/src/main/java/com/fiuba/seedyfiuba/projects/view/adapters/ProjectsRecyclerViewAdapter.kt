@@ -49,6 +49,7 @@ class ProjectsRecyclerViewAdapter(
 			ProfileType.PATROCINADOR -> {
 				holder.detailButton.text = "Patrocinar"
 				holder.editButton.visibility = View.INVISIBLE
+				holder.pendingReviewerChip.visibility = View.GONE
 			}
 
 			ProfileType.VEEDOR -> {

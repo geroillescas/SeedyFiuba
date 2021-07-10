@@ -68,7 +68,7 @@ class ProjectsViewModel(
 
 	private suspend fun getFundingprojects(){
 		when (val result = getProjectsByStateUseCase.invoke(
-			"stage-pending-reviewer"
+			"in-progress"
 		)
 			) {
 			is Result.Success -> {
