@@ -9,14 +9,18 @@ import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
+import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.profile.view.adapters.ProfileRecyclerViewAdapter
 import com.fiuba.seedyfiuba.profile.viewmodel.ProfileViewModel
 import com.fiuba.seedyfiuba.profile.viewmodel.ProfileViewModelFactory
+import com.fiuba.seedyfiuba.projects.view.adapters.RecyclerViewLoadMoreScroll
 
-class ProfileListActivity : BaseActivity() {
+open class ProfileListActivity : BaseActivity(),
+	ProfileRecyclerViewAdapter.ProfileRecyclerViewAdapterListener {
 
+	private lateinit var scrollListener: RecyclerViewLoadMoreScroll
 	private lateinit var profileRecyclerViewAdapter: ProfileRecyclerViewAdapter
-	private val profileListViewModel by lazy {
+	protected val profileListViewModel by lazy {
 		ViewModelProvider(this, ProfileViewModelFactory()).get(ProfileViewModel::class.java)
 	}
 
@@ -25,11 +29,11 @@ class ProfileListActivity : BaseActivity() {
 		setupView()
 		setupObservers()
 		setActionBarMode(ActionBarMode.Back)
-		profileListViewModel.getListProfiles()
+		fetchMoreInfo()
     }
 
 	private fun setupObservers() {
-		profileListViewModel.showLoading.observe(this, Observer {
+		profileListViewModel.showLoading.observe(this, {
 			if(it){
 				setViewState(ViewState.Loading)
 			}else{
@@ -37,17 +41,34 @@ class ProfileListActivity : BaseActivity() {
 			}
 		})
 
-		profileListViewModel.profileListLiveData.observe(this, Observer {
+		profileListViewModel.profileListLiveData.observe(this, {
 			profileRecyclerViewAdapter.setNewProfiles(it)
+			scrollListener.setLoaded(false)
 		})
 	}
 
 	private fun setupView() {
 		val profileList = findViewById<RecyclerView>(R.id.activityProfileList_list)
-		profileRecyclerViewAdapter = ProfileRecyclerViewAdapter(listOf())
+		profileRecyclerViewAdapter = ProfileRecyclerViewAdapter(mutableListOf(), this)
 		profileList.adapter = profileRecyclerViewAdapter
-		profileList.layoutManager = LinearLayoutManager(this)
+		profileList.layoutManager = LinearLayoutManager(this).also {
+			scrollListener = RecyclerViewLoadMoreScroll(it)
+		}
+
+		scrollListener.setOnLoadMoreListener(object :
+			RecyclerViewLoadMoreScroll.OnLoadMoreListener {
+			override fun onLoadMore() {
+				fetchMoreInfo()
+			}
+		})
+		profileList.addOnScrollListener(scrollListener)
+	}
+
+	protected open fun fetchMoreInfo() {
+		profileListViewModel.getListProfiles()
 	}
 
 	override var layoutResource: Int = R.layout.activity_profile_list
+
+	override fun onProfileClicked(profile: Profile, position: Int) = Unit
 }

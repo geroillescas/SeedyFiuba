@@ -28,6 +28,9 @@
 		<activity
 			android:name=".profile.view.activities.ProfileListActivity"
 			android:label="@string/title_activity_profile_list" />
+		<activity
+			android:name=".profile.view.activities.ContactActivity"
+			android:label="@string/title_activity_profile_list" />
 
 		<provider
 			android:name="androidx.core.content.FileProvider"
@@ -72,6 +75,16 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+
+		<activity android:name=".chat.ChatActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name=".chat.SignInChatActivity" />
 	</application>
 
 </manifest>

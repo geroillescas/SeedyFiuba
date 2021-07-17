@@ -1,8 +1,10 @@
 package com.fiuba.seedyfiuba.profile.data.repositories
 
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
 import com.fiuba.seedyfiuba.profile.domain.Profile
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -21,6 +23,14 @@ class ProfileRepositoryImpl(
 			is Result.Success -> Result.Success(result.data.users)
 			is Result.Error -> result
 		}
+	}
+
+	override suspend fun getProfilesFilteredBy(
+		profileType: ProfileType,
+		size: Int?,
+		page: Int?
+	): Result<ProfilesListResponse> {
+		return remoteDataSource.getReviewersFilteredBy(profileType, size, page)
 	}
 
 	override suspend fun saveProfile(profile: Profile): Result<Profile> {

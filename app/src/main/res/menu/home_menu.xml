@@ -15,6 +15,9 @@
 		android:id="@+id/settings"
 		android:title="Configuracion" />
 	<item
+		android:id="@+id/chat"
+		android:title="Mis chats" />
+	<item
 		android:id="@+id/logout"
 		android:title="Cerrar session" />
 </menu>

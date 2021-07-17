@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.ViewFlipper
@@ -11,7 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.login.LoginContainer
+import com.fiuba.seedyfiuba.login.domain.ProfileType
+import com.fiuba.seedyfiuba.profile.view.activities.ContactActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ProfileActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ProfileListActivity
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
@@ -48,10 +52,12 @@ open class BaseActivity : AppCompatActivity() {
 		flipper = findViewById(R.id.flipper)
 		drawerLayout = findViewById(R.id.drawer_layout)
 		navigationView = findViewById(R.id.navigation_view)
-		layoutInflater.inflate(
-			layoutResource,
-			content
-		)
+		if(layoutResource != 0){
+			layoutInflater.inflate(
+				layoutResource,
+				content
+			)
+		}
 		setupNavigationView()
 	}
 
@@ -143,6 +149,14 @@ open class BaseActivity : AppCompatActivity() {
 	}
 
 
+	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+		super.onPrepareOptionsMenu(menu)
+		if(AuthenticationManager.session?.user?.profileType == ProfileType.VEEDOR){
+			menu.removeItem(R.id.chat)
+		}
+		return true
+	}
+
 	private fun setupNavigationView() {
 		navigationView.setNavigationItemSelectedListener { item ->
 			when (item.itemId) {
@@ -163,6 +177,13 @@ open class BaseActivity : AppCompatActivity() {
 					startActivity(intent)
 					closeDrawer()
 				}
+
+				R.id.chat -> {
+					val intent = Intent(this, ContactActivity::class.java)
+					startActivity(intent)
+					closeDrawer()
+				}
+
 
 				R.id.logout -> {
 					logout()
