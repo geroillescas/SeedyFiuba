@@ -15,8 +15,7 @@ import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi) : RemoteBaseDataSource(),
 	ProfileRemoteDataSource {
 
-	override suspend fun getProfile(): Result<Profile> {
-		val userId = AuthenticationManager.session!!.user.userId
+	override suspend fun getProfile(userId: Int): Result<Profile> {
 		return getResult {
 			profileApi.getProfile(
 				userId = userId

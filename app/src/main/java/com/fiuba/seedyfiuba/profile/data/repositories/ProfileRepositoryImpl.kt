@@ -14,8 +14,8 @@ import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 class ProfileRepositoryImpl(
 	private val remoteDataSource: ProfileRemoteDataSource
 ) : ProfileRepository {
-	override suspend fun getProfile(): Result<Profile> {
-		return remoteDataSource.getProfile()
+	override suspend fun getProfile(userId: Int): Result<Profile> {
+		return remoteDataSource.getProfile(userId)
 	}
 
 	override suspend fun getAllProfile( size: Int?, page: Int?): Result<List<Profile>> {

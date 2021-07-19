@@ -7,7 +7,7 @@ import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
 
 interface ProfileRemoteDataSource {
-	suspend fun getProfile(): Result<Profile>
+	suspend fun getProfile(userId: Int): Result<Profile>
 	suspend fun getReviewersFilteredBy(profileType: ProfileType, size: Int? = null, page: Int? = null): Result<ProfilesListResponse>
 	suspend fun getAllProfile(size: Int? = null, page: Int? = null): Result<ProfilesListResponse>
 	suspend fun saveProfile(profile: Profile): Result<Profile>

@@ -57,6 +57,10 @@ object ProjectsContainer {
 		GetProjectsByStateUseCase(projectRepository)
 	}
 
+	val getProjectUseCase: GetProjectUseCase by lazy {
+		GetProjectUseCase(projectRepository)
+	}
+
 	val sponsorUseCase: SponsorUseCase by lazy {
 		SponsorUseCase(projectRepository)
 	}

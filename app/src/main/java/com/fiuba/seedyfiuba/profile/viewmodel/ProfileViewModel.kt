@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.profile.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fiuba.seedyfiuba.BaseViewModel
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.domain.Profile
@@ -80,7 +81,8 @@ class ProfileViewModel(
 
 	fun getProfile() {
 		launch {
-			when(val result = getProfileUseCase.invoke()){
+			val userId: Int = AuthenticationManager.userId
+			when(val result = getProfileUseCase.invoke(userId)){
 				is Result.Success -> {
 					_profile.postValue(result.data)
 				}

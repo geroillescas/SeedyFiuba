@@ -70,6 +70,12 @@ class ProjectsRemoteDataSourceImpl(
 		}
 	}
 
+	override suspend fun getProject(projectId: String): Result<Project> {
+		return getResult {
+			projectApi.getProject(projectId)
+		}
+	}
+
 	override suspend fun search(searchForm: SearchForm): Result<List<Project>> {
 		return getResult {
 			val hashtag = if (searchForm.hashtag?.isEmpty() != false) null else searchForm.hashtag
