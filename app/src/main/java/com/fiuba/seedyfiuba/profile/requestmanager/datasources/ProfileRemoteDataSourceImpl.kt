@@ -6,6 +6,7 @@ import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
 import com.fiuba.seedyfiuba.profile.domain.Profile
+import com.fiuba.seedyfiuba.profile.domain.ProfileTokenUpdateDTO
 import com.fiuba.seedyfiuba.profile.requestmanager.api.ProfileApi
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 
@@ -41,6 +42,16 @@ class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi) : RemoteBa
 			profileApi.saveProfile(
 				userId = userId,
 				profile = profile
+			)
+		}
+	}
+
+	override suspend fun saveProfileTokenUpdateDTO(profileTokenUpdateDTO: ProfileTokenUpdateDTO): Result<Unit> {
+		return getResult {
+			val userId = AuthenticationManager.session!!.user.userId
+			profileApi.updateProfile(
+				userId = userId,
+				profile = profileTokenUpdateDTO
 			)
 		}
 	}

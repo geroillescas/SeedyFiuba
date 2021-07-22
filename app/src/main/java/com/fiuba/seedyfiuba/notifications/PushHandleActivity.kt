@@ -8,6 +8,7 @@ import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.chat.ChatActivity
+import com.fiuba.seedyfiuba.chat.ChatEntryPointActivity
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
@@ -29,8 +30,8 @@ class PushHandleActivity : BaseActivity() {
 		}
 
 		if (notification.extra.containsKey("profileId")) {
-			val projectId = notification.extra["profileId"]!!.toInt()
-			pushHandleViewModel.getProject(projectId)
+			val profileId = notification.extra["profileId"]!!.toInt()
+			pushHandleViewModel.getProfile(profileId)
 		}
 	}
 
@@ -45,7 +46,7 @@ class PushHandleActivity : BaseActivity() {
 	}
 
 	private fun goToChat(profile: Profile) {
-		val intent = Intent(this, ChatActivity::class.java).also {
+		val intent = Intent(this, ChatEntryPointActivity::class.java).also {
 			it.putExtra(ChatActivity.PROFILE, profile)
 		}
 		startActivity(intent)

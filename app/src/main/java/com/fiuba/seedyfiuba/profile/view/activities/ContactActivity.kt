@@ -2,10 +2,10 @@ package com.fiuba.seedyfiuba.profile.view.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.chat.ChatActivity
+import com.fiuba.seedyfiuba.chat.ChatEntryPointActivity
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.domain.Profile
@@ -20,40 +20,11 @@ class ContactActivity : ProfileListActivity() {
 	}
 
 	override fun onProfileClicked(profile: Profile, position: Int) {
-		val intent = Intent(this, ChatActivity::class.java).also {
+		val intent = Intent(this, ChatEntryPointActivity::class.java).also {
 			it.putExtra(ChatActivity.PROFILE, profile)
 		}
 
-		setViewState(ViewState.Loading)
-		AuthenticationManager.session?.user?.email?.let {
-			if(Firebase.auth.currentUser == null){
-				val token = AuthenticationManager.session?.token!!
-				FirebaseAuth.getInstance().createUserWithEmailAndPassword(it, token).addOnCompleteListener(this) { task ->
-					if (task.isSuccessful) {
-						// Sign in success, update UI with the signed-in user's information
-						Log.d(ContactActivity::class.qualifiedName, "createUserWithEmail:success")
-						runOnUiThread {
-							setViewState(ViewState.Initial)
-							startActivity(intent)
-						}
-					} else {
-						// If sign in fails, display a message to the user.
-						Log.w(
-							ContactActivity::class.qualifiedName,
-							"createUserWithEmail:failure",
-							task.exception
-						)
-						runOnUiThread {
-							setViewState(ViewState.Initial)
-							startActivity(intent)
-						}
-					}
-				}
-			}
-			else{
-				startActivity(intent)
-			}
-		}
+		startActivity(intent)
 	}
 
 	override fun fetchMoreInfo() {

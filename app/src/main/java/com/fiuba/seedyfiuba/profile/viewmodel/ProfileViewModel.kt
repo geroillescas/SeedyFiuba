@@ -51,7 +51,7 @@ class ProfileViewModel(
 	}
 
 	fun getListProfilesBy(profileType: ProfileType) {
-		if (fetched <= max) {
+		if (fetched < max || fetched == 0) {
 			launch {
 				when (val result = getProfilesUseCase.invoke(profileType, size, page)) {
 					is Result.Success -> {

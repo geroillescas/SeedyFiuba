@@ -4,6 +4,7 @@ import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
 import com.fiuba.seedyfiuba.profile.domain.Profile
+import com.fiuba.seedyfiuba.profile.domain.ProfileTokenUpdateDTO
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 
 /**
@@ -35,6 +36,11 @@ class ProfileRepositoryImpl(
 
 	override suspend fun saveProfile(profile: Profile): Result<Profile> {
 		return remoteDataSource.saveProfile(profile)
+	}
+
+	override suspend fun saveProfileTokenUpdateDTO(token: String): Result<Unit> {
+		val profileTokenUpdateDTO = ProfileTokenUpdateDTO(token)
+		return remoteDataSource.saveProfileTokenUpdateDTO(profileTokenUpdateDTO)
 	}
 
 }
