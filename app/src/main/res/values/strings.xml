@@ -1,53 +1,53 @@
 <resources>
-    <string name="app_name">SeedyFiuba</string>
+	<string name="app_name">SeedyFiuba</string>
 
-    <string name="title_activity_home">Inicio</string>
-    <string name="title_activity_register">Registrate!</string>
-    <string name="title_activity_login">Iniciar sesión</string>
-    <string name="title_activity_projects">Proyectos</string>
-    <string name="title_activity_profile">Mi perfil</string>
+	<string name="title_activity_home">Inicio</string>
+	<string name="title_activity_register">Registrate!</string>
+	<string name="title_activity_login">Iniciar sesión</string>
+	<string name="title_activity_projects">Proyectos</string>
+	<string name="title_activity_profile">Mi perfil</string>
 	<string name="title_activity_contact">Mis contactos</string>
 	<string name="title_activity_chat">Mi chat</string>
-    <string name="title_activity_profile_list">Otros perfiles</string>
-    <!--
+	<string name="title_activity_profile_list">Otros perfiles</string>
+	<!--
 	This string is used for square devices and overridden by hello_world in
 	values-round/strings.xml for round devices.
 	-->
 
-    <string name="email">Email</string>
-    <string name="email_invalid">Email incorrecto</string>
-    <string name="name">Nombre</string>
-    <string name="lastname">Apellido</string>
-    <string name="password">Contraseña</string>
-    <string name="password_invalid">Contraseña incorrecta</string>
-    <string name="password_register">Elija una contraseña</string>
-    <string name="password_retry">Reingrese contraseña</string>
-    <string name="sign_in">Registrarse</string>
-    <string name="continue_label">Continuar</string>
-    <string name="action_login">Login in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">El nombre no puede estar vacio</string>
-    <string name="invalid_lastname">El apellido no puede estar vacio</string>
-    <string name="invalid_title">El titulo no puede estar vacio</string>
-    <string name="invalid_description">La descripcion tiene que tener mas de 10 caracteres</string>
-    <string name="invalid_password">La contraseña debe tener al menos 6 caracteres</string>
-    <string name="invalid_email">El email no es valido</string>
-    <string name="invalid_email_already_used">El email ya esta asociado a una cuenta</string>
-    <string name="register_invalid_profile_type">Not a user profile</string>
-    <string name="register_invalid_password_validation">Las contraseñas deben ser iguales</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_onboarding_setup">OnboardingSetupActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="edite">Editar</string>
-    <string name="delete">Borrar</string>
-    <string name="close_session_confirm">¿Estas seguro de cerrar sesión?</string>
-    <string name="close_session">Cerrar sesión</string>
-    <string name="confirm">Confirmar</string>
-    <string name="cancel">Cancelar</string>
-    <string name="datePattern">yyyy/MM/dd</string>
-    <string name="edit">Editar</string>
-    <string name="create_project">Crear proyecto</string>
+	<string name="email">Email</string>
+	<string name="email_invalid">Email incorrecto</string>
+	<string name="name">Nombre</string>
+	<string name="lastname">Apellido</string>
+	<string name="password">Contraseña</string>
+	<string name="password_invalid">Contraseña incorrecta</string>
+	<string name="password_register">Elija una contraseña</string>
+	<string name="password_retry">Reingrese contraseña</string>
+	<string name="sign_in">Registrarse</string>
+	<string name="continue_label">Continuar</string>
+	<string name="action_login">Login in</string>
+	<string name="welcome">"Welcome !"</string>
+	<string name="invalid_username">El nombre no puede estar vacio</string>
+	<string name="invalid_lastname">El apellido no puede estar vacio</string>
+	<string name="invalid_title">El titulo no puede estar vacio</string>
+	<string name="invalid_description">La descripcion tiene que tener mas de 10 caracteres</string>
+	<string name="invalid_password">La contraseña debe tener al menos 6 caracteres</string>
+	<string name="invalid_email">El email no es valido</string>
+	<string name="invalid_email_already_used">El email ya esta asociado a una cuenta</string>
+	<string name="register_invalid_profile_type">Not a user profile</string>
+	<string name="register_invalid_password_validation">Las contraseñas deben ser iguales</string>
+	<string name="login_failed">"Login failed"</string>
+	<string name="title_activity_onboarding_setup">OnboardingSetupActivity</string>
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="edite">Editar</string>
+	<string name="delete">Borrar</string>
+	<string name="close_session_confirm">¿Estas seguro de cerrar sesión?</string>
+	<string name="close_session">Cerrar sesión</string>
+	<string name="confirm">Confirmar</string>
+	<string name="cancel">Cancelar</string>
+	<string name="datePattern">yyyy/MM/dd</string>
+	<string name="edit">Editar</string>
+	<string name="create_project">Crear proyecto</string>
 
 	<!-- Char -->
 	<string name="welcome_msg">Welcome!</string>
@@ -61,4 +61,8 @@
 	<string name="fresh_config">Fresh Config</string>
 	<string name="cause_crash">Cause Crash</string>
 	<string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+
+	<string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+	<string name="fcm_message">Seedy Fiuba</string>
 </resources>

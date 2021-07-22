@@ -15,6 +15,7 @@ interface ProjectRemoteDataSource {
 	suspend fun saveProject(project: Project): Result<Project>
 	suspend fun deleteProject(project: Project): Result<Project>
 	suspend fun getProjects(): Result<List<Project>>
+	suspend fun getProject(projectId: String): Result<Project>
 	suspend fun getProjects(status: String): Result<List<Project>>
 	suspend fun search(searchForm: SearchForm): Result<List<Project>>
 	suspend fun setReviewer(reviewerPostRequest: ReviewerPostRequest): Result<ReviewerResponse>

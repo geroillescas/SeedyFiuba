@@ -36,6 +36,10 @@ class ProjectRepositoryImpl(
 		return remoteDataSource.deleteProject(project)
 	}
 
+	override suspend fun getProject(projectId: Int): Result<Project> {
+		return remoteDataSource.getProject(projectId.toString())
+	}
+
 	override suspend fun getProjects(): Result<List<Project>> {
 		return remoteDataSource.getProjects()
 	}

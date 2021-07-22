@@ -16,7 +16,7 @@ interface ProjectApi {
 	@GET(ProjectsConstant.END_POINT_PROJECT_ID)
 	suspend fun getProject(
 		@Path(value = "id") id: String
-	): Response<List<Project>>
+	): Response<Project>
 
 	@GET(ProjectsConstant.END_POINT_PROJECT_SEARCH)
 	suspend fun searchProject(

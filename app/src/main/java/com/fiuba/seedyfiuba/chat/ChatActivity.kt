@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ProgressBar
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.auth.AuthUI.IdpConfig.*
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -12,10 +13,14 @@ import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.BuildConfig
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.chat.model.ChatViewModel
+import com.fiuba.seedyfiuba.chat.model.ChatViewModelFactory
 import com.fiuba.seedyfiuba.chat.model.SeedyMessage
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.databinding.ActivityChatBinding
 import com.fiuba.seedyfiuba.login.domain.User
+import com.fiuba.seedyfiuba.notifications.PushHandleViewModel
+import com.fiuba.seedyfiuba.notifications.PushHandlerViewModelFactory
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -42,6 +47,10 @@ class ChatActivity : BaseActivity() {
 		onImageSelected(uri)
 	}
 
+	private val chatViewModel by lazy {
+		ViewModelProvider(this, ChatViewModelFactory()).get(ChatViewModel::class.java)
+	}
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setActionBarMode(ActionBarMode.Back)
@@ -50,6 +59,7 @@ class ChatActivity : BaseActivity() {
 		profileChat = intent.extras?.get(PROFILE) as Profile
 		user = AuthenticationManager.session?.user!!
 		binding = ActivityChatBinding.inflate(layoutInflater)
+		chatViewModel.setup(profileChat, user)
 		setContentView(binding.root)
 
 		// When running in debug mode, connect to the Firebase Emulator Suite
@@ -93,14 +103,16 @@ class ChatActivity : BaseActivity() {
 
 	private fun setupSendButton() {
 		binding.sendButton.setOnClickListener {
+			val message = binding.messageEditText.text.toString()
 			val friendlyMessage = SeedyMessage(
-				binding.messageEditText.text.toString(),
+				message,
 				getUserName(),
 				getPhotoUrl(),
 				null
 			)
 			setupChild(db.reference)
 				.push().setValue(friendlyMessage)
+			chatViewModel.sendMessageNotification(message)
 			binding.messageEditText.setText("")
 		}
 	}
@@ -189,6 +201,7 @@ class ChatActivity : BaseActivity() {
 					.addOnSuccessListener { uri ->
 						val friendlyMessage =
 							SeedyMessage(null, getUserName(), getPhotoUrl(), uri.toString())
+						chatViewModel.sendImageNotification()
 						setupChild(db.reference)
 							.child(key!!)
 							.setValue(friendlyMessage)

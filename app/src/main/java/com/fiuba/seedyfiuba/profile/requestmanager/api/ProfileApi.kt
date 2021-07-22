@@ -1,6 +1,7 @@
 package com.fiuba.seedyfiuba.profile.requestmanager.api
 
 import com.fiuba.seedyfiuba.profile.domain.Profile
+import com.fiuba.seedyfiuba.profile.domain.ProfileTokenUpdateDTO
 import com.fiuba.seedyfiuba.profile.requestmanager.api.ProfileConstant.END_POINT_PROFILES
 import com.fiuba.seedyfiuba.profile.requestmanager.api.ProfileConstant.END_POINT_PROFILE_ID
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
@@ -26,6 +27,12 @@ interface ProfileApi {
 		@Path(value = "id") userId: Int,
 		@Body profile: Profile
 	) : Response<Profile>
+
+	@PUT(END_POINT_PROFILE_ID)
+	suspend fun updateProfile(
+		@Path(value = "id") userId: Int,
+		@Body profile: ProfileTokenUpdateDTO
+	) : Response<Unit>
 
 	@GET(END_POINT_PROFILE_ID)
 	suspend fun getProfile(@Path(value = "id") userId: Int): Response<Profile>

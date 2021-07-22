@@ -13,8 +13,14 @@ data class Profile(
 	val email: String,
 	val password: String?,
 	val role: ProfileType,
-	val description: String?
+	val description: String?,
+	val firebaseToken: String?
 ) : Parcelable {
 	fun getInitials(): String = "${name.first().toUpperCase()}${lastName.first().toUpperCase()}"
 	fun getFullName(): String = "$name $lastName"
 }
+
+
+data class ProfileTokenUpdateDTO(
+	val firebaseToken: String?
+)

@@ -15,6 +15,7 @@ interface ProjectsRepository {
 	suspend fun deleteProject(project: Project): Result<Project>
 	suspend fun getProjects(): Result<List<Project>>
 	suspend fun getProjects(status: String): Result<List<Project>>
+	suspend fun getProject(projectId: Int): Result<Project>
 	suspend fun getReviewerProjects(reviewerId: String?, reviewsStatus: List<String>?): Result<List<Project>>
 	suspend fun search(searchForm: SearchForm): Result<List<Project>>
 	suspend fun getReviewersFilteredBy(profileType: ProfileType, size: Int? = null, page: Int? = null): Result<ProfilesListResponse>
