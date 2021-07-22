@@ -32,9 +32,7 @@ class RecyclerViewLoadMoreScroll(private val layoutManager: LinearLayoutManager)
 		lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
 		if (!loaded && totalItemCount <= lastVisibleItem + visibleThreshold) {
-			if (mOnLoadMoreListener != null) {
-				mOnLoadMoreListener!!.onLoadMore()
-			}
+			mOnLoadMoreListener?.onLoadMore()
 			loaded = true
 		}
 

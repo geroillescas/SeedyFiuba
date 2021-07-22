@@ -16,7 +16,9 @@ interface ProfileApi {
 
 	@GET(END_POINT_PROFILES)
 	suspend fun getProfilesFilteredBy(
-		@Query(value = "role") profileType: String
+		@Query(value = "role") profileType: String,
+		@Query(value = "size") size: Int? = null,
+		@Query(value = "page") page: Int? = null
 	): Response<ProfilesListResponse>
 
 	@PUT(END_POINT_PROFILE_ID)

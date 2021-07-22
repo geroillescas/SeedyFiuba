@@ -26,7 +26,7 @@ class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi) : RemoteBa
 
 	override suspend fun getReviewersFilteredBy(profileType: ProfileType, size: Int?, page: Int?): Result<ProfilesListResponse> {
 		return getResult {
-			profileApi.getProfilesFilteredBy(profileType.value)
+			profileApi.getProfilesFilteredBy(profileType.value, size, page)
 		}
 	}
 

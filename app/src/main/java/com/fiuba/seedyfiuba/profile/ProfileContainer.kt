@@ -10,6 +10,7 @@ import com.fiuba.seedyfiuba.commons.RequestManagerContainer
 import com.fiuba.seedyfiuba.profile.requestmanager.datasources.ProfileRemoteDataSourceImpl
 import com.fiuba.seedyfiuba.profile.usecases.GetAllProfilesUseCase
 import com.fiuba.seedyfiuba.profile.usecases.GetProfileUseCase
+import com.fiuba.seedyfiuba.profile.usecases.GetProfilesUseCase
 import com.fiuba.seedyfiuba.profile.usecases.SaveProfileUseCase
 
 object ProfileContainer {
@@ -27,6 +28,10 @@ object ProfileContainer {
 
 	val saveProfileUseCase: SaveProfileUseCase by lazy {
 		SaveProfileUseCase(profileRepository)
+	}
+
+	val getProfilesUseCase: GetProfilesUseCase by lazy {
+		GetProfilesUseCase(profileRepository)
 	}
 
 	private val profileRepository: ProfileRepository by lazy {
