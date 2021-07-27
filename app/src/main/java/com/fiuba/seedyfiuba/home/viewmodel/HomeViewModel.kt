@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.Result
-import com.fiuba.seedyfiuba.funds.viewmodel.GetFundsUseCase
-import com.fiuba.seedyfiuba.funds.viewmodel.TransferUserCase
+import com.fiuba.seedyfiuba.funds.usecases.TransferUserCase
 import com.fiuba.seedyfiuba.projects.usecases.GetBalanceUseCase
 import java.math.BigDecimal
 

@@ -2,10 +2,8 @@ package com.fiuba.seedyfiuba.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fiuba.seedyfiuba.funds.viewmodel.FundsContainer
-import com.fiuba.seedyfiuba.funds.viewmodel.FundsHistoryViewModel
-import com.fiuba.seedyfiuba.funds.viewmodel.GetFundsUseCase
-import com.fiuba.seedyfiuba.funds.viewmodel.TransferUserCase
+import com.fiuba.seedyfiuba.funds.FundsContainer
+import com.fiuba.seedyfiuba.funds.usecases.TransferUserCase
 import com.fiuba.seedyfiuba.projects.ProjectsContainer
 import com.fiuba.seedyfiuba.projects.usecases.GetBalanceUseCase
 

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.funds.domains.Contract
+import com.fiuba.seedyfiuba.funds.usecases.GetFundsUseCase
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.usecases.GetProjectUseCase
 

@@ -14,7 +14,7 @@ import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.databinding.RecyclerViewFundItemBinding
-import com.fiuba.seedyfiuba.funds.viewmodel.Contract
+import com.fiuba.seedyfiuba.funds.domains.Contract
 import com.fiuba.seedyfiuba.funds.viewmodel.FundsHistoryViewModel
 import com.fiuba.seedyfiuba.funds.viewmodel.FundsHistoryViewModelFactory
 import com.fiuba.seedyfiuba.projects.domain.Project

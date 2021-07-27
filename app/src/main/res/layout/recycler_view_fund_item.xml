@@ -7,7 +7,7 @@
 
 		<variable
 			name="contract"
-			type="com.fiuba.seedyfiuba.funds.viewmodel.Contract" />
+			type="com.fiuba.seedyfiuba.funds.domains.Contract" />
 	</data>
 
 	<androidx.cardview.widget.CardView

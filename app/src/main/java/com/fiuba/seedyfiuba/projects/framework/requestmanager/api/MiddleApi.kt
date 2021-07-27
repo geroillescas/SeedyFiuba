@@ -1,7 +1,7 @@
 package com.fiuba.seedyfiuba.projects.framework.requestmanager.api
 
-import com.fiuba.seedyfiuba.funds.viewmodel.ContractsListResponse
-import com.fiuba.seedyfiuba.funds.viewmodel.TransferRequest
+import com.fiuba.seedyfiuba.funds.domains.ContractsListResponse
+import com.fiuba.seedyfiuba.funds.domains.TransferRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.BalanceResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest

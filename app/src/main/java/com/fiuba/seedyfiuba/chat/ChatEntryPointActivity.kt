@@ -29,16 +29,30 @@ class ChatEntryPointActivity : BaseActivity() {
 		FirebaseAuth.getInstance().signInWithEmailAndPassword(user.email, user.email).addOnCompleteListener(this) { task ->
 			if (task.isSuccessful) {
 				// Sign in success, update UI with the signed-in user's information
-				Log.d(ContactActivity::class.qualifiedName, "createUserWithEmail:success")
+				Log.d(ContactActivity::class.qualifiedName, "loginUserWithEmail:success")
 				goToChat()
 			} else {
 				// If sign in fails, display a message to the user.
 				Log.w(
 					ContactActivity::class.qualifiedName,
-					"createUserWithEmail:failure",
+					"loginUserWithEmail:failure",
 					task.exception
 				)
-				goToChat()
+				FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.email, user.email).addOnCompleteListener(this) { task ->
+					if (task.isSuccessful) {
+						// Sign in success, update UI with the signed-in user's information
+						Log.d(ContactActivity::class.qualifiedName, "createUserWithEmail:success")
+						goToChat()
+					} else {
+						// If sign in fails, display a message to the user.
+						Log.w(
+							ContactActivity::class.qualifiedName,
+							"createUserWithEmail:failure",
+							task.exception
+						)
+						goToChat()
+					}
+				}
 			}
 		}
 	}
