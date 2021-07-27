@@ -11,13 +11,17 @@
         <item name="colorOnSecondary">@color/onSecondary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-		<item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
     </style>
 
-	<style name="Theme.SeedyFiuba.NoActionBar" parent="Theme.SeedyFiuba">
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
-	</style>
+    <style name="Theme.SeedyFiuba.NoActionBar" parent="Theme.SeedyFiuba">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SeedyFiuba.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SeedyFiuba.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

@@ -129,19 +129,19 @@ class StageProjectFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		with(stageProjectViewModel) {
-			projectResult.observe(viewLifecycleOwner, Observer {
+			projectResult.observe(viewLifecycleOwner, {
 				findNavController().popBackStack(R.id.projectsListFragment, true)
 			})
 
-			isAddValid.observe(viewLifecycleOwner, Observer {
+			isAddValid.observe(viewLifecycleOwner, {
 				binding.stageProjectFragmentAddStage.isEnabled = it
 			})
 
-			isContinueValid.observe(viewLifecycleOwner, Observer {
+			isContinueValid.observe(viewLifecycleOwner, {
 				binding.stageProjectFragmentContinueButton.isEnabled = it
 			})
 
-			stages.observe(viewLifecycleOwner, Observer {
+			stages.observe(viewLifecycleOwner, {
 				validateProject()
 				stagesAdapter.setNewStages(it.toList())
 			})

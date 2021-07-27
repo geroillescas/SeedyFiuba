@@ -65,6 +65,15 @@ object ProjectsContainer {
 		SponsorUseCase(projectRepository)
 	}
 
+	val getBalanceUseCase: GetBalanceUseCase by lazy {
+		GetBalanceUseCase(projectRepository)
+	}
+
+	val requestStageReviewUseCase: RequestStageReviewUseCase by lazy {
+		RequestStageReviewUseCase(projectRepository)
+	}
+
+
 	val setStageReviewStatusUseCase: SetStageReviewStatusUseCase by lazy {
 		SetStageReviewStatusUseCase(projectRepository)
 	}

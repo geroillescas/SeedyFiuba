@@ -9,9 +9,13 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.fiuba.seedyfiuba.MainActivity
 import com.fiuba.seedyfiuba.R
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
+
 
 class SeedyFiubaMessagingService : FirebaseMessagingService() {
 
@@ -38,10 +42,16 @@ class SeedyFiubaMessagingService : FirebaseMessagingService() {
 				extra = remoteMessage.data
 			)
 			sendNotification(seedyFiubaNotification)
+			saveNotification(seedyFiubaNotification)
 		}
 
 		// Also if you intend on generating your own notifications as a result of a received FCM
 		// message, here is where that should be initiated. See sendNotification method below.
+	}
+
+	private fun saveNotification(seedyFiubaNotification: SeedyFiubaNotification) {
+		val notificationsRepository = NotificationsRepository(this)
+		notificationsRepository.saveNotification(seedyFiubaNotification)
 	}
 
 	override fun onNewToken(token: String) {
@@ -54,7 +64,7 @@ class SeedyFiubaMessagingService : FirebaseMessagingService() {
 	}
 
 	private fun sendNotification(seedyFiubaNotification: SeedyFiubaNotification) {
-		val intent = Intent(this, PushHandleActivity::class.java)
+		val intent = Intent(this, MainActivity::class.java)
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 		intent.putExtra(PushHandleActivity.NOTIFICACION, seedyFiubaNotification)
 		val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -65,7 +75,7 @@ class SeedyFiubaMessagingService : FirebaseMessagingService() {
 		val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 		val notificationBuilder = NotificationCompat.Builder(this, channelId)
 			.setSmallIcon(R.mipmap.ic_launcher)
-			.setContentTitle(getString(R.string.fcm_message))
+			.setContentTitle(seedyFiubaNotification.title)
 			.setContentText(seedyFiubaNotification.body)
 			.setAutoCancel(true)
 			.setSound(defaultSoundUri)

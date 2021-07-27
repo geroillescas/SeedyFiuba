@@ -17,6 +17,14 @@
 	<item
 		android:id="@+id/chat"
 		android:title="Mis chats" />
+
+	<item
+		android:id="@+id/notifications"
+		android:title="Mis notificaciones" />
+
+	<item
+		android:id="@+id/funds"
+		android:title="Mis patrocinios" />
 	<item
 		android:id="@+id/logout"
 		android:title="Cerrar session" />

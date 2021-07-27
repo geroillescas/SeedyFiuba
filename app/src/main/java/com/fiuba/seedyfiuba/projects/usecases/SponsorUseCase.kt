@@ -9,5 +9,5 @@ class SponsorUseCase(private val projectsRepository: ProjectsRepository) {
 
 
 class GetBalanceUseCase(private val projectsRepository: ProjectsRepository) {
-	suspend fun invoke(amount: BigDecimal, projectId: Int) = projectsRepository.sponsor(amount, projectId)
+	suspend fun invoke(userId: Int) = projectsRepository.getBalance(userId)
 }

@@ -13,8 +13,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
+import com.fiuba.seedyfiuba.funds.FundHistoryActivity
 import com.fiuba.seedyfiuba.login.LoginContainer
 import com.fiuba.seedyfiuba.login.domain.ProfileType
+import com.fiuba.seedyfiuba.notifications.CenterNotificationActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ContactActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ProfileActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ProfileListActivity
@@ -151,9 +153,19 @@ open class BaseActivity : AppCompatActivity() {
 
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 		super.onPrepareOptionsMenu(menu)
-		if(AuthenticationManager.session?.user?.profileType == ProfileType.VEEDOR){
-			menu.removeItem(R.id.chat)
+
+		when (AuthenticationManager.session?.user?.profileType) {
+			ProfileType.VEEDOR -> {
+				menu.removeItem(R.id.chat)
+				menu.removeItem(R.id.funds)
+			}
+
+			ProfileType.EMPRENDEDOR -> {
+				menu.removeItem(R.id.funds)
+			}
 		}
+
+
 		return true
 	}
 
@@ -183,6 +195,19 @@ open class BaseActivity : AppCompatActivity() {
 					startActivity(intent)
 					closeDrawer()
 				}
+
+				R.id.notifications -> {
+					val intent = Intent(this, CenterNotificationActivity::class.java)
+					startActivity(intent)
+					closeDrawer()
+				}
+
+				R.id.funds -> {
+					val intent = Intent(this, FundHistoryActivity::class.java)
+					startActivity(intent)
+					closeDrawer()
+				}
+
 
 
 				R.id.logout -> {

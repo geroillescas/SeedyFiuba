@@ -14,8 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fiuba.seedyfiuba.R
+import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.databinding.FragmentSponsorBinding
 import com.fiuba.seedyfiuba.projects.domain.Project
+import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.view.activities.ReviewerConditionsActivity
 import com.fiuba.seedyfiuba.projects.view.activities.SponsorConditionsActivity
 import com.fiuba.seedyfiuba.projects.viewmodel.SponsorViewModel
@@ -67,7 +69,7 @@ class SponsorFragment : Fragment() {
 		}
 
 		binding.fragmentSponsorAmountInput.addTextChangedListener {
-			binding.fragmentSponsorAmountButton.isEnabled = !it.isNullOrEmpty()
+			binding.fragmentSponsorAmountButton.isEnabled = sponsorViewModel.isValidAmount(it)
 		}
 
 		binding.fragmentSponsorAmountButton.setOnClickListener {
@@ -87,12 +89,26 @@ class SponsorFragment : Fragment() {
 		return binding.root
 	}
 
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		sponsorViewModel.getAmountAvailable()
+	}
+
 	private fun setupObservers() {
-		sponsorViewModel.updated.observe(viewLifecycleOwner, Observer {
+		sponsorViewModel.updated.observe(viewLifecycleOwner, {
 			if (it) {
 				binding.fragmentSponsorContent.visibility = View.GONE
 				binding.fragmentSponsorCongrats.visibility = View.VISIBLE
 			}
+		})
+
+		sponsorViewModel.showLoading.observe(viewLifecycleOwner, {
+			val viewState = if (it) ViewState.Loading else ViewState.Initial
+			(requireActivity() as ProjectsActivity).setViewState(viewState)
+		})
+
+		sponsorViewModel.amountAvailable.observe(viewLifecycleOwner, {
+			binding.fragmentSponsorSubtitule.text = "Tu saldo disponible es de: ${it} ETHS"
 		})
 	}
 

@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.projects.framework.requestmanager.datasources
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.BalanceResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
@@ -134,6 +135,18 @@ class ProjectsRemoteDataSourceImpl(
 				projectId,
 				stageId
 			)
+		}
+	}
+
+	override suspend fun getBalance(userId: Int): Result<BalanceResponse> {
+		return getResult {
+			middleApi.getBalance(userId)
+		}
+	}
+
+	override suspend fun requestStageReview(project: Project): Result<Unit> {
+		return getResult {
+			middleApi.requestStageReview(project.id)
 		}
 	}
 }

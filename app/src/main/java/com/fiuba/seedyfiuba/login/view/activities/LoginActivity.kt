@@ -17,9 +17,11 @@ import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.ViewState
+import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.login.domain.Session
 import com.fiuba.seedyfiuba.login.viewmodel.LoginViewModel
 import com.fiuba.seedyfiuba.login.viewmodel.LoginViewModelFactory
+import com.fiuba.seedyfiuba.profile.view.activities.ContactActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -87,8 +89,8 @@ class LoginActivity : BaseActivity() {
 			it.success?.let { it1 ->
 				updateUiWithUser(it1)
 				setResult(Activity.RESULT_OK)
+				registerWithFirebase()
 				//Complete and destroy login activity once successful
-				finish()
 			}
 
 
@@ -124,6 +126,25 @@ class LoginActivity : BaseActivity() {
 			login.setOnClickListener {
 				setViewState(ViewState.Loading)
 				loginViewModel.login(email.text.toString(), password.text.toString())
+			}
+		}
+	}
+
+	private fun registerWithFirebase(){
+		val user = AuthenticationManager.session!!.user
+		FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.email, user.email).addOnCompleteListener(this) { task ->
+			if (task.isSuccessful) {
+				// Sign in success, update UI with the signed-in user's information
+				Log.d(ContactActivity::class.qualifiedName, "createUserWithEmail:success")
+				finish()
+			} else {
+				// If sign in fails, display a message to the user.
+				Log.w(
+					ContactActivity::class.qualifiedName,
+					"createUserWithEmail:failure",
+					task.exception
+				)
+				finish()
 			}
 		}
 	}

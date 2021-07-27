@@ -7,11 +7,13 @@ import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.usecases.GetReviewerUseCase
+import com.fiuba.seedyfiuba.projects.usecases.RequestStageReviewUseCase
 import com.fiuba.seedyfiuba.projects.usecases.SaveReviewerUseCase
 
 class ReviewerViewModel(
 	private val getReviewerUseCase: GetReviewerUseCase,
-	private val saveReviewerUseCase: SaveReviewerUseCase
+	private val saveReviewerUseCase: SaveReviewerUseCase,
+	private val requestStageReviewUseCase: RequestStageReviewUseCase
 ) : BaseViewModel() {
 
 	lateinit var project: Project
@@ -46,6 +48,19 @@ class ReviewerViewModel(
 	fun updateProjectWithProfileSelected(profile: Profile) {
 		launch {
 			when (saveReviewerUseCase.invoke(profile.id, project.id)) {
+				is Result.Success -> {
+					_updated.postValue(true)
+				}
+				is Result.Error -> {
+					_error.postValue(true)
+				}
+			}
+		}
+	}
+
+	fun requestStageReview() {
+		launch {
+			when (requestStageReviewUseCase.invoke(project)) {
 				is Result.Success -> {
 					_updated.postValue(true)
 				}

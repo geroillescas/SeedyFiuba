@@ -3,6 +3,7 @@ package com.fiuba.seedyfiuba.projects.data.repositories
 
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.domain.ProfileType
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.BalanceResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerResponse
 import com.fiuba.seedyfiuba.projects.domain.Project
@@ -25,6 +26,8 @@ interface ProjectsRepository {
 		reviewId: Int
 	): Result<ReviewerResponse>
 	suspend fun sponsor(amount: BigDecimal, projectId: Int): Result<Unit>
+	suspend fun getBalance(userId: Int): Result<BigDecimal>
+	suspend fun requestStageReview(project: Project): Result<Unit>
 	suspend fun setStageReviewStatus(
 		status: String,
 		reviewerId: Int,

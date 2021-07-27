@@ -24,6 +24,19 @@ abstract class RemoteBaseDataSource {
 		}
 	}
 
+	protected suspend fun getResultUnit(call: suspend () -> Response<Unit>): Result<Unit> {
+		return try {
+			val response = call()
+			if (response.isSuccessful) {
+				Result.Success(Unit)
+			} else {
+				error(response.code(), response.errorBody()?.string() ?: "")
+			}
+		} catch (e: Exception) {
+			error(e.message ?: e.toString())
+		}
+	}
+
 	private fun <T : Any> error(errorCode: Int, errorStr: String): Result<T> {
 		return try {
 			val jsonError = JSONObject(errorStr)

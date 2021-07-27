@@ -1,6 +1,7 @@
 package com.fiuba.seedyfiuba.projects.data.datasources
 
 import com.fiuba.seedyfiuba.commons.Result
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.BalanceResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
@@ -9,6 +10,7 @@ import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.domain.SearchForm
 import com.fiuba.seedyfiuba.projects.domain.SponsorDTO
 import com.fiuba.seedyfiuba.projects.domain.StageStatusDTO
+import java.math.BigDecimal
 
 interface ProjectRemoteDataSource {
 	suspend fun updateProject(project: Project): Result<Project>
@@ -27,4 +29,6 @@ interface ProjectRemoteDataSource {
 		projectId: String,
 		stageId: String
 	): Result<ReviewerResponse>
+	suspend fun getBalance(userId: Int): Result<BalanceResponse>
+	suspend fun requestStageReview(project: Project): Result<Unit>
 }

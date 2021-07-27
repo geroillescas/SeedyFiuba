@@ -4,6 +4,7 @@ import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.profile.data.datasources.ProfileRemoteDataSource
+import com.fiuba.seedyfiuba.profile.requestmanager.dto.BalanceResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPostRequest
 import com.fiuba.seedyfiuba.profile.requestmanager.dto.ReviewerPutRequest
@@ -90,6 +91,17 @@ class ProjectRepositoryImpl(
 		val sponsorDTO = SponsorDTO(amount, AuthenticationManager.session!!.user.userId)
 		return remoteDataSource.sponsorProject(sponsorDTO, projectId.toString())
 
+	}
+
+	override suspend fun getBalance(userId: Int): Result<BigDecimal> {
+		return when (val result = remoteDataSource.getBalance(userId)) {
+			is Result.Success -> Result.Success(result.data.balance)
+			is Result.Error -> result
+		}
+	}
+
+	override suspend fun requestStageReview(project: Project): Result<Unit> {
+		return remoteDataSource.requestStageReview(project)
 	}
 
 	override suspend fun setStageReviewStatus(
