@@ -135,7 +135,7 @@ open class DetailProjectFragment : Fragment() {
 				}
 
 				else -> {
-					binding.fragmentDetailProjectEditButton.visibility = View.GONE
+					binding.fragmentDetailProjectReviewerButton.visibility = View.GONE
 				}
 			}
 		}

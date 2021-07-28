@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AlertDialog
@@ -43,6 +44,22 @@ open class BaseActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_base)
+		setupDrawerOptions()
+	}
+
+	private fun setupDrawerOptions() {
+		val navMenu = navigationView.menu
+		when (AuthenticationManager.session?.user?.profileType) {
+			ProfileType.VEEDOR -> {
+				navMenu.findItem(R.id.chat).isVisible = false
+				navMenu.findItem(R.id.funds).isVisible = false
+				navMenu.findItem(R.id.chat).isVisible = false
+			}
+
+			ProfileType.EMPRENDEDOR -> {
+				navMenu.findItem(R.id.funds).isVisible = false
+			}
+		}
 	}
 
 	final override fun setContentView(layoutResID: Int) {
@@ -158,6 +175,7 @@ open class BaseActivity : AppCompatActivity() {
 			ProfileType.VEEDOR -> {
 				menu.removeItem(R.id.chat)
 				menu.removeItem(R.id.funds)
+				menu.removeItem(R.id.chat)
 			}
 
 			ProfileType.EMPRENDEDOR -> {

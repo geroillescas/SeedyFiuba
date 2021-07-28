@@ -105,7 +105,7 @@ class ReviewerChooserFragment : Fragment(), ReviewerRecyclerViewAdapter.Reviewer
 			binding.content.visibility = View.GONE
 			binding.congrats.visibility = View.VISIBLE
 			binding.reviewerChooserButton.setOnClickListener {
-				findNavController().navigate(R.id.projectsListFragment)
+				findNavController().popBackStack(R.id.projectsListFragment, true)
 			}
 		})
 	}

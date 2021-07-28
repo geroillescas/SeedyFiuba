@@ -11,9 +11,7 @@
 	<item
 		android:id="@+id/projects"
 		android:title="Proyectos" />
-	<item
-		android:id="@+id/settings"
-		android:title="Configuracion" />
+
 	<item
 		android:id="@+id/chat"
 		android:title="Mis chats" />
@@ -25,6 +23,7 @@
 	<item
 		android:id="@+id/funds"
 		android:title="Mis patrocinios" />
+
 	<item
 		android:id="@+id/logout"
 		android:title="Cerrar session" />

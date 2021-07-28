@@ -47,7 +47,7 @@ class HomeActivity : BaseActivity() {
             startActivity(newIntent)
         }
 
-        if (AuthenticationManager.session?.user?.profileType == ProfileType.PATROCINADOR) {
+        if (AuthenticationManager.session?.user?.profileType == ProfileType.EMPRENDEDOR) {
             homeViewModel.getAmountAvailable()
         } else {
             findViewById<MaterialCardView>(R.id.homeActivity_content).visibility = View.GONE
