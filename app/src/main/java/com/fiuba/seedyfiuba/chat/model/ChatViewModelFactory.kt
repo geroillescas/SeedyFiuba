@@ -1,5 +1,6 @@
 package com.fiuba.seedyfiuba.chat.model
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fiuba.seedyfiuba.chat.ChatContainer
@@ -67,7 +68,7 @@ interface ChatDataSource {
 	suspend fun sendNotification(notificationDTO: NotificationDTO): Result<Unit>
 }
 
-class ChatDataSourceImpl(private val chatApi: ChatApi) : ChatDataSource, RemoteBaseDataSource() {
+class ChatDataSourceImpl(private val chatApi: ChatApi, context: Context) : ChatDataSource, RemoteBaseDataSource(context) {
 	override suspend fun sendNotification(notificationDTO: NotificationDTO): Result<Unit> {
 		return getResult {
 			chatApi.sendNotification(

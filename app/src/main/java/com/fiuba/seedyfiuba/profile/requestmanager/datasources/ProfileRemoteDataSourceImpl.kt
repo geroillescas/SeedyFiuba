@@ -1,5 +1,6 @@
 package com.fiuba.seedyfiuba.profile.requestmanager.datasources
 
+import android.content.Context
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
@@ -13,7 +14,7 @@ import com.fiuba.seedyfiuba.profile.requestmanager.dto.ProfilesListResponse
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi) : RemoteBaseDataSource(),
+class ProfileRemoteDataSourceImpl(private val profileApi: ProfileApi, context: Context) : RemoteBaseDataSource(context),
 	ProfileRemoteDataSource {
 
 	override suspend fun getProfile(userId: Int): Result<Profile> {

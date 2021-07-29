@@ -40,7 +40,7 @@ object ProfileContainer {
 	}
 
 	private val profileRemoteDataSource: ProfileRemoteDataSource by lazy {
-		ProfileRemoteDataSourceImpl(RequestManagerContainer.profileApi)
+		ProfileRemoteDataSourceImpl(RequestManagerContainer.profileApi, context)
 	}
 
 	private val sharedPreferences: SharedPreferences by lazy {

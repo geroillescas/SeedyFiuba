@@ -1,5 +1,6 @@
 package com.fiuba.seedyfiuba.projects.framework.requestmanager.datasources
 
+import android.content.Context
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.RemoteBaseDataSource
 import com.fiuba.seedyfiuba.commons.Result
@@ -18,8 +19,8 @@ import com.fiuba.seedyfiuba.projects.framework.requestmanager.api.ProjectApi
  */
 class ProjectsRemoteDataSourceImpl(
 	private val projectApi: ProjectApi,
-	private val middleApi: MiddleApi
-) : RemoteBaseDataSource(),
+	private val middleApi: MiddleApi, context: Context
+) : RemoteBaseDataSource(context),
 	ProjectRemoteDataSource {
 	override suspend fun updateProject(project: Project): Result<Project> {
 		val projectRequestDTO = ProjectUpdateDTO(
