@@ -86,6 +86,6 @@ object RestClient {
 
 	fun getAuthHeaders(): Map<String, String> {
 		val session = AuthenticationManager.session!!
-		return mapOf("X-Auth-Token" to session.token, "X-Override-Token" to "true")
+		return mapOf("X-Auth-Token" to session.token)
 	}
 }

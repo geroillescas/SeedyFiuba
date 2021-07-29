@@ -87,26 +87,27 @@ class ReviewerChooserFragment : Fragment(), ReviewerRecyclerViewAdapter.Reviewer
 	}
 
 	private fun setupObservers() {
-		reviewerViewModel.profile.observe(viewLifecycleOwner, Observer {
+		reviewerViewModel.profile.observe(viewLifecycleOwner, {
 			adapter.addProfiles(it)
 		})
 
-		reviewerViewModel.showLoadingSpinner.observe(viewLifecycleOwner, Observer {
+		reviewerViewModel.showLoadingSpinner.observe(viewLifecycleOwner, {
 			adapter.showProgressBar(it)
 			scrollListener.setLoaded(it)
 		})
 
-		reviewerViewModel.showLoading.observe(viewLifecycleOwner, Observer {
+		reviewerViewModel.showLoading.observe(viewLifecycleOwner, {
 			val viewState = if (it) ViewState.Loading else ViewState.Initial
 			(requireActivity() as ProjectsActivity).setViewState(viewState)
 		})
 
-		reviewerViewModel.updated.observe(viewLifecycleOwner, Observer {
+		binding.reviewerChooserButton.setOnClickListener {
+			findNavController().popBackStack(R.id.projectsListFragment, true)
+		}
+
+		reviewerViewModel.updated.observe(viewLifecycleOwner, {
 			binding.content.visibility = View.GONE
 			binding.congrats.visibility = View.VISIBLE
-			binding.reviewerChooserButton.setOnClickListener {
-				findNavController().popBackStack(R.id.projectsListFragment, true)
-			}
 		})
 	}
 
