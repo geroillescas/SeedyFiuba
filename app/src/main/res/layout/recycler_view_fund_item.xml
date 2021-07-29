@@ -7,7 +7,7 @@
 
 		<variable
 			name="contract"
-			type="com.fiuba.seedyfiuba.funds.domains.Contract" />
+			type="com.fiuba.seedyfiuba.funds.domains.ContractResponse" />
 	</data>
 
 	<androidx.cardview.widget.CardView
@@ -30,7 +30,7 @@
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
-				android:text="@{contract.projectId}" />
+				android:text="@{contract.project.title}" />
 
 			<TextView
 				android:id="@+id/notificationItem_body"
@@ -43,7 +43,7 @@
 				app:layout_constraintHorizontal_bias="0.5"
 				app:layout_constraintHorizontal_chainStyle="spread_inside"
 				app:layout_constraintStart_toStartOf="parent"
-				android:text="Monto pagado @{contract.currentFundedAmount.toString()}"
+				android:text="@{contract.getSubtitle()}"
 				app:layout_constraintTop_toBottomOf="@+id/notificationItem_title"
 				tools:text="pepito@gmail.com" />
 		</androidx.constraintlayout.widget.ConstraintLayout>

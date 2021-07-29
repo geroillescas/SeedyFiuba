@@ -15,6 +15,7 @@ import com.fiuba.seedyfiuba.BaseActivity
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.databinding.RecyclerViewFundItemBinding
 import com.fiuba.seedyfiuba.funds.domains.Contract
+import com.fiuba.seedyfiuba.funds.domains.ContractResponse
 import com.fiuba.seedyfiuba.funds.viewmodel.FundsHistoryViewModel
 import com.fiuba.seedyfiuba.funds.viewmodel.FundsHistoryViewModelFactory
 import com.fiuba.seedyfiuba.projects.domain.Project
@@ -54,10 +55,10 @@ class FundHistoryActivity : BaseActivity(),
 			if(it.isEmpty()){
 				fundHistoryList.visibility = View.GONE
 				emptyCase.visibility = View.VISIBLE
-				profileRecyclerViewAdapter.setContract(it)
 			} else{
 				fundHistoryList.visibility = View.VISIBLE
 				emptyCase.visibility = View.GONE
+				profileRecyclerViewAdapter.setContract(it)
 			}
 		})
 	}
@@ -100,11 +101,11 @@ class FundHistoryActivity : BaseActivity(),
 }
 
 class FundsRecyclerViewAdapter(
-	private var values: List<Contract>,
+	private var values: List<ContractResponse>,
 	private val contractsRecyclerViewAdapterListener: ContractsRecyclerViewAdapterListener
 ) : RecyclerView.Adapter<FundsRecyclerViewAdapter.ViewCommonHolder>() {
 
-	fun setContract(list: List<Contract>) {
+	fun setContract(list: List<ContractResponse>) {
 		values = list
 		notifyDataSetChanged()
 	}
@@ -125,7 +126,7 @@ class FundsRecyclerViewAdapter(
 		holder.binding.contract = contracts
 		holder.binding.executePendingBindings()
 		holder.itemView.setOnClickListener {
-			contractsRecyclerViewAdapterListener.onContractClicked(contracts, position)
+			contractsRecyclerViewAdapterListener.onContractClicked(contracts.contract, position)
 		}
 	}
 

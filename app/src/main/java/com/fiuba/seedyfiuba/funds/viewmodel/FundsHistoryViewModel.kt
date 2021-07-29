@@ -6,6 +6,7 @@ import com.fiuba.seedyfiuba.BaseViewModel
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.commons.Result
 import com.fiuba.seedyfiuba.funds.domains.Contract
+import com.fiuba.seedyfiuba.funds.domains.ContractResponse
 import com.fiuba.seedyfiuba.funds.usecases.GetFundsUseCase
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.fiuba.seedyfiuba.projects.usecases.GetProjectUseCase
@@ -14,8 +15,8 @@ class FundsHistoryViewModel(
 	private val getFundsUseCase: GetFundsUseCase,
 	private val getProjectUseCase: GetProjectUseCase
 ) : BaseViewModel() {
-	private val _contractList = MutableLiveData<List<Contract>>()
-	val contractListLiveData: LiveData<List<Contract>> = _contractList
+	private val _contractList = MutableLiveData<List<ContractResponse>>()
+	val contractListLiveData: LiveData<List<ContractResponse>> = _contractList
 
 	private val _projectList = MutableLiveData<List<Project>>()
 
@@ -40,7 +41,7 @@ class FundsHistoryViewModel(
 						page++
 						fetched += result.data.results.size
 						max = result.data.totalItems
-						val contracts = result.data.results.map { it.contract }
+						val contracts = result.data.results
 						val projects = result.data.results.map { it.project }
 						_contractList.value?.toMutableList()?.let {
 							it.addAll(contracts)

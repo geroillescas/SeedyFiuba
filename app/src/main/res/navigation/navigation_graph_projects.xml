@@ -67,6 +67,10 @@
 			android:id="@+id/action_detailProjectFragment_to_sponsorFragment"
 			app:destination="@id/sponsorFragment"
 			app:popUpTo="@id/detailProjectFragment" />
+		<action
+			android:id="@+id/action_detailProjectFragment_to_reviewerChooserFragment"
+			app:destination="@id/reviewerChooserFragment"
+			app:popUpTo="@id/detailProjectFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/reviewerDetailProjectFragment"
