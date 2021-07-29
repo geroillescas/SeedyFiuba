@@ -43,7 +43,7 @@ class ProjectsRecyclerViewAdapter(
 
 		holder.titleTextView.text = item.title
 		holder.descriptionTextView.text = item.description
-		holder.typeTextView.text = item.type.value
+		//holder.typeTextView.text = item.type.value
 
 		when (AuthenticationManager.session?.user?.profileType) {
 			ProfileType.PATROCINADOR -> {

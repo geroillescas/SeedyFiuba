@@ -5,6 +5,7 @@ import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.projects.domain.Project
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.math.BigDecimal
 
 data class ProfilesListResponse(
 	val totalItems: Int,
@@ -20,6 +21,10 @@ data class ReviewerListResponse(
 data class ReviewerResponse(
 	val project: Project?,
 	val review: Review
+)
+
+data class BalanceResponse(
+	val balance: BigDecimal
 )
 
 @Parcelize

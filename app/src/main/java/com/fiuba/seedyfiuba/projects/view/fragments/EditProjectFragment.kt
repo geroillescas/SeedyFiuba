@@ -17,8 +17,8 @@ class EditProjectFragment : AbstractProjectFragment() {
 		}
 		view.abstractProjectFragmentDateContainer.visibility = View.GONE
 
-		editProjectViewModel.projectResult.observe(viewLifecycleOwner, Observer {
-			findNavController().navigate(R.id.projectsListFragment)
+		editProjectViewModel.projectResult.observe(viewLifecycleOwner, {
+			findNavController().popBackStack(R.id.projectsListFragment, true)
 		})
 
 		editProjectViewModel.validate()

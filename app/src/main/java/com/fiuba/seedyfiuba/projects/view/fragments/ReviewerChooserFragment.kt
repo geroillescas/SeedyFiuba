@@ -15,6 +15,7 @@ import com.fiuba.seedyfiuba.ViewState
 import com.fiuba.seedyfiuba.databinding.FragmentReviewerChooserListBinding
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.projects.domain.Project
+import com.fiuba.seedyfiuba.projects.domain.ProjectStatus
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.view.adapters.RecyclerViewLoadMoreScroll
 import com.fiuba.seedyfiuba.projects.view.adapters.ReviewerRecyclerViewAdapter
@@ -50,7 +51,11 @@ class ReviewerChooserFragment : Fragment(), ReviewerRecyclerViewAdapter.Reviewer
 	override fun onResume() {
 		super.onResume()
 		activity?.setTitle(R.string.title_activity_projects)
-		reviewerViewModel.getProjects()
+		if(project?.status == ProjectStatus.IN_PROGRESS) {
+			reviewerViewModel.requestStageReview()
+		}else {
+			reviewerViewModel.getProjects()
+		}
 	}
 
 	override fun onCreateView(
@@ -100,7 +105,7 @@ class ReviewerChooserFragment : Fragment(), ReviewerRecyclerViewAdapter.Reviewer
 			binding.content.visibility = View.GONE
 			binding.congrats.visibility = View.VISIBLE
 			binding.reviewerChooserButton.setOnClickListener {
-				findNavController().navigate(R.id.projectsListFragment)
+				findNavController().popBackStack(R.id.projectsListFragment, true)
 			}
 		})
 	}

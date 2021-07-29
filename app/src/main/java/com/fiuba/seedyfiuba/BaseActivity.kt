@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AlertDialog
@@ -13,8 +14,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
+import com.fiuba.seedyfiuba.funds.FundHistoryActivity
 import com.fiuba.seedyfiuba.login.LoginContainer
 import com.fiuba.seedyfiuba.login.domain.ProfileType
+import com.fiuba.seedyfiuba.notifications.CenterNotificationActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ContactActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ProfileActivity
 import com.fiuba.seedyfiuba.profile.view.activities.ProfileListActivity
@@ -41,6 +44,22 @@ open class BaseActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_base)
+		setupDrawerOptions()
+	}
+
+	private fun setupDrawerOptions() {
+		val navMenu = navigationView.menu
+		when (AuthenticationManager.session?.user?.profileType) {
+			ProfileType.VEEDOR -> {
+				navMenu.findItem(R.id.chat).isVisible = false
+				navMenu.findItem(R.id.funds).isVisible = false
+				navMenu.findItem(R.id.chat).isVisible = false
+			}
+
+			ProfileType.EMPRENDEDOR -> {
+				navMenu.findItem(R.id.funds).isVisible = false
+			}
+		}
 	}
 
 	final override fun setContentView(layoutResID: Int) {
@@ -151,9 +170,20 @@ open class BaseActivity : AppCompatActivity() {
 
 	override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 		super.onPrepareOptionsMenu(menu)
-		if(AuthenticationManager.session?.user?.profileType == ProfileType.VEEDOR){
-			menu.removeItem(R.id.chat)
+
+		when (AuthenticationManager.session?.user?.profileType) {
+			ProfileType.VEEDOR -> {
+				menu.removeItem(R.id.chat)
+				menu.removeItem(R.id.funds)
+				menu.removeItem(R.id.chat)
+			}
+
+			ProfileType.EMPRENDEDOR -> {
+				menu.removeItem(R.id.funds)
+			}
 		}
+
+
 		return true
 	}
 
@@ -183,6 +213,19 @@ open class BaseActivity : AppCompatActivity() {
 					startActivity(intent)
 					closeDrawer()
 				}
+
+				R.id.notifications -> {
+					val intent = Intent(this, CenterNotificationActivity::class.java)
+					startActivity(intent)
+					closeDrawer()
+				}
+
+				R.id.funds -> {
+					val intent = Intent(this, FundHistoryActivity::class.java)
+					startActivity(intent)
+					closeDrawer()
+				}
+
 
 
 				R.id.logout -> {

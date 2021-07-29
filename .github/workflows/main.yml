@@ -17,9 +17,7 @@ on:
 jobs:
   build:
     # The type of runner that the job will run on
-    runs-on: macos-latest
-    
-    
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -32,39 +30,12 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
-        
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-            
+
       - name: Build the app
         run: ./gradlew build
-  test:
-    # The type of runner that the job will run on
-    runs-on: macos-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v2
-            
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-      - name: Run test
-        run: ./gradlew test
   lint:
     # The type of runner that the job will run on
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -77,15 +48,6 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
-        
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+
       - name: Run lint
         run: ./gradlew lint

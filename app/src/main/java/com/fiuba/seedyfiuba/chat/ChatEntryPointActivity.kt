@@ -24,24 +24,36 @@ class ChatEntryPointActivity : BaseActivity() {
 	override var layoutResource: Int = R.layout.activity_chat_entry_point
 
 	private fun loginWithFirebase() {
-		if (Firebase.auth.currentUser == null) {
-			FirebaseAuth.getInstance().signInAnonymously().addOnCompleteListener(this) { task ->
-				if (task.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
-					Log.d(ContactActivity::class.qualifiedName, "createUserWithEmail:success")
-					goToChat()
-				} else {
-					// If sign in fails, display a message to the user.
-					Log.w(
-						ContactActivity::class.qualifiedName,
-						"createUserWithEmail:failure",
-						task.exception
-					)
-					goToChat()
+		Firebase.auth.signOut()
+		val user = AuthenticationManager.session!!.user
+		FirebaseAuth.getInstance().signInWithEmailAndPassword(user.email, user.email).addOnCompleteListener(this) { task ->
+			if (task.isSuccessful) {
+				// Sign in success, update UI with the signed-in user's information
+				Log.d(ContactActivity::class.qualifiedName, "loginUserWithEmail:success")
+				goToChat()
+			} else {
+				// If sign in fails, display a message to the user.
+				Log.w(
+					ContactActivity::class.qualifiedName,
+					"loginUserWithEmail:failure",
+					task.exception
+				)
+				FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.email, user.email).addOnCompleteListener(this) { task ->
+					if (task.isSuccessful) {
+						// Sign in success, update UI with the signed-in user's information
+						Log.d(ContactActivity::class.qualifiedName, "createUserWithEmail:success")
+						goToChat()
+					} else {
+						// If sign in fails, display a message to the user.
+						Log.w(
+							ContactActivity::class.qualifiedName,
+							"createUserWithEmail:failure",
+							task.exception
+						)
+						goToChat()
+					}
 				}
 			}
-		} else {
-			goToChat()
 		}
 	}
 

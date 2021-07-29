@@ -22,4 +22,5 @@
     <dimen name="dimension_5">40dp</dimen>
     <dimen name="dimension_6">48dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

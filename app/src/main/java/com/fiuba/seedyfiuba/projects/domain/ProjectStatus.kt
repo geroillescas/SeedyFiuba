@@ -15,5 +15,7 @@ enum class ProjectStatus(val value: String) {
 	FUNDING("En progreso"),
 	@SerializedName("completed")
 	COMPLETED("Terminado"),
+	@SerializedName("blocked")
+	BLOCKED("Bloquead"),
 	NONE("Ninguno")
 }

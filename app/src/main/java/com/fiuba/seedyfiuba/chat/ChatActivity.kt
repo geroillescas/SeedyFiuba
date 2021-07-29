@@ -11,7 +11,6 @@ import com.firebase.ui.auth.AuthUI.IdpConfig.*
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.fiuba.seedyfiuba.ActionBarMode
 import com.fiuba.seedyfiuba.BaseActivity
-import com.fiuba.seedyfiuba.BuildConfig
 import com.fiuba.seedyfiuba.R
 import com.fiuba.seedyfiuba.chat.model.ChatViewModel
 import com.fiuba.seedyfiuba.chat.model.ChatViewModelFactory
@@ -19,8 +18,6 @@ import com.fiuba.seedyfiuba.chat.model.SeedyMessage
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.databinding.ActivityChatBinding
 import com.fiuba.seedyfiuba.login.domain.User
-import com.fiuba.seedyfiuba.notifications.PushHandleViewModel
-import com.fiuba.seedyfiuba.notifications.PushHandlerViewModelFactory
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -66,12 +63,6 @@ class ChatActivity : BaseActivity() {
 		// "10.0.2.2" is a special value which allows the Android emulator to
 		// connect to "localhost" on the host computer. The port values are
 		// defined in the firebase.json file.
-		if (BuildConfig.DEBUG) {
-			Firebase.database.useEmulator("10.0.2.2", 9000)
-			Firebase.auth.useEmulator("10.0.2.2", 9099)
-			Firebase.storage.useEmulator("10.0.2.2", 9199)
-		}
-
 		// Initialize Firebase Auth and check if the user is signed in
 		if (initFirebaseAuth()) return
 

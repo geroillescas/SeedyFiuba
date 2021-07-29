@@ -6,7 +6,7 @@
 	<data>
 		<variable
 			name="viewmodel"
-			type="com.fiuba.seedyfiuba.home.viewmodel.HomeViewModel" />
+			type="com.fiuba.seedyfiuba.funds.viewmodel.FundsHistoryViewModel" />
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout

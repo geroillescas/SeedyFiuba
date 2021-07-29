@@ -16,6 +16,7 @@ import com.fiuba.seedyfiuba.commons.AuthenticationManager
 import com.fiuba.seedyfiuba.databinding.DetailProjectFragmentBinding
 import com.fiuba.seedyfiuba.login.domain.ProfileType
 import com.fiuba.seedyfiuba.projects.domain.Project
+import com.fiuba.seedyfiuba.projects.domain.ProjectStatus
 import com.fiuba.seedyfiuba.projects.view.activities.ProjectsActivity
 import com.fiuba.seedyfiuba.projects.view.adapters.DetailProjectsImageRecyclerViewAdapter
 import com.fiuba.seedyfiuba.projects.view.adapters.DetailProjectsViewAdapter
@@ -119,6 +120,22 @@ open class DetailProjectFragment : Fragment() {
 						putParcelable(AbstractProjectFragment.ARG_PROJECT, it)
 					}
 					findNavController().navigate(R.id.sponsorFragment, bundle)
+				}
+			}
+		}
+
+		if(AuthenticationManager.session?.user?.profileType == ProfileType.EMPRENDEDOR) {
+			when(detailProjectViewModel.project.value?.status) {
+				ProjectStatus.IN_PROGRESS-> {
+					binding.fragmentDetailProjectReviewerButton.text = "Solicitar revision de etapa"
+				}
+
+				ProjectStatus.CREATED -> {
+					binding.fragmentDetailProjectReviewerButton.text = "Seleccionar veedor"
+				}
+
+				else -> {
+					binding.fragmentDetailProjectReviewerButton.visibility = View.GONE
 				}
 			}
 		}

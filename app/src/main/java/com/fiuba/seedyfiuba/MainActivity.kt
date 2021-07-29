@@ -14,6 +14,7 @@ import com.fiuba.seedyfiuba.login.LoginContainer
 import com.fiuba.seedyfiuba.login.domain.Session
 import com.fiuba.seedyfiuba.login.view.activities.LoginActivity
 import com.fiuba.seedyfiuba.login.view.activities.OnboardingSetupActivity
+import com.fiuba.seedyfiuba.notifications.PushHandleActivity
 import com.fiuba.seedyfiuba.profile.ProfileContainer
 import com.fiuba.seedyfiuba.profile.domain.Profile
 import com.fiuba.seedyfiuba.profile.view.activities.ContactActivity
@@ -80,44 +81,14 @@ class MainActivity : AppCompatActivity() {
 			coroutineScope.launch {
 				ProfileContainer.saveProfileTokenUpdateDTOUseCase.invoke(token)
 			}
-			gotToHome()
+			goToHome()
 		})
 	}
 
-	private fun loginWithFirebase() {
-		/*AuthenticationManager.session?.user?.email?.let {
-
-			if(Firebase.auth.currentUser == null){
-				val token = AuthenticationManager.session?.user?.password!!
-				FirebaseAuth.getInstance().signInWithEmailAndPassword(it, token).addOnCompleteListener(this) { task ->
-					if (task.isSuccessful) {
-						// Sign in success, update UI with the signed-in user's information
-						Log.d(ContactActivity::class.qualifiedName, "createUserWithEmail:success")
-						setupFirebaseToken()
-					} else {
-						// If sign in fails, display a message to the user.
-						Log.w(
-							ContactActivity::class.qualifiedName,
-							"createUserWithEmail:failure",
-							task.exception
-						)
-						FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-							it, token
-						).addOnCompleteListener {
-							setupFirebaseToken()
-						}
-					}
-				}
-			}
-			else{
-				setupFirebaseToken()
-			}
-		}*/
-	}
-
-	private fun gotToHome(){
-		val intent = Intent(this, HomeActivity::class.java)
-		startActivity(intent)
+	private fun goToHome(){
+		val newIntent = Intent(this, HomeActivity::class.java)
+		intent?.extras?.let { newIntent.putExtras(it) }
+		startActivity(newIntent)
 		finish()
 	}
 

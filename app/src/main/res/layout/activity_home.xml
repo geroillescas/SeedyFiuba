@@ -1,28 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".home.view.activities.HomeActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.view.activities.HomeActivity">
 
 	<TextView
-		android:id="@+id/textView3"
+		android:id="@+id/homeActivity_mainTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Hola, estas es la wallet"
-		app:layout_constraintBottom_toBottomOf="parent"
+		android:text="Hola, estas en la wallet"
+		android:layout_margin="@dimen/dimension_3"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.card.MaterialCardView
+		android:id="@+id/homeActivity_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimension_3"
+        android:elevation="@dimen/dimension_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeActivity_mainTitle">
 
-	<Button
-		android:id="@+id/helper"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="afsodigfsfg"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimension"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/homeActivity_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/dimension"
+                android:text="Retira tu dinero"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/homeActivity_subtitule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/dimension"
+                android:text="Tu saldo disponible es de: 23 ETHS"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textSize="24sp"
+                android:textStyle="italic" />
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/homeActivity_adressContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginVertical="@dimen/dimension"
+				android:hint="Adress a transferir"
+				app:helperText="No puede estar vacia"
+				app:errorEnabled="true">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/homeActivity_adressInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:imeOptions="actionNext"
+					android:inputType="text" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/homeActivity_amountContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginVertical="@dimen/dimension"
+				android:hint="Monto a retirar"
+				app:helperText="Mayor a cero"
+				app:errorEnabled="true">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/homeActivity_amountInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:imeOptions="actionDone"
+					android:inputType="numberDecimal" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/homeActivity_transferButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Retirar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
