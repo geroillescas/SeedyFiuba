@@ -39,7 +39,7 @@ class ProjectsViewModel(
 			mShowLoading.postValue(true)
 			when (val result = getProjectsUseCase.invoke()) {
 				is Result.Success -> {
-					_projects.postValue(result.data)
+					_projects.postValue(result.data.filter { it.status != ProjectStatus.COMPLETED })
 				}
 				is Result.Error -> {
 					Log.e(ProjectsViewModel::class.simpleName, "Error retriving normal projects")

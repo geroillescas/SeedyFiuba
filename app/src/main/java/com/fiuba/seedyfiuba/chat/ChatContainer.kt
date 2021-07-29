@@ -27,7 +27,7 @@ object ChatContainer {
 	}
 
 	private val chatDataSource: ChatDataSource by lazy {
-		ChatDataSourceImpl(RequestManagerContainer.chatApi)
+		ChatDataSourceImpl(RequestManagerContainer.chatApi, context)
 	}
 
 	fun init(context: Context) {

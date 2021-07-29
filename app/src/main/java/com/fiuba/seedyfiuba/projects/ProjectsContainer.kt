@@ -83,11 +83,11 @@ object ProjectsContainer {
 	}
 
 	private val projectRemoteDataSource: ProjectRemoteDataSource by lazy {
-		ProjectsRemoteDataSourceImpl(RequestManagerContainer.projectApi, RequestManagerContainer.middleApi)
+		ProjectsRemoteDataSourceImpl(RequestManagerContainer.projectApi, RequestManagerContainer.middleApi, context)
 	}
 
 	private val profileRemoteDataSource: ProfileRemoteDataSource by lazy {
-		ProfileRemoteDataSourceImpl(RequestManagerContainer.profileApi)
+		ProfileRemoteDataSourceImpl(RequestManagerContainer.profileApi, context)
 	}
 
 	private val sharedPreferences: SharedPreferences by lazy {

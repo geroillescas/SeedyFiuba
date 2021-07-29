@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.fiuba.seedyfiuba.chat.ChatContainer
 import com.fiuba.seedyfiuba.commons.AuthenticationManager
+import com.fiuba.seedyfiuba.funds.FundsContainer
 import com.fiuba.seedyfiuba.home.view.activities.HomeActivity
 import com.fiuba.seedyfiuba.login.LoginContainer
 import com.fiuba.seedyfiuba.login.domain.Session
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 		ProjectsContainer.init(this.applicationContext)
 		ProfileContainer.init(this.applicationContext)
 		ChatContainer.init(this.applicationContext)
+		FundsContainer.init(this.applicationContext)
 
 		val resultLauncher =
 			registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
